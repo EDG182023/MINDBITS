@@ -4907,6 +4907,76 @@
                 window.dispatchEvent(new Event('scroll'));
             });
 
+            // ============================================ ANTI-INSPECTION MEASURES ============================================
+            // Disable right-click context menu
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Disable common keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+                if (e.keyCode === 123 || 
+                    (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || 
+                    (e.ctrlKey && e.keyCode === 85)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Disable text selection
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Disable drag and drop
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Detect developer tools
+            let devtools = {open: false, orientation: null};
+            setInterval(() => {
+                if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        // Optional: redirect or show warning
+                        // window.location.href = 'about:blank';
+                        console.clear();
+                        console.log('%c⚠️ Developer Tools Detected!', 'color: red; font-size: 20px; font-weight: bold;');
+                    }
+                } else {
+                    devtools.open = false;
+                }
+            }, 500);
+
+            // Obfuscate console logs
+            const originalLog = console.log;
+            console.log = function() {
+                return;
+            };
+
+            // Disable copy functionality
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Disable cut functionality
+            document.addEventListener('cut', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Disable paste functionality
+            document.addEventListener('paste', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
             // ============================================ GLOBAL EVENT LISTENERS ============================================
             window.addEventListener('scroll', () => {
                 handleHeaderScroll();
