@@ -1,0 +1,4916 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mindbits - Data Intelligence & Staff Augmentation</title>
+        
+        <!-- Google Fonts - Inter -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        
+        <style>
+            /* ============================================ ROOT VARIABLES & GLOBAL STYLES ============================================ */
+            :root {
+                --mindbits-orange: #f5841f;
+                --mindbits-blue: #27306b;
+                --mindbits-purple: #7b5ea7;
+                --mindbits-pink: #ec5b8c;
+                --mindbits-yellow: #ffa33a;
+                --mindbits-red: #ff5d6c;
+                --mindbits-light-blue: #6cc0ff;
+                
+                /* Pyramid gradients */
+                --pyramid-1-start: #70a6d9;
+                --pyramid-1-end: #68cce7;
+                --pyramid-2-start: #f05b90;
+                --pyramid-2-end: #da4a9a;
+                --pyramid-3-start: #fcb13d;
+                --pyramid-3-end: #f47521;
+                --pyramid-4-start: #f26968;
+                --pyramid-4-end: #ee397a;
+                --pyramid-5-start: #9f6cae;
+                --pyramid-5-end: #6b56a4;
+                
+                /* Typography sizes */
+                --text-normal: 16px;
+                --text-large: 18px;
+                --subtitle: 22px;
+                --heading: 32px;
+                --heading-large: 36px;
+                --ui-button: 14px;
+                
+                /* Border radius */
+                --border-radius: 16px;
+                
+                /* Transitions */
+                --transition: all 0.3s cubic-bezier(0.2, 0.6, 0.1, 1);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            body {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background: #ffffff;
+                color: var(--mindbits-blue);
+                overflow-x: hidden;
+                width: 100%;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                line-height: 1.6;
+            }
+            
+            body::-webkit-scrollbar {
+                display: none;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* ============================================ HEADER ============================================ */
+            .header {
+                background: #ffffff;
+                height: 64px;
+                padding: 0 40px;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                margin: 0 auto;
+                max-width: 1400px;
+                text-align: center;
+            }
+            
+            .header-inner {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 64px;
+            }
+            
+            .logo {
+                max-width: 150px;
+                height: auto;
+            }
+            
+            .nav-links {
+                display: flex;
+                gap: 30px;
+            }
+            
+            .nav-links a {
+                color: var(--mindbits-blue);
+                text-decoration: none;
+                font-weight: 600;
+                font-size: var(--ui-button);
+                transition: color var(--transition);
+                position: relative;
+            }
+            
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -5px;
+                left: 0;
+                background-color: var(--mindbits-orange);
+                transition: width 0.3s ease;
+            }
+            
+            .nav-links a:hover {
+                color: var(--mindbits-orange);
+            }
+            
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+            
+            /* Hamburger Menu */
+            .hamburger-menu {
+                display: none;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 30px;
+                height: 21px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                z-index: 1001;
+            }
+            
+            .hamburger-menu span {
+                display: block;
+                width: 100%;
+                height: 3px;
+                background-color: var(--mindbits-blue);
+                border-radius: 3px;
+                transition: all 0.3s ease;
+            }
+            
+            .hamburger-menu.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            
+            .hamburger-menu.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger-menu.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            /* ============================================ HERO SECTION ============================================ */
+            .hero-section {
+                width: 100%;
+                height: 390px;
+                overflow: hidden;
+                position: relative;
+                background: linear-gradient(135deg, #1a2a3a 0%, #3a5a6a 100%);
+            }
+
+            .hero-carousel {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                max-width: 1600px;
+                margin: 0 auto;
+                perspective: 1200px;
+                transform-style: preserve-3d;
+            }
+
+            .hero-carousel-container {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                transform-style: preserve-3d;
+            }
+
+            .hero-slide {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+                transform: translateX(120%) scale(0.7);
+                backface-visibility: hidden;
+            }
+
+            .hero-slide.active {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                z-index: 2;
+            }
+
+            .hero-slide.prev {
+                opacity: 0.6;
+                transform: translateX(-40%) scale(0.85);
+                z-index: 1;
+            }
+
+            .hero-slide.next {
+                opacity: 0.6;
+                transform: translateX(40%) scale(0.85);
+                z-index: 1;
+            }
+
+            .hero-image {
+                width: 100%;
+                height: auto;
+                max-height: 100%;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 8px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+                transition: transform 0.4s ease;
+            }
+
+            .hero-slide.active .hero-image:hover {
+                transform: scale(1.03);
+            }
+
+            .hero-carousel-nav {
+                display: none;
+            }
+
+            .hero-carousel-indicators {
+                display: none;
+            }
+
+            /* ============================================ TABS NAVIGATION ============================================ */
+            .tabs-container {
+                display: flex;
+                width: 100%;
+                max-width: 1200px;
+                margin: 40px auto;
+                gap: 20px;
+                overflow-x: hidden;
+                padding: 0 40px;
+            }
+
+            .tab-button {
+                flex: 1;
+                padding: 30px 20px;
+                border: none;
+                cursor: pointer;
+                transition: var(--transition);
+                font-family: 'Inter', sans-serif;
+                font-size: var(--subtitle);
+                font-weight: 700;
+                text-transform: uppercase;
+                text-align: center;
+                line-height: 1.2;
+                position: relative;
+                white-space: nowrap;
+                background: var(--mindbits-blue);
+                color: #ffffff;
+            }
+            
+            .tab-button.active {
+                background: var(--mindbits-orange);
+                box-shadow: inset 0 -5px 0 rgba(255, 255, 255, 0.3);
+            }
+
+            .tab-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            /* ============================================ TABS CONTENT ============================================ */
+            .tab-content {
+                display: none;
+                width: 100%;
+                min-height: 100%;
+                position: relative;
+            }
+
+            .tab-content.active {
+                display: block;
+            }
+
+            /* ============================================ SECTION 1: STAFF AUGMENTATION ============================================ */
+            .staff-section {
+                background: var(--mindbits-blue);
+                color: #ffffff;
+                min-height: 100vh;
+                padding: 80px 0;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .staff-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: url('assets/LogoGrandeNaranja.png') no-repeat right center;
+                background-size: 70% auto;
+                opacity: 0.15;
+                z-index: 1;
+                pointer-events: none;
+            }
+
+            .section-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 40px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .section-header {
+                text-align: center;
+                margin-bottom: 80px;
+            }
+
+            .section-header h1 {
+                font-size: var(--heading-large);
+                font-weight: 800;
+                color: #ffffff;
+                line-height: 1.3;
+            }
+
+            /* Section 1: Problem & Solution */
+            .problem-solution-section {
+                background: url('assets/StaffAugmentation.jpg') no-repeat center center fixed;
+                background-size: cover;
+                min-height: 100vh;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 80px 40px;
+            }
+
+            .network-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('assets/StaffAugentation.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+                z-index: 1;
+            }
+
+            .problem-solution-container {
+                position: relative;
+                z-index: 2;
+                max-width: 1200px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .problem-solution-header {
+                font-size: 42px;
+                font-weight: 700;
+                color: #ff9d4d;
+                text-align: center;
+                margin-bottom: 80px;
+            }
+
+            .problem-solution-cards-container {
+                display: flex;
+                justify-content: center;
+                gap: 40px;
+                max-width: 1200px;
+                margin: 0 auto;
+                flex-wrap: wrap;
+            }
+
+            .flip-card {
+                width: 280px;
+                height: 450px;
+                position: relative;
+                cursor: pointer;
+                perspective: 1000px;
+            }
+
+            .flip-card-inner {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                transform-style: preserve-3d;
+                transition: transform 0.6s ease;
+            }
+
+            .flip-card-front, .flip-card-back {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 40px 30px;
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+            }
+
+            .flip-card-front {
+                background: linear-gradient(135deg, #ff4d6d 0%, #ff6b6b 100%);
+                position: relative;
+                overflow: hidden;
+                z-index: 2;
+            }
+
+            .flip-card-front::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.05) 10px,
+                    rgba(255, 255, 255, 0.05) 20px
+                );
+                opacity: 0.6;
+                pointer-events: none;
+            }
+
+            .flip-card:nth-child(2) .flip-card-front::before {
+                background: repeating-linear-gradient(
+                    135deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.08) 10px,
+                    rgba(255, 255, 255, 0.08) 20px
+                );
+            }
+
+            .flip-card-front h2 {
+                font-size: 32px;
+                font-weight: 700;
+                color: white;
+                text-align: center;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                position: relative;
+                z-index: 1;
+            }
+
+            .flip-card-back {
+                background: linear-gradient(135deg, #2a1a3e 0%, #1a2a3a 100%);
+                overflow-y: auto;
+                align-items: flex-start;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+                transform: rotateY(-180deg);
+            }
+
+            /* Hover state */
+            .flip-card:hover .flip-card-inner {
+                transform: rotateY(-180deg);
+            }
+
+            /* Active state for mobile */
+            .flip-card.active .flip-card-inner {
+                transform: rotateY(-180deg);
+            }
+
+            .flip-card-back::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .flip-card-back::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+            }
+
+            .flip-card-back::-webkit-scrollbar-thumb {
+                background: rgba(255, 77, 109, 0.5);
+                border-radius: 10px;
+            }
+
+            .back-content {
+                width: 100%;
+            }
+
+            .back-content h3 {
+                font-size: 24px;
+                font-weight: 700;
+                color: #ff9d4d;
+                margin-bottom: 20px;
+            }
+
+            .back-content p {
+                font-size: 16px;
+                line-height: 1.6;
+                color: rgba(255, 255, 255, 0.9);
+                margin-bottom: 16px;
+            }
+
+            .back-content ul {
+                list-style: none;
+                margin-top: 12px;
+            }
+
+            .back-content li {
+                font-size: 16px;
+                line-height: 1.6;
+                color: rgba(255, 255, 255, 0.9);
+                margin-bottom: 10px;
+                padding-left: 20px;
+                position: relative;
+            }
+
+            .back-content li::before {
+                content: '·';
+                position: absolute;
+                left: 6px;
+            }
+
+            /* Responsive styles for problem-solution section */
+            @media (max-width: 768px) {
+                .problem-solution-header {
+                    font-size: 28px;
+                    margin-bottom: 50px;
+                }
+
+                .problem-solution-cards-container {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 30px;
+                }
+
+                .flip-card {
+                    width: 100%;
+                    max-width: 320px;
+                    height: 400px;
+                }
+
+                .flip-card-front h2 {
+                    font-size: 28px;
+                }
+
+                .back-content h3 {
+                    font-size: 22px;
+                }
+            }
+
+            /* Section 2: Comparison Table */
+            .comparison-section {
+                background: #ffffff;
+                color: var(--mindbits-blue);
+                padding: 80px 40px;
+            }
+
+            .comparison-header {
+                text-align: center;
+                margin-bottom: 80px;
+            }
+
+            .comparison-header h1 {
+                font-size: var(--heading);
+                font-weight: 800;
+                color: var(--mindbits-blue);
+                line-height: 1.3;
+                margin-bottom: 5px;
+            }
+
+            .table-header {
+                display: grid;
+                grid-template-columns: 250px 1fr 1fr;
+                gap: 20px;
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+
+            .column-title {
+                font-size: var(--subtitle);
+                font-weight: 700;
+                color: var(--mindbits-blue);
+                text-align: center;
+            }
+
+            .aspect-card {
+                background: var(--mindbits-blue);
+                padding: 28px 24px;
+                border-radius: var(--border-radius);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+                transition: var(--transition);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1;
+            }
+
+            .aspect-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #1a2050;
+                opacity: 0;
+                transition: var(--transition);
+                z-index: -1;
+            }
+
+            .aspect-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(39, 48, 107, 0.25);
+            }
+
+            .aspect-card:hover::before {
+                opacity: 1;
+            }
+
+            .aspect-content {
+                position: relative;
+                z-index: 2;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .aspect-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: #ffffff;
+                margin: 0;
+            }
+
+            .aspect-arrow {
+                font-size: 24px;
+                color: #ffffff;
+                font-weight: 300;
+                transition: transform 0.3s ease;
+            }
+
+            .aspect-card:hover .aspect-arrow {
+                transform: translateX(5px);
+            }
+
+            .text-card {
+                background: #ffffff;
+                border: 2px solid #e5e5e7;
+                border-radius: var(--border-radius);
+                padding: 24px;
+                transition: var(--transition);
+                min-height: 100%;
+                display: flex;
+                align-items: center;
+            }
+
+            .text-card p {
+                font-size: var(--text-normal);
+                line-height: 1.6;
+                color: var(--mindbits-blue);
+                margin: 0;
+                font-weight: 500;
+            }
+
+            .text-card:hover {
+                border-color: var(--mindbits-orange);
+                box-shadow: 0 4px 12px rgba(245, 132, 31, 0.1);
+                transform: translateY(-2px);
+            }
+
+            .rows-container {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .row {
+                display: grid;
+                grid-template-columns: 250px 1fr 1fr;
+                gap: 20px;
+                align-items: stretch;
+            }
+
+            .row .text-card:nth-child(2),
+            .row .text-card:nth-child(3) {
+                border-color: var(--mindbits-orange);
+            }
+
+            .row .text-card:nth-child(2):hover,
+            .row .text-card:nth-child(3):hover {
+                border-color: var(--mindbits-blue);
+            }
+
+            /* Section 3: Hiring Pipeline */
+            .pipeline-section {
+                background: var(--mindbits-blue);
+                color: #ffffff;
+                min-height: 100vh;
+                padding: 80px 0;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .pipeline-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: url('assets/LogoGrandeNaranja.png') no-repeat right center;
+                background-size: 70% auto;
+                opacity: 0.15;
+                z-index: 1;
+                pointer-events: none;
+            }
+
+            .pipeline-content-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 80px;
+                align-items: flex-start;
+                position: relative;
+                z-index: 2;
+                padding: 40px 0;
+            }
+
+            .steps-section {
+                display: flex;
+                flex-direction: column;
+                gap: 60px;
+                position: relative;
+            }
+
+            .steps-section::before {
+                content: '';
+                position: absolute;
+                left: 30px;
+                top: 70px;
+                bottom: 70px;
+                width: 2px;
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+            .step-item {
+                display: flex;
+                gap: 30px;
+                align-items: flex-start;
+                opacity: 0;
+                transform: translateY(30px);
+                transition: var(--transition);
+                position: relative;
+                z-index: 2;
+            }
+
+            .step-item.animate {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .step-item:nth-child(1) { transition-delay: 0.1s; }
+            .step-item:nth-child(2) { transition-delay: 0.2s; }
+            .step-item:nth-child(3) { transition-delay: 0.3s; }
+            .step-item:nth-child(4) { transition-delay: 0.4s; }
+            .step-item:nth-child(5) { transition-delay: 0.5s; }
+            .step-item:nth-child(6) { transition-delay: 0.6s; }
+
+            .step-number {
+                flex-shrink: 0;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                border: 2px solid var(--mindbits-orange);
+                background: var(--mindbits-orange);
+                color: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                font-weight: 700;
+                position: relative;
+                z-index: 2;
+                box-shadow: 0 4px 12px rgba(245, 132, 31, 0.3);
+                transition: var(--transition);
+            }
+
+            .step-number:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 16px rgba(245, 132, 31, 0.4);
+            }
+
+            .step-content {
+                flex: 1;
+                padding-top: 8px;
+            }
+
+            .step-title {
+                font-size: var(--subtitle);
+                font-weight: 700;
+                color: #ffffff;
+                margin-bottom: 12px;
+                line-height: 1.3;
+            }
+
+            .step-description {
+                font-size: var(--text-normal);
+                line-height: 1.7;
+                color: rgba(255, 255, 255, 0.7);
+                font-weight: 400;
+            }
+
+            .image-section {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                height: 100%;
+                padding: 80px 0;
+            }
+
+            .image-wrapper {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                position: relative;
+                border-radius: 0;
+                overflow: visible;
+                box-shadow: none;
+                opacity: 0;
+                transform: translateY(30px);
+                transition: var(--transition);
+                transition-delay: 0.3s;
+            }
+
+            .image-wrapper.animate {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .main-image {
+                width: 100%;
+                height: auto;
+                max-width: 100%;
+                max-height: none;
+                object-fit: contain;
+                object-position: top;
+                display: block;
+            }
+
+            /* Section 4: Benefits */
+            .benefits-section {
+                background: var(--mindbits-orange);
+                color: var(--mindbits-blue);
+                min-height: 100vh;
+                padding: 80px 0;
+            }
+
+            .benefits-header {
+                text-align: center;
+                margin-bottom: 80px;
+            }
+
+            .benefits-header h1 {
+                font-size: var(--heading-large);
+                font-weight: 800;
+                color: var(--mindbits-blue);
+                line-height: 1.3;
+            }
+
+            .benefits-header h1 {
+                font-size: 36px;
+                font-weight: 800;
+                color: #27306b;
+                line-height: 1.3;
+            }
+
+            .carousel-wrapper {
+                position: relative;
+                overflow: hidden;
+                padding: 40px 60px;
+                max-width: 1200px;
+                margin: 0 auto;
+                cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23f8f9fa' stroke='%2327306b' stroke-width='2'/%3E%3Cpath d='M20 12l6 6-6 6m-6-6h12' stroke='%2327306b' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 20 20, auto;
+                user-select: none;
+            }
+
+            .carousel-wrapper:active {            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23e9ecef' stroke='%2327306b' stroke-width='2'/%3E%3Cpath d='M20 12l6 6-6 6m-6-6h12' stroke='%2327306b' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 20 20, grabbing;
+
+            }
+
+            .carousel-container {
+                display: flex;
+                gap: 40px;
+                transition: transform 0.3s ease-out;
+                will-change: transform;
+            }
+
+            .carousel-container.dragging {
+                transition: none;
+            }
+
+            .benefit-item {
+                flex: 0 0 calc(33.333% - 27px);
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                min-width: calc(33.333% - 27px);
+            }
+
+            .image-container {
+                background: #ffffff;
+                border-radius: var(--border-radius);
+                padding: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                height: 280px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                position: relative;
+            }
+
+            .benefit-image-wrapper {
+                width: 180px;
+                height: 180px;
+                transition: transform 0.4s ease;
+                pointer-events: none;
+            }
+
+            .benefit-item:hover .benefit-image-wrapper {
+                transform: scale(1.15);
+            }
+
+            .benefit-img {
+                width: 100%;
+                height: 100%;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .img1 { background-image: url('assets/s1 (1).png'); }
+            .img2 { background-image: url('assets/s1 (2).png'); }
+            .img3 { background-image: url('assets/s1 (3).png'); }
+            .img4 { background-image: url('assets/s1 (4).png'); }
+            .img5 { background-image: url('assets/s1 (5).png'); }
+            .img6 { background-image: url('assets/s1 (6).png'); }
+
+            .text-content {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .benefit-title {
+                font-size: var(--subtitle);
+                font-weight: 700;
+                color: #ffffff;
+                line-height: 1.3;
+                position: relative;
+                display: inline-block;
+                transition: var(--transition);
+            }
+
+            .benefit-item:hover .benefit-title::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: #ffffff;
+                animation: underlineExpand 0.4s ease forwards;
+            }
+
+            @keyframes underlineExpand {
+                from { width: 0; }
+                to { width: 100%; }
+            }
+
+            .benefit-description {
+                font-size: 16px;
+                line-height: 1.6;
+                color: #ffffff;
+                font-weight: 400;
+            }
+
+            .carousel-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                pointer-events: none;
+                z-index: 10;
+            }
+
+            .nav-arrow {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: #ffffff;
+                border: 2px solid var(--mindbits-blue);
+                color: var(--mindbits-blue);
+                font-size: 24px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                pointer-events: all;
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            .carousel-wrapper:hover .nav-arrow {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            .nav-arrow:hover {
+                background: var(--mindbits-blue);
+                color: #ffffff;
+                transform: scale(1.1);
+            }
+
+            .nav-arrow:active {
+                transform: scale(0.95);
+            }
+
+            .nav-arrow.disabled {
+                opacity: 0.3;
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+
+            .nav-arrow.prev {
+                margin-left: -60px;
+            }
+
+            .nav-arrow.next {
+                margin-right: -60px;
+            }
+
+            .carousel-progress {
+                width: 100%;
+                height: 4px;
+                background: rgba(39, 48, 107, 0.2);
+                border-radius: 2px;
+                margin-top: 30px;
+                overflow: hidden;
+            }
+
+            .progress-fill {
+                height: 100%;
+                background: var(--mindbits-blue);
+                border-radius: 2px;
+                transition: width 0.3s ease;
+                width: 33.333%;
+            }
+
+            /* ============================================ SECTION 2: ANALYTICS & DATA ============================================ */
+            .analytics-section {
+                background: linear-gradient(135deg, #1a1a2e 0%, #2d3142 50%, #4a1a3e 100%);
+                color: #ffffff;
+                min-height: 100vh;
+            }
+
+            /* Pyramid Analytics */
+            .pyramid-analytics-section {
+                background-image: url('assets/fondoblue.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                padding: 80px 0;
+            }
+
+            .pyramid-header-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 40px;
+            }
+
+            .pyramid-header {
+                text-align: center;
+                margin-bottom: 60px;
+            }
+
+            .pyramid-header h1 {
+                font-size: var(--heading);
+                font-weight: 800;
+                color: #ff9933;
+                margin-bottom: 10px;
+                line-height: 1.2;
+            }
+
+            .pyramid-header h2 {
+                font-size: var(--subtitle);
+                font-weight: 600;
+                color: #ff9933;
+                line-height: 1.2;
+            }
+
+            .pyramid-content-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 80px;
+                align-items: flex-start;
+            }
+
+            .pyramid-visual {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                position: sticky;
+                top: 40px;
+                padding: 20px 0;
+                margin: 20px auto 0;
+                width: 100%;
+                max-width: 600px;
+                min-height: 80vh;
+                justify-content: flex-end;
+            }
+
+            .pyramid-layer {
+                position: relative;
+                animation: fadeUp 0.6s ease forwards;
+            }
+
+            .pyramid-layer::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
+            }
+
+            .pyramid-layer::after {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                right: 2px;
+                bottom: 2px;
+                background: rgba(255, 255, 255, 0.1);
+                z-index: 0;
+                border-radius: 14px 14px 0 0;
+            }
+
+            .pyramid-layer.animate-in {
+                animation: fadeInLeft 0.8s ease forwards;
+                animation-delay: 0.4s;
+            }
+
+            @keyframes fadeUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeInLeft {
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            /* Pyramid levels */
+            .pyramid-layer:nth-child(1) { 
+                width: 150px;
+                height: 120px;
+                background: linear-gradient(135deg, var(--pyramid-1-start) 0%, var(--pyramid-1-end) 100%);
+                clip-path: polygon(50% 0%, 8% 90%, 92% 90%);
+                z-index: 5;
+                margin-bottom: 0;
+            }
+
+            .pyramid-layer:nth-child(2) { 
+                width: 230px;
+                height: 90px;
+                background: linear-gradient(135deg, var(--pyramid-2-start) 0%, var(--pyramid-2-end) 100%);
+                clip-path: polygon(19% 0%, 81% 0%, 100% 100%, 0% 100%);
+                z-index: 4;
+                margin-bottom: 0;
+            }
+
+            .pyramid-layer:nth-child(3) { 
+                width: 330px;
+                height: 90px;
+                background: linear-gradient(135deg, var(--pyramid-3-start) 0%, var(--pyramid-3-end) 100%);
+                clip-path: polygon(14% 0%, 86% 0%, 100% 100%, 0% 100%);
+                z-index: 3;
+                margin-top: 15px;
+                margin-bottom: 0;
+            }
+
+            .pyramid-layer:nth-child(4) { 
+                width: 430px;
+                height: 90px;
+                background: linear-gradient(135deg, var(--pyramid-4-start) 0%, var(--pyramid-4-end) 100%);
+                clip-path: polygon(12% 0%, 88% 0%, 100% 100%, 0% 100%);
+                z-index: 2;
+                margin-top: 15px;
+                margin-bottom: 0;
+            }
+
+            .pyramid-layer:nth-child(5) { 
+                width: 530px;
+                height: 90px;
+                background: linear-gradient(135deg, var(--pyramid-5-start) 0%, var(--pyramid-5-end) 100%);
+                clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+                z-index: 1;
+                margin-top: 15px;
+                margin-bottom: 0;
+            }
+
+            .icon-wrapper {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) translateZ(20px);
+                width: 150px;
+                height: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: all 0.3s ease;
+                z-index: 10;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            .pyramid-layer.animate-in .icon-wrapper {
+                animation: iconFadeIn 0.5s ease forwards;
+                animation-delay: 0.4s;
+            }
+
+            @keyframes iconFadeIn {
+                to {
+                    opacity: 1;
+                }
+            }
+
+            .icon {
+                max-width: 100%;
+                max-height: 100%;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+                transition: transform 0.3s ease;
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            }
+
+            .pyramid-layer:nth-child(1) .icon {
+                max-width: 60%;
+                max-height: 60%;
+            }
+
+            .pyramid-layer:nth-child(2) .icon,
+            .pyramid-layer:nth-child(3) .icon {
+                max-width: 70%;
+                max-height: 70%;
+            }
+
+            .pyramid-layer:nth-child(4) .icon,
+            .pyramid-layer:nth-child(5) .icon {
+                max-width: 80%;
+                max-height: 80%;
+            }
+
+            .pyramid-layer:hover .icon {
+                transform: scale(1.1) rotate(0deg);
+            }
+
+            .pyramid-content-list {
+                display: flex;
+                flex-direction: column;
+                gap: 50px;
+                padding-top: 20px;
+            }
+
+            .content-item {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            .content-item.animate-in {
+                animation: fadeInLeft 0.8s ease forwards;
+            }
+
+            .content-item:nth-child(1) { animation-delay: 0.2s; }
+            .content-item:nth-child(2) { animation-delay: 0.35s; }
+            .content-item:nth-child(3) { animation-delay: 0.5s; }
+            .content-item:nth-child(4) { animation-delay: 0.65s; }
+            .content-item:nth-child(5) { animation-delay: 0.8s; }
+
+            .content-item h3 {
+                font-size: var(--subtitle);
+                font-weight: 700;
+                margin-bottom: 12px;
+                color: #ffffff;
+            }
+
+            .content-item p {
+                font-size: var(--text-normal);
+                line-height: 1.7;
+                color: rgba(255, 255, 255, 0.88);
+            }
+
+            /* Intelligence Table */
+            .intelligence-section {
+                background: #ffffff;
+                color: #333;
+                padding: 80px 40px;
+            }
+
+            .intelligence-container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .intelligence-header {
+                text-align: center;
+                margin-bottom: 80px;
+            }
+
+            .intelligence-header h1 {
+                font-size: var(--heading);
+                font-weight: 800;
+                color: var(--mindbits-blue);
+                margin-bottom: 10px;
+            }
+
+            .content-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+                margin-bottom: 60px;
+            }
+
+            .column {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .column-header {
+                text-align: center;
+                font-size: var(--subtitle);
+                font-weight: 800;
+                color: var(--mindbits-blue);
+                margin-bottom: 30px;
+                padding-bottom: 0;
+                height: 30px;
+            }
+
+            .cards-container {
+                display: grid;
+                grid-template-rows: repeat(3, 1fr);
+                gap: 10px;
+                flex: 1;
+            }
+
+            .intelligence-card {
+                background: var(--mindbits-blue);
+                border-radius: 4px;
+                padding: 0;
+                cursor: pointer;
+                transition: var(--transition);
+                overflow: hidden;
+                position: relative;
+                min-height: 100px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transform: translateY(30px);
+                animation: fadeInUp 0.6s ease forwards;
+            }
+
+            .column:nth-child(2) .intelligence-card,
+            .column:nth-child(3) .intelligence-card {
+                background: #ffffff;
+                border: 2px solid var(--mindbits-orange);
+            }
+
+            .intelligence-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: #3d5a99;
+                transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1;
+            }
+
+            .intelligence-card:hover::before {
+                left: 0;
+            }
+
+            .intelligence-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .intelligence-card-content {
+                position: relative;
+                z-index: 2;
+                padding: 25px 30px;
+                text-align: center;
+                width: 100%;
+            }
+
+            .card-title {
+                font-size: 17px;
+                font-weight: 800;
+                color: #ffffff;
+                transition: color 0.3s ease;
+            }
+
+            .column:nth-child(2) .card-text,
+            .column:nth-child(3) .card-text {
+                color: var(--mindbits-blue);
+                font-size: var(--text-normal);
+                line-height: 1.5;
+                transition: color 0.3s ease;
+            }
+
+            .intelligence-card:hover .card-text {
+                color: #ffffff;
+            }
+
+            .card-text {
+                font-size: var(--text-normal);
+                color: var(--mindbits-blue);
+                line-height: 1.5;
+                transition: color 0.3s ease;
+            }
+
+            @keyframes fadeInUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* How it Works */
+            .how-it-works-section {
+                background-image: url('assets/fondoblue.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                padding: 100px 40px 180px;
+                min-height: 100vh;
+            }
+
+            .how-it-works-container {
+                max-width: 920px;
+                margin: 0 auto;
+            }
+
+            .section-title {
+                text-align: center;
+                font-size: var(--heading-large);
+                font-weight: 700;
+                margin-bottom: 80px;
+                color: #ffffff;
+                letter-spacing: -0.02em;
+            }
+
+            .bullet-list {
+                list-style: none;
+                padding: 0;
+            }
+
+            .bullet-item {
+                font-size: var(--text-large);
+                line-height: 1.8;
+                margin-bottom: 50px;
+                opacity: 0.15;
+                transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                color: rgba(255, 255, 255, 0.95);
+                font-weight: 300;
+            }
+
+            .bullet-item strong {
+                font-weight: 600;
+            }
+
+            .bullet-item::before {
+                content: "· ";
+                margin-right: 12px;
+                opacity: 0.6;
+                font-weight: 700;
+            }
+
+            /* Bottom Line */
+            .section-bottom-line {
+                background: #f7f8fa;
+                padding: 100px 40px 100px;
+                text-align: center;
+                position: relative;
+            }
+
+            .bottom-line-container {
+                max-width: 920px;
+                margin: 0 auto;
+            }
+
+            .scribble-wrapper {
+                position: relative;
+                display: inline-block;
+                margin-bottom: 50px;
+            }
+
+            .bottom-line-label {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #1e2a4a;
+                position: relative;
+                z-index: 2;
+                padding: 8px 20px;
+                letter-spacing: -0.01em;
+            }
+
+            /* Scribble Circle Animation */
+            .scribble-svg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: 100%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                opacity: 0;
+            }
+
+            .scribble-svg path {
+                stroke: #f9bd22;
+                stroke-width: 20;
+                fill: none;
+                fill-opacity: 0;
+                stroke-linecap: round;
+                stroke-linejoin: miter;
+                stroke-miterlimit: 4;
+                stroke-opacity: 1;
+                stroke-dasharray: 1;
+                stroke-dashoffset: 1;
+                animation-duration: 1.3s;
+            }
+
+            .scribble-svg.animate {
+                opacity: 1;
+            }
+
+            .scribble-svg.animate path {
+                animation: drawScribble 3s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+            }
+
+            @keyframes drawScribble {
+                to {
+                    stroke-dashoffset: 0;
+                }
+            }
+
+            .bottom-line-text {
+                font-size: 1.6rem;
+                line-height: 1.85;
+                color: #1e2a4a;
+                max-width: 850px;
+                margin: 0 auto;
+                opacity: 0;
+                transform: translateY(20px);
+                font-weight: 700;
+            }
+
+            .bottom-line-text.visible {
+                animation: fadeUpSmooth 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+                animation-delay: 0.8s;
+            }
+
+            @keyframes fadeUpSmooth {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Hypothesis Section */
+            .hypothesis-section {
+                position: relative;
+                z-index: 1;
+                min-height: 100vh;
+                padding: 80px 40px;
+                background-image: url('assets/FromHypothesistoProvenGrowth.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                color: #ffffff;
+            }
+
+            .hypothesis-container {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .hypothesis-header {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+
+            .hypothesis-title {
+                font-size: var(--heading);
+                font-weight: 700;
+                margin-bottom: 25px;
+                letter-spacing: -0.01em;
+                line-height: 1.3;
+            }
+
+            .hypothesis-description {
+                font-size: var(--text-normal);
+                line-height: 1.6;
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 400;
+                max-width: 100%;
+                margin: 0 auto;
+                text-align: left;
+            }
+
+            .toggle-panels {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                margin-top: 40px;
+            }
+
+            .toggle-panel {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+                overflow: hidden;
+                transition: var(--transition);
+            }
+
+            .toggle-panel:first-child {
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+            }
+
+            .toggle-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 20px 0;
+                cursor: pointer;
+                user-select: none;
+                transition: var(--transition);
+            }
+
+            .toggle-header:hover {
+                opacity: 0.8;
+            }
+
+            .toggle-title {
+                font-size: var(--text-normal);
+                font-weight: 700;
+                color: #ffffff;
+                letter-spacing: -0.01em;
+                flex: 1;
+                padding-right: 20px;
+            }
+
+            .toggle-icon {
+                width: 24px;
+                height: 24px;
+                border: 1.5px solid rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                flex-shrink: 0;
+                position: relative;
+            }
+
+            .toggle-icon::before,
+            .toggle-icon::after {
+                content: '';
+                position: absolute;
+                background: rgba(255, 255, 255, 0.8);
+                transition: var(--transition);
+            }
+
+            .toggle-icon::before {
+                width: 10px;
+                height: 1.5px;
+            }
+
+            .toggle-icon::after {
+                width: 1.5px;
+                height: 10px;
+            }
+
+            .toggle-panel.active .toggle-icon {
+                transform: rotate(180deg);
+            }
+
+            .toggle-panel.active .toggle-icon::after {
+                opacity: 0;
+            }
+
+            .toggle-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .toggle-content-inner {
+                padding: 0 0 25px 0;
+            }
+
+            .toggle-text {
+                font-size: var(--text-normal);
+                line-height: 1.7;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 400;
+                margin-bottom: 18px;
+            }
+
+            .toggle-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .toggle-list li {
+                font-size: var(--text-normal);
+                line-height: 1.7;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 400;
+                margin-bottom: 12px;
+                padding-left: 20px;
+                position: relative;
+            }
+
+            .toggle-list li::before {
+                content: '→';
+                position: absolute;
+                left: 0;
+                color: rgba(255, 255, 255, 0.6);
+                font-weight: 400;
+            }
+
+            /* Performance Section */
+            .performance-section {
+                background: #ffffff;
+                color: var(--mindbits-blue);
+                padding: 80px 40px;
+            }
+
+            .performance-container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .performance-header {
+                text-align: center;
+                margin-bottom: 80px;
+            }
+
+            .performance-header h1 {
+                font-size: var(--heading);
+                font-weight: 800;
+                line-height: 1.3;
+                margin-bottom: 5px;
+            }
+
+            .performance-table-header {
+                display: grid;
+                grid-template-columns: 250px 1fr 1fr;
+                gap: 20px;
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+
+            .performance-column-title {
+                font-size: var(--subtitle);
+                font-weight: 700;
+                color: var(--mindbits-blue);
+                text-align: center;
+            }
+
+            .performance-rows-container {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .performance-row {
+                display: grid;
+                grid-template-columns: 250px 1fr 1fr;
+                gap: 20px;
+                align-items: stretch;
+            }
+
+            .pillar-card {
+                background: var(--mindbits-orange);
+                padding: 28px 24px;
+                border-radius: var(--border-radius);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+                transition: var(--transition);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                z-index: 1;
+            }
+
+            .pillar-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #e67419;
+                opacity: 0;
+                transition: var(--transition);
+                z-index: -1;
+            }
+
+            .pillar-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            }
+
+            .pillar-card:hover::before {
+                opacity: 1;
+            }
+
+            .pillar-content {
+                position: relative;
+                z-index: 2;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .pillar-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: #ffffff;
+                margin: 0;
+            }
+
+            .pillar-arrow {
+                font-size: 24px;
+                color: #ffffff;
+                font-weight: 300;
+                transition: transform 0.3s ease;
+            }
+
+            .pillar-card:hover .pillar-arrow {
+                transform: translateX(5px);
+            }
+
+            .performance-text-card {
+                background: #ffffff;
+                border: 2px solid var(--mindbits-blue);
+                border-radius: var(--border-radius);
+                padding: 24px;
+                transition: var(--transition);
+                min-height: 100%;
+                display: flex;
+                align-items: center;
+            }
+
+            .performance-text-card p {
+                font-size: var(--text-normal);
+                line-height: 1.6;
+                color: var(--mindbits-blue);
+                margin: 0;
+                font-weight: 500;
+                text-align: justify;
+            }
+
+            .performance-text-card:hover {
+                border-color: var(--mindbits-orange);
+                box-shadow: 0 4px 12px rgba(39, 48, 107, 0.1);
+                transform: translateY(-2px);
+            }
+
+            /* ============================================ RESPONSIVE DESIGN ============================================ */
+            /* 
+            * Mobile-First Responsive Design Strategy
+            * Breakpoints: 320px (small mobile), 480px (mobile), 640px (large mobile), 
+            * 768px (tablet), 1024px (small desktop), 1200px (desktop), 1400px (large desktop)
+            * All media queries use max-width for progressive enhancement
+            */
+
+            /* Large Desktop (1200px+) - Base styles already defined above */
+
+            /* Desktop (1200px) - Footer Responsive */
+            @media (max-width: 1200px) {
+                .footer-content {
+                    grid-template-columns: 1fr;
+                    gap: 60px;
+                    align-items: start;
+                }
+
+                .footer-bottom-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 30px;
+                    align-items: start;
+                    justify-items: center;
+                    text-align: center;
+                }
+
+                .footer-info {
+                    text-align: center;
+                }
+
+                .footer-logo-section {
+                    text-align: center;
+                }
+                
+                /* Footer Logo - Responsive sizing */
+                .footer-logo {
+                    max-width: 250px;
+                }
+            }
+
+            /* Desktop (1024px - 1199px) */
+            @media (max-width: 1199px) {
+                /* Hero Section */
+                .hero-section {
+                    height: 320px;
+                }
+                
+                .hero-carousel {
+                    max-width: 1200px;
+                }
+                
+                /* Header */
+                .header {
+                    max-width: 1200px;
+                }
+                
+                /* Layout Containers */
+                .section-container,
+                .problem-solution-container,
+                .intelligence-container,
+                .hypothesis-container,
+                .trust-container,
+                .performance-container,
+                .how-it-works-container,
+                .bottom-line-container {
+                    padding: 0 30px;
+                }
+                
+                /* Grid Layouts */
+                .pipeline-content-wrapper,
+                .pyramid-content-wrapper {
+                    grid-template-columns: 1fr;
+                    gap: 60px;
+                    align-items: flex-start;
+                }
+                
+                .image-section,
+                .pyramid-visual {
+                    order: -1;
+                    max-width: 800px;
+                    margin: 0 auto;
+                }
+                
+                /* Pyramid Visual - Fixed positioning and height */
+                .pyramid-visual {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0;
+                    padding: 20px 0;
+                    margin: 20px auto 0;
+                    width: 100%;
+                    max-width: 600px;
+                    min-height: 60vh;
+                    justify-content: flex-end;
+                    top: 0;
+                }
+                
+                /* Pipeline Steps - Better spacing */
+                .steps-section {
+                    gap: 40px;
+                }
+                
+                .step-item {
+                    gap: 25px;
+                }
+                
+                .step-number {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 20px;
+                }
+                
+                /* Image Wrapper - Fixed height only for image wrapper */
+                .image-wrapper {
+                    height: 400px;
+                    max-height: 400px;
+                }
+                
+                /* Carousel */
+                .benefit-item {
+                    flex: 0 0 calc(50% - 20px);
+                    min-width: calc(50% - 20px);
+                }
+                
+                .nav-arrow.prev {
+                    margin-left: -55px;
+                }
+                
+                .nav-arrow.next {
+                    margin-right: -55px;
+                }
+            }
+
+            /* Small Desktop (768px - 1023px) */
+            @media (max-width: 1023px) {
+                /* Typography */
+                .section-header h1,
+                .intelligence-header h1,
+                .hypothesis-title,
+                .performance-header h1,
+                .section-title,
+                .benefits-header h1 {
+                    font-size: var(--heading);
+                }
+                
+                /* Cards Grid */
+                .cards-grid {
+                    gap: 30px;
+                }
+                
+                .flip-card {
+                    width: 260px;
+                    height: 420px;
+                }
+                
+                /* Tables */
+                .table-header,
+                .row,
+                .performance-table-header,
+                .performance-row {
+                    grid-template-columns: 1fr;
+                    gap: 16px;
+                }
+                
+                .column-title,
+                .performance-column-title {
+                    text-align: left;
+                    font-size: var(--subtitle);
+                }
+                
+                /* Content Grid */
+                .content-grid {
+                    grid-template-columns: 1fr;
+                    gap: 50px;
+                }
+                
+                /* Footer */
+                .footer-content,
+                .footer-bottom-content {
+                    grid-template-columns: 1fr;
+                    gap: 50px;
+                }
+                
+                .footer-info {
+                    text-align: center;
+                }
+                
+                .footer-logo-section {
+                    text-align: center;
+                }
+            }
+
+            /* Tablet (640px - 767px) */
+            @media (max-width: 767px) {
+                /* Header - Responsive with Hamburger Menu */
+                .header {
+                    padding: 15px 20px;
+                }
+                
+                .logo {
+                    max-width: 140px;
+                }
+                
+                /* Hamburger Menu - Show on tablet */
+                .hamburger-menu {
+                    display: flex;
+                }
+                
+                /* Navigation Links - Hide by default, show when active */
+                .nav-links {
+                    display: none;
+                    position: fixed;
+                    top: 64px;
+                    left: 0;
+                    right: 0;
+                    background: #ffffff;
+                    flex-direction: column;
+                    gap: 0;
+                    padding: 20px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                }
+                
+                .nav-links.active {
+                    display: flex;
+                }
+                
+                .nav-links a {
+                    padding: 15px 0;
+                    border-bottom: 1px solid #e0e0e0;
+                    text-align: center;
+                    font-size: 16px;
+                }
+                
+                .nav-links a:last-child {
+                    border-bottom: none;
+                }
+                
+                /* Hero Section */
+                .hero-section {
+                    height: 280px;
+                }
+                
+                /* Tabs */
+                .tab-button {
+                    padding: 25px 18px;
+                    font-size: var(--text-large);
+                }
+                
+                /* Layout Containers */
+                .section-container,
+                .problem-solution-container,
+                .intelligence-container,
+                .hypothesis-container,
+                .trust-container,
+                .performance-container,
+                .how-it-works-container,
+                .bottom-line-container {
+                    padding: 0 20px;
+                }
+                
+                /* Cards and Grids */
+                .cards-grid,
+                .content-grid {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 30px;
+                }
+                
+                .flip-card,
+                .benefit-item {
+                    width: 100%;
+                    max-width: 320px;
+                    height: 400px;
+                }
+                
+                /* Pyramid and Pipeline */
+                .steps-section::before,
+                .pyramid-content-list {
+                    left: 22px;
+                }
+                
+                .step-item,
+                .content-item {
+                    gap: 20px;
+                }
+                
+                .step-number {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 20px;
+                }
+                
+                .step-title,
+                .content-item h3 {
+                    font-size: var(--text-large);
+                }
+                
+                .step-description,
+                .content-item p {
+                    font-size: var(--text-normal);
+                }
+                
+                /* Pyramid Visual - Better responsive behavior */
+                .pyramid-visual {
+                    position: relative;
+                    min-height: 50vh;
+                    max-height: 500px;
+                    padding: 15px 0;
+                    margin: 15px auto 0;
+                }
+                
+                /* Pipeline Content Wrapper - Better spacing */
+                .pipeline-content-wrapper {
+                    gap: 40px;
+                    padding: 20px 0;
+                }
+                
+                /* Steps Section - Prevent overlap */
+                .steps-section {
+                    gap: 30px;
+                    padding: 20px 0;
+                }
+                
+                .steps-section::before {
+                    top: 50px;
+                    bottom: 50px;
+                }
+                
+                /* Image Wrapper - Fixed dimensions */
+                .image-wrapper {
+                    height: 300px;
+                    max-height: 300px;
+                    min-height: 250px;
+                }
+                
+                /* Pyramid Layers */
+                .pyramid-layer:nth-child(1) { width: 120px; height: 70px; }
+                .pyramid-layer:nth-child(2) { width: 195px; height: 70px; }
+                .pyramid-layer:nth-child(3) { width: 255px; height: 70px; }
+                .pyramid-layer:nth-child(4) { width: 315px; height: 70px; }
+                .pyramid-layer:nth-child(5) { width: 390px; height: 70px; }
+                
+                .icon-wrapper {
+                    width: 30px;
+                    height: 30px;
+                }
+                
+                /* Benefits Carousel */
+                .benefit-item {
+                    flex: 0 0 calc(100% - 10px);
+                    min-width: calc(100% - 10px);
+                }
+                
+                .carousel-container {
+                    gap: 20px;
+                }
+                
+                .image-container {
+                    height: 260px;
+                    padding: 30px;
+                }
+                
+                .benefit-image-wrapper {
+                    width: 160px;
+                    height: 160px;
+                }
+                
+                .benefit-title {
+                    font-size: var(--text-large);
+                }
+                
+                .benefit-description {
+                    font-size: var(--text-normal);
+                }
+                
+                .nav-arrow {
+                    width: 45px;
+                    height: 45px;
+                    font-size: 20px;
+                }
+                
+                .nav-arrow.prev {
+                    margin-left: -50px;
+                }
+                
+                .nav-arrow.next {
+                    margin-right: -50px;
+                }
+                
+                /* Footer */
+                .footer-main {
+                    padding: 60px 20px;
+                }
+                
+                .footer-bottom {
+                    padding: 30px 20px;
+                }
+                
+                .contact-form,
+                .footer-info h2 {
+                    padding: 30px 20px;
+                }
+                
+                .footer-info h2 {
+                    font-size: var(--heading);
+                }
+                
+                .footer-copyright {
+                    padding: 15px 20px;
+                }
+                
+                /* Contact Form - Responsive fixes */
+                .contact-form {
+                    padding: 25px 20px;
+                }
+                
+                .contact-form h3 {
+                    font-size: 20px;
+                    margin-bottom: 20px;
+                }
+                
+                .form-group {
+                    margin-bottom: 15px;
+                }
+                
+                .form-group label {
+                    font-size: 13px;
+                    margin-bottom: 6px;
+                }
+                
+                .form-group input,
+                .form-group textarea {
+                    padding: 10px 14px;
+                    font-size: 14px;
+                }
+                
+                .submit-btn {
+                    padding: 12px;
+                    font-size: 14px;
+                }
+                
+                /* Footer Info - Responsive fixes */
+                .footer-info {
+                    text-align: center;
+                }
+                
+                .footer-info h2 {
+                    font-size: var(--heading);
+                    text-align: center;
+                }
+                
+                .footer-info p {
+                    font-size: 15px;
+                    text-align: center;
+                }
+                
+                /* Footer Bottom - Responsive fixes */
+                .footer-bottom-content {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                    text-align: center;
+                }
+                
+                .footer-contact,
+                .footer-nav,
+                .footer-logo-section {
+                    text-align: center;
+                }
+                
+                /* Typography */
+                .section-title {
+                    font-size: var(--heading);
+                }
+                
+                .bullet-item {
+                    font-size: var(--text-normal);
+                    margin-bottom: 40px;
+                }
+                
+                .bottom-line-label {
+                    font-size: var(--subtitle);
+                }
+                
+                .bottom-line-text {
+                    font-size: var(--text-normal);
+                }
+                
+                .hypothesis-description,
+                .toggle-text,
+                .toggle-list li,
+                .trust-content-text {
+                    font-size: var(--text-normal);
+                }
+                
+                .toggle-title,
+                .title-text {
+                    font-size: var(--text-large);
+                }
+            }
+
+            /* Large Mobile (480px - 639px) */
+            @media (max-width: 639px) {
+                /* Header - Hamburger Menu */
+                .header {
+                    padding: 12px 15px;
+                }
+                
+                .logo {
+                    max-width: 120px;
+                }
+                
+                /* Hamburger Menu - Show on mobile */
+                .hamburger-menu {
+                    display: flex;
+                }
+                
+                /* Navigation Links - Hide by default, show when active */
+                .nav-links {
+                    display: none;
+                    position: fixed;
+                    top: 64px;
+                    left: 0;
+                    right: 0;
+                    background: #ffffff;
+                    flex-direction: column;
+                    gap: 0;
+                    padding: 20px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                }
+                
+                .nav-links.active {
+                    display: flex;
+                }
+                
+                .nav-links a {
+                    padding: 15px 0;
+                    border-bottom: 1px solid #e0e0e0;
+                    text-align: center;
+                    font-size: 16px;
+                }
+                
+                .nav-links a:last-child {
+                    border-bottom: none;
+                }
+                
+                /* Tabs */
+                .tabs-container {
+                    flex-wrap: wrap;
+                    gap: 10px;
+                }
+                
+                .tab-button {
+                    font-size: var(--text-normal);
+                    padding: 20px 15px;
+                }
+                
+                /* Pyramid Layers - Smaller */
+                .pyramid-layer:nth-child(1) { width: 100px; height: 60px; }
+                .pyramid-layer:nth-child(2) { width: 160px; height: 60px; }
+                .pyramid-layer:nth-child(3) { width: 210px; height: 60px; }
+                .pyramid-layer:nth-child(4) { width: 260px; height: 60px; }
+                .pyramid-layer:nth-child(5) { width: 320px; height: 60px; }
+                
+                /* Step Numbers */
+                .step-number,
+                .pyramid-layer:nth-child(1) {
+                    width: 45px;
+                    height: 45px;
+                    font-size: 18px;
+                }
+                
+                /* Typography */
+                .step-title,
+                .content-item h3,
+                .benefit-title {
+                    font-size: var(--text-large);
+                }
+                
+                .step-description,
+                .content-item p,
+                .benefit-description {
+                    font-size: var(--text-normal);
+                }
+                
+                /* Layout Heights - Only apply to image wrapper, not content wrappers */
+                .image-wrapper {
+                    height: 400px;
+                    max-height: 400px;
+                }
+                .benefit-image-wrapper {
+                    width: 140px;
+                    height: 140px;
+                }
+                
+                .image-container {
+                    height: 240px;
+                }
+                
+                /* Pyramid Visual - Mobile optimized */
+                .pyramid-visual {
+                    min-height: 40vh;
+                    max-height: 400px;
+                    padding: 10px 0;
+                    margin: 10px auto 0;
+                }
+                
+                /* Pipeline Steps - Mobile spacing */
+                .steps-section {
+                    gap: 25px;
+                    padding: 15px 0;
+                }
+                
+                .steps-section::before {
+                    top: 40px;
+                    bottom: 40px;
+                    left: 20px;
+                }
+                
+                .step-item {
+                    gap: 15px;
+                }
+                
+                /* Pyramid Content List - Mobile positioning */
+                .pyramid-content-list {
+                    left: 20px;
+                }
+                
+                .content-item {
+                    gap: 15px;
+                }
+                
+                /* Headers */
+                .intelligence-header h1,
+                .performance-header h1,
+                .hypothesis-title,
+                .section-title {
+                    font-size: var(--text-large);
+                }
+                
+                .footer h2,
+                .footer-info h2 {
+                    font-size: var(--text-large);
+                }
+                
+                /* Contact Form - Large Mobile fixes */
+                .contact-form {
+                    padding: 20px 15px;
+                }
+                
+                .contact-form h3 {
+                    font-size: 18px;
+                    margin-bottom: 15px;
+                }
+                
+                .form-group {
+                    margin-bottom: 12px;
+                }
+                
+                .form-group label {
+                    font-size: 12px;
+                    margin-bottom: 4px;
+                }
+                
+                .form-group input,
+                .form-group textarea {
+                    padding: 8px 12px;
+                    font-size: 13px;
+                }
+                
+                .submit-btn {
+                    padding: 10px;
+                    font-size: 13px;
+                }
+                
+                /* Footer Content - Large Mobile */
+                .footer-content {
+                    grid-template-columns: 1fr;
+                    gap: 40px;
+                }
+                
+                .footer-info p {
+                    font-size: 14px;
+                }
+            }
+
+            /* Small Mobile (320px - 479px) */
+            @media (max-width: 479px) {
+                /* Header - Hamburger Menu */
+                .header {
+                    padding: 12px 15px;
+                }
+                
+                .logo {
+                    max-width: 120px;
+                }
+                
+                /* Hamburger Menu - Show on small mobile */
+                .hamburger-menu {
+                    display: flex;
+                }
+                
+                /* Navigation Links - Hide by default, show when active */
+                .nav-links {
+                    display: none;
+                    position: fixed;
+                    top: 64px;
+                    left: 0;
+                    right: 0;
+                    background: #ffffff;
+                    flex-direction: column;
+                    gap: 0;
+                    padding: 20px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                }
+                
+                .nav-links.active {
+                    display: flex;
+                }
+                
+                .nav-links a {
+                    padding: 15px 0;
+                    border-bottom: 1px solid #e0e0e0;
+                    text-align: center;
+                    font-size: 16px;
+                }
+                
+                .nav-links a:last-child {
+                    border-bottom: none;
+                }
+                
+                /* Hero Section */
+                .hero-section {
+                    height: 240px;
+                }
+                
+                /* Tabs */
+                .tab-button {
+                    padding: 15px 12px;
+                    font-size: 13px;
+                }
+                
+                /* Pyramid Layers - Smallest */
+                .pyramid-layer:nth-child(1) { width: 90px; height: 60px; }
+                .pyramid-layer:nth-child(2) { width: 145px; height: 60px; }
+                .pyramid-layer:nth-child(3) { width: 190px; height: 60px; }
+                .pyramid-layer:nth-child(4) { width: 235px; height: 60px; }
+                .pyramid-layer:nth-child(5) { width: 290px; height: 60px; }
+                
+                /* Icons */
+                .icon {
+                    font-size: 20px;
+                }
+                
+                /* Typography */
+                .card-title {
+                    font-size: 15px;
+                }
+                
+                .card-text {
+                    font-size: var(--text-normal);
+                }
+                
+                .section-title,
+                .bottom-line-label {
+                    font-size: var(--text-large);
+                }
+                
+                .bullet-item {
+                    font-size: var(--text-normal);
+                }
+                
+                .bottom-line-text {
+                    font-size: var(--text-normal);
+                }
+                
+                .toggle-title,
+                .title-text {
+                    font-size: var(--text-normal);
+                }
+                
+                /* Cards */
+                .aspect-card,
+                .pillar-card {
+                    padding: 20px 16px;
+                }
+                
+                .aspect-title,
+                .pillar-title {
+                    font-size: var(--text-normal);
+                }
+                
+                .text-card,
+                .performance-text-card {
+                    padding: 16px;
+                }
+                
+                .text-card p,
+                .performance-text-card p {
+                    font-size: var(--text-normal);
+                }
+                
+                /* Sections */
+                .comparison-section,
+                .performance-section {
+                    padding: 40px 16px;
+                }
+                
+                .pyramid-content-wrapper,
+                .pipeline-content-wrapper {
+                    gap: 30px;
+                }
+                
+                /* Footer */
+                .footer-content {
+                    grid-template-columns: 1fr;
+                    gap: 60px;
+                    align-items: start;
+                }
+
+                .footer-bottom-content {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+
+                .footer-info {
+                    text-align: center;
+                }
+
+                .footer-logo-section {
+                    text-align: center;
+                }
+                
+                /* Footer Logo - Responsive sizing */
+                .footer-logo {
+                    max-width: 250px;
+                }
+            
+
+                /* Contact Form - Small Mobile fixes */
+                .contact-form {
+                    padding: 15px 12px;
+                }
+                
+                .contact-form h3 {
+                    font-size: 16px;
+                    margin-bottom: 12px;
+                }
+                
+                .form-group {
+                    margin-bottom: 10px;
+                }
+                
+                .form-group label {
+                    font-size: 11px;
+                    margin-bottom: 3px;
+                }
+                
+                .form-group input,
+                .form-group textarea {
+                    padding: 8px 10px;
+                    font-size: 12px;
+                }
+                
+                .submit-btn {
+                    padding: 8px;
+                    font-size: 12px;
+                }
+                
+                /* Footer Info - Small Mobile */
+                .footer-info h2 {
+                    font-size: var(--text-large);
+                }
+                
+                .footer-info p {
+                    font-size: 13px;
+                }
+                
+                /* Footer Content - Small Mobile */
+                .footer-content {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+
+                /* Footer Copyright - Small Mobile */
+                .footer-copyright {
+                    padding: 12px 15px;
+                    text-align: center;
+                }
+            }
+
+            /* Utility classes */
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border-width: 0;
+            }
+
+            .hidden {
+                display: none !important;
+            }
+
+            /* Section Dividers */
+            .section-divider {
+                width: 100%;
+                height: 1px;
+                background: transparent;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* ============================================ TRUST SECTION - UPDATED ============================================ */
+            .section-trust {
+                background: #0a0e27;
+                position: relative;
+                padding: 80px 0;
+                color: #fff;
+                overflow: hidden;
+            }
+
+            .section-trust .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            .section-trust .section-block {
+                margin-bottom: 60px;
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+
+            .section-trust .section-block.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Animated Title Box */
+            .title-box {
+                display: inline-block;
+                padding: 16px 32px;
+                border-radius: 16px;
+                margin-bottom: 32px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .title-box.orange,
+            .title-box.orange-2 {
+                background: #f5841f;
+            }
+
+            .title-box.blue {
+                background: #27306b;
+            }
+
+            .title-box.white {
+                background: #ffffff;
+            }
+
+            /* Color Reveal Animation */
+            .title-box.color-reveal {
+                position: relative;
+            }
+
+            .title-box.color-reveal::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.3);
+                transition: left 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            }
+
+            .section-block.visible .title-box.color-reveal::before {
+                left: 100%;
+            }
+
+            /* Hinge Drop Animation */
+            .title-box.hinge-drop {
+                transform-origin: top left;
+                animation: none;
+            }
+
+            .section-block.visible .title-box.hinge-drop {
+                animation: hingeDrop 1s cubic-bezier(0.65, 0, 0.35, 1);
+            }
+
+            @keyframes hingeDrop {
+                0% {
+                    transform: rotate(-90deg) translateY(-100%);
+                    opacity: 0;
+                }
+                60% {
+                    transform: rotate(5deg) translateY(0);
+                    opacity: 1;
+                }
+                80% {
+                    transform: rotate(-3deg);
+                }
+                100% {
+                    transform: rotate(0deg);
+                }
+            }
+
+            .section-trust .title-text {
+                font-size: 24px;
+                font-weight: 700;
+                position: relative;
+                z-index: 2;
+                margin: 0;
+            }
+
+            .title-box.orange .title-text,
+            .title-box.orange-2 .title-text,
+            .title-box.blue .title-text {
+                color: #ffffff;
+            }
+
+            .title-box.white .title-text {
+                color: #27306b;
+            }
+
+            .section-trust .content-text {
+                font-size: 17px;
+                line-height: 1.7;
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 400;
+                max-width: 100%;
+            }
+
+            /* Particle Background for Trust Section */
+            .section-trust .page-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                background-image: url('assets/fondoblue.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            .section-trust .main-content {
+                position: relative;
+                z-index: 1;
+                min-height: 100vh;
+                padding: 80px 40px;
+            }
+
+            /* ========== FOOTER ========== */
+            .footer {
+                background: #ffffff;
+                color: #27306b;
+            }
+
+            .footer-main {
+                background-image: url('assets/formulario.jpg');
+                background-size: cover;
+                background-position: center;
+                padding: 40px 20px;
+                margin: 0 30px;
+                position: relative;
+                z-index: 1;
+                border-radius: 16px;
+            }
+
+            .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 80px;
+                align-items: center;
+            }
+
+            /* Contact Form */
+            .contact-form {
+                background: #ffffff;
+                padding: 40px;
+                border-radius: 16px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            }
+
+            .contact-form h3 {
+                font-size: 24px;
+                font-weight: 700;
+                color: #27306b;
+                margin-bottom: 30px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                display: block;
+                font-size: 14px;
+                font-weight: 600;
+                color: #27306b;
+                margin-bottom: 8px;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                width: 100%;
+                padding: 12px 16px;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                font-family: 'Inter', sans-serif;
+                font-size: 15px;
+                transition: border-color 0.3s ease;
+            }
+
+            .form-group input:focus,
+            .form-group textarea:focus {
+                outline: none;
+                border-color: #f5841f;
+            }
+
+            .form-group textarea {
+                resize: vertical;
+                min-height: 100px;
+            }
+
+            .submit-btn {
+                width: 100%;
+                padding: 15px;
+                background: #f5841f;
+                color: #ffffff;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .submit-btn:hover {
+                background: #e67419;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(245, 132, 31, 0.4);
+            }
+
+            /* Footer Info */
+            .footer-info {
+                text-align: left;
+                color: #ffffff;
+            }
+
+            .footer-info h2 {
+                font-size: 36px;
+                font-weight: 800;
+                margin-bottom: 20px;
+                color: #ffffff;
+            }
+
+            .footer-info p {
+                font-size: 17px;
+                line-height: 1.7;
+                margin-bottom: 15px;
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            .footer-info strong {
+                color: #f5841f;
+            }
+
+            /* Footer Bottom - White section */
+            .footer-bottom {
+                background: #ffffff;
+                padding: 40px;
+            }
+
+            .footer-bottom-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                align-items: start;
+                justify-items: center;
+                text-align: center;
+            }
+
+            .footer-contact {
+                font-size: 15px;
+                color: #27306b;
+            }
+
+            .footer-contact h4 {
+                font-size: 16px;
+                font-weight: 700;
+                margin-bottom: 15px;
+                color: #27306b;
+            }
+
+            .footer-contact p {
+                margin-bottom: 8px;
+                color: #27306b;
+            }
+
+            .footer-contact a {
+                color: #27306b;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+            .footer-contact a:hover {
+                color: #f5841f;
+            }
+
+            .footer-nav {
+                font-size: 15px;
+                color: #27306b;
+            }
+
+            .footer-nav h4 {
+                font-size: 16px;
+                font-weight: 700;
+                margin-bottom: 15px;
+                color: #27306b;
+            }
+
+            .footer-nav ul {
+                list-style: none;
+                padding: 0;
+                text-align: center;
+            }
+
+            .footer-nav ul li {
+                margin-bottom: 8px;
+            }
+
+            .footer-nav ul li a {
+                color: #27306b;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+            .footer-nav ul li a:hover {
+                color: #f5841f;
+            }
+
+            .footer-social h4 {
+                font-size: 16px;
+                font-weight: 700;
+                margin-bottom: 15px;
+                color: #27306b;
+            }
+
+            .social-icons {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: #27306b;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 18px;
+                transition: all 0.3s ease;
+            }
+
+            .social-icon:hover {
+                background: #f5841f;
+                transform: scale(1.1);
+            }
+
+            .footer-logo-section {
+                text-align: center;
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .footer-logo {
+                max-width: 300px;
+                height: auto;
+                margin: 0 auto;
+                display: block;
+            }
+
+            /* Copyright - Blue section */
+            .footer-copyright {
+                background-image: url('assets/fondoblue.jpg');
+                background-size: cover;
+                background-position: center;
+                padding: 20px 40px;
+                text-align: center;
+            }
+
+            .footer-copyright p {
+                font-size: 14px;
+                margin: 0;
+            }
+
+
+            /* Staff Augmentation Bottom Line Section */
+            .bottom-line-section {
+                background-color: #ffffff;
+                padding: 80px 0;
+            }
+
+            .bottom-line-section .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            .bottom-line-section .bottom-line-content {
+                text-align: center;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .bottom-line-section .bottom-line-label {
+                font-size: 32px;
+                font-weight: 700;
+                color: #27306b;
+                margin-bottom: 30px;
+                position: relative;
+                display: inline-block;
+            }
+
+            .bottom-line-section .scribble-svg {
+                position: absolute;
+                bottom: -10px;
+                left: 0;
+                width: 100%;
+                height: 20px;
+            }
+
+            .bottom-line-section .scribble-svg path {
+                stroke: #f5841f;
+                stroke-width: 3;
+                fill: none;
+                stroke-linecap: round;
+                stroke-dasharray: 200;
+                stroke-dashoffset: 200;
+                transition: stroke-dashoffset 1.2s ease-in-out;
+            }
+
+            .bottom-line-section .bottom-line-text {
+                font-size: 20px;
+                line-height: 1.6;
+                color: #2d3748;
+                margin-bottom: 30px;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s ease, transform 0.6s ease;
+            }
+
+            .bottom-line-section .bottom-line-text.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .bottom-line-section .cta-button {
+                display: inline-block;
+                margin-top: 40px;
+                padding: 15px 40px;
+                background-color: #f5841f;
+                color: white;
+                text-decoration: none;
+                border-radius: 30px;
+                font-weight: 600;
+                font-size: 18px;
+                transition: all 0.3s ease;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s, background-color 0.3s ease;
+            }
+
+            .bottom-line-section .cta-button:hover {
+                background-color: #e67419;
+                transform: scale(1.05);
+            }
+
+            /* ============================================ SCRIBBLE ANIMATION FIX ============================================ */
+            .scribble-svg {
+                opacity: 1 !important;
+            }
+
+            .scribble-svg path {
+                stroke-dasharray: 800;
+                stroke-dashoffset: 800;
+            }
+
+            .scribble-svg.animate path {
+                animation: drawScribble 3s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+            }
+
+            /* ============================================ TRUST SECTION ANIMATIONS ============================================ */
+            .color-reveal {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .color-reveal::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+                transform: translateX(-100%);
+                transition: transform 1s ease-in-out;
+            }
+
+            .color-reveal.visible::before {
+                transform: translateX(100%);
+            }
+
+            .hinge-drop {
+                transform-origin: top left;
+                transform: rotate(-2deg);
+                transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+            .hinge-drop.visible {
+                transform: rotate(0);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header" id="mainHeader">
+            <div class="header-inner">
+                <img src="assets/logoClasico.png" alt="Mindbits Logo" class="logo">
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="#staff">Faqs</a>
+                    <a href="#about">About Us</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <div class="hero-carousel">
+                <div class="hero-carousel-container">
+                    <div class="hero-slide active">
+                        <img src="assets/hero/Competitive Rates, Boutique Quality.jpg" alt="Competitive Rates, Boutique Quality" class="hero-image">
+                    </div>
+                    <div class="hero-slide">
+                        <img src="assets/hero/Extensive Gaming & Analytics Expertise.jpg" alt="Extensive Gaming & Analytics Expertise" class="hero-image">
+                    </div>
+                    <div class="hero-slide">
+                        <img src="assets/hero/Latin American Talent Advantage.jpg" alt="Latin American Talent Advantage" class="hero-image">
+                    </div>
+                    <div class="hero-slide">
+                        <img src="assets/hero/Tailored Teams and Dedicated Support.jpg" alt="Tailored Teams and Dedicated Support" class="hero-image">
+                    </div>
+                </div>
+                
+                <!-- Carousel Navigation -->
+                <div class="hero-carousel-nav">
+                    <button class="hero-nav-btn hero-prev" onclick="changeHeroSlide(-1)">‹</button>
+                    <button class="hero-nav-btn hero-next" onclick="changeHeroSlide(1)">›</button>
+                </div>
+                
+                <!-- Carousel Indicators -->
+                <div class="hero-carousel-indicators">
+                    <button class="hero-indicator active" onclick="goToHeroSlide(0)"></button>
+                    <button class="hero-indicator" onclick="goToHeroSlide(1)"></button>
+                    <button class="hero-indicator" onclick="goToHeroSlide(2)"></button>
+                    <button class="hero-indicator" onclick="goToHeroSlide(3)"></button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Tabs Navigation -->
+        <div class="tabs-container">
+            <button class="tab-button analytics active" onclick="switchTab('analytics')">
+                Analytics<br>& Data
+            </button>
+            <button class="tab-button staff" onclick="switchTab('staff')">
+                Staff<br>Augmentation
+            </button>
+        </div>
+        
+        <!-- Tabs Content -->
+        <main class="content-section">
+            <!-- Analytics & Data Tab (FIRST TAB - tab2 content) -->
+            <div id="analytics-content" class="tab-content active">
+                <!-- Pyramid Section -->
+                <section class="pyramid-analytics-section">
+                    <div class="pyramid-header-container">
+                        <div class="pyramid-header">
+                            <h1>From Architecture to Agentic AI</h1>
+                            <h2>The complete data-to-intelligence pipeline</h2>
+                        </div>
+
+                        <div class="pyramid-content-wrapper">
+                            <div class="pyramid-visual">
+                                <div class="pyramid-layer" data-layer="1">
+                                    <div class="icon-wrapper">
+                                        <img src="assets/01.png" alt="Level 1 Icon" class="icon">
+                                    </div>
+                                </div>
+
+                                <div class="pyramid-layer" data-layer="2">
+                                    <div class="icon-wrapper">
+                                        <img src="assets/02.png" alt="Level 2 Icon" class="icon">
+                                    </div>
+                                </div>
+
+                                <div class="pyramid-layer" data-layer="3">
+                                    <div class="icon-wrapper">
+                                        <img src="assets/03.png" alt="Level 3 Icon" class="icon">
+                                    </div>
+                                </div>
+
+                                <div class="pyramid-layer" data-layer="4">
+                                    <div class="icon-wrapper">
+                                        <img src="assets/04.png" alt="Level 4 Icon" class="icon">
+                                    </div>
+                                </div>
+
+                                <div class="pyramid-layer" data-layer="5">
+                                    <div class="icon-wrapper">
+                                        <img src="assets/05.png" alt="Level 5 Icon" class="icon">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pyramid-content-list">
+                                <div class="content-item">
+                                    <h3>Artificial Intelligence (Top Layer)</h3>
+                                    <p>We integrate AI and LLM models that reason, act, and learn from user behavior. They run on top of your data ecosystem for contextual accuracy and continuous adaptation.</p>
+                                </div>
+
+                                <div class="content-item">
+                                    <h3>Advanced Analytics & Reporting</h3>
+                                    <p>We turn data into clear, actionable insights. Predictive models, dashboards, and automated narratives enable proactive decision-making.</p>
+                                </div>
+
+                                <div class="content-item">
+                                    <h3>Automated Data Validation</h3>
+                                    <p>We detect outliers and errors before they reach reporting layers. Automated statistical controls ensure data quality and prevent downstream issues.</p>
+                                </div>
+
+                                <div class="content-item">
+                                    <h3>Data Engineering</h3>
+                                    <p>We design scalable, reliable data pipelines and architectures. Quality, governance, and structured flow across systems and cloud sources are ensured.</p>
+                                </div>
+
+                                <div class="content-item">
+                                    <h3>Data Architecture (Foundation)</h3>
+                                    <p>We build end-to-end data ecosystems as the foundation for everything else. Secure, efficient storage, processing, and orchestration prepare your data for AI.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Intelligence Table Section -->
+                <section class="intelligence-section">
+                    <div class="intelligence-container">
+                        <div class="intelligence-header">
+                            <h1>Turning Data into Shared Intelligence</h1>
+                        </div>
+
+                        <div class="content-grid">
+                            <div class="column">
+                                <div class="column-header">Audience</div>
+                                <div class="cards-container">
+                                    <div class="intelligence-card">
+                                        <div class="intelligence-card-content">
+                                            <div class="card-title">Operational teams</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="intelligence-card">
+                                        <div class="intelligence-card-content">
+                                            <div class="card-title">Middle management</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="intelligence-card">
+                                        <div class="intelligence-card-content">
+                                            <div class="card-title">Executives</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="column-header">What they see</div>
+                                <div class="cards-container">
+                                    <div class="intelligence-card">
+                                        <div class="intelligence-card-content">
+                                            <div class="card-text">Real-time, detailed views of processes and KPIs</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="intelligence-card">
+                                        <div class="intelligence-card-content">
+                                            <div class="card-text">Performance summaries, trends, and correlations across business units</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="intelligence-card">
+                                        <div class="intelligence-card-content">
+                                            <div class="card-text">Unified, strategic view with decision-driving insights</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="column-header">Purpose</div>
+                                <div class="cards-container">
+                                    <div class="intelligence-card">
+                                        <div class="intelligence-card-content">
+                                            <div class="card-text">Day-to-day tracking and action</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="intelligence-card">
+                                        <div class="intelligence-card-content">
+                                            <div class="card-text">Coordinated performance oversight</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="intelligence-card">
+                                        <div class="intelligence-card-content">
+                                            <div class="card-text">Decision-making and long-term planning</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- How it Works Section -->
+                <section class="how-it-works-section">
+                    <div class="how-it-works-container">
+                        <h1 class="section-title">How it Works</h1>
+
+                        <ul class="bullet-list">
+                            <li class="bullet-item"><strong>One source, many views:</strong> dynamic data modeling + modular visualization.</li>
+                            <li class="bullet-item"><strong>Same truth for all:</strong> summarize, slice, or expand a single dataset by audience.</li>
+                            <li class="bullet-item"><strong>No silos:</strong> avoids duplication and misalignment across teams.</li>
+                            <li class="bullet-item"><strong>Flow of information:</strong> insights move upward; decisions cascade downward with consistency.</li>
+                            <li class="bullet-item"><strong>Cultural impact:</strong> aligned metrics turn data into a shared language; analytics become part of the daily rhythm, where intuition meets evidence.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Bottom Line Section -->
+                <section class="section-bottom-line">
+                    <div class="bottom-line-container">
+                        <div class="scribble-wrapper">
+                            <div class="bottom-line-label">Bottom line:</div>
+
+                            <!-- Loose Circle Scribble SVG -->
+                            <svg class="scribble-svg" role="presentation" viewBox="0 0 800 350" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                                <path transform="matrix(0.9791300296783447,0,0,0.9791300296783447,400,179)" stroke-linejoin="miter" fill-opacity="0" pathLength="1" stroke-miterlimit="4" stroke="#f9bd22" stroke-opacity="1" stroke-width="20" d="M253,-161 C253,-161 -284.78900146484375,-201.4600067138672 -376,-21 C-469,163 67.62300109863281,174.2100067138672 256,121 C564,34 250.82899475097656,-141.6929931640625 19.10700035095215,-116.93599700927734"></path>
+                            </svg>
+                        </div>
+
+                        <p class="bottom-line-text">
+                            Dashboards aren't the end of analytics, they're the bridge to shared intelligence across the organization.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Hypothesis Section -->
+                <section class="hypothesis-section">
+                    <div class="hypothesis-container">
+                        <div class="hypothesis-header">
+                            <h1 class="hypothesis-title">From Hypothesis to Proven Growth</h1>
+                            <p class="hypothesis-description">
+                                We help you replace guesswork with measurable impact. Mindbits.ai designs experimentation programs and robust attribution so your team learns fast, scales what works, and stops what doesn't.
+                            </p>
+                        </div>
+
+                        <div class="toggle-panels">
+                            <div class="toggle-panel">
+                                <div class="toggle-header" onclick="togglePanel(this)">
+                                    <h3 class="toggle-title">A/B Testing as a System (not a one-off)</h3>
+                                    <div class="toggle-icon"></div>
+                                </div>
+                                <div class="toggle-content">
+                                    <div class="toggle-content-inner">
+                                        <p class="toggle-text">
+                                            We build an experimentation engine your product and marketing teams can run weekly:
+                                        </p>
+                                        <ul class="toggle-list">
+                                            <li>Hypothesis → Design → Power: test plans with effect size targets, sample size, and power calculations.</li>
+                                            <li>Guardrails: metrics for revenue, retention, latency, crashes, and fraud, so wins don't hide trade-offs.</li>
+                                            <li>Statistical rigor: sequential testing, CUPED/variance reduction, and non-parametric tests when needed.</li>
+                                            <li>Automation: experiment registry, auto-exposure, and pipelines for lift computation and reporting.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="toggle-panel">
+                                <div class="toggle-header" onclick="togglePanel(this)">
+                                    <h3 class="toggle-title">User Acquisition you can actually trust</h3>
+                                    <div class="toggle-icon"></div>
+                                </div>
+                                <div class="toggle-content">
+                                    <div class="toggle-content-inner">
+                                        <p class="toggle-text">
+                                            We reconcile acquisition spend with real business outcomes:
+                                        </p>
+                                        <ul class="toggle-list">
+                                            <li>Attribution you can defend: SKAN/SKAdNetwork workflows, MMP integration, server-side postbacks, and MMM/MTA when applicable.</li>
+                                            <li>Incrementality over vanity: geo-split tests, PSA/ghost ads, and holdouts to quantify true lift.</li>
+                                            <li>Creative & audience feedback loops: rapid creative iteration, audience pruning, and budget reallocation based on causal impact.</li>
+                                            <li>Fraud & quality controls: detection of click spam/device farms, uninstall/retention filters, and cohort quality scoring.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="toggle-panel">
+                                <div class="toggle-header" onclick="togglePanel(this)">
+                                    <h3 class="toggle-title">Retention & Engagement Models</h3>
+                                    <div class="toggle-icon"></div>
+                                </div>
+                                <div class="toggle-content">
+                                    <div class="toggle-content-inner">
+                                        <p class="toggle-text">
+                                            Growth doesn't stop at acquisition. We model what keeps users coming back:
+                                        </p>
+                                        <ul class="toggle-list">
+                                            <li>Churn prediction: identify at-risk users before they leave.</li>
+                                            <li>Cohort analysis: retention curves by acquisition source, feature usage, and time.</li>
+                                            <li>Engagement scoring: quantify user health and trigger interventions.</li>
+                                            <li>Feature adoption: which features drive stickiness, which are ignored.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="toggle-panel">
+                                <div class="toggle-header" onclick="togglePanel(this)">
+                                    <h3 class="toggle-title">Revenue & Monetization Analytics</h3>
+                                    <div class="toggle-icon"></div>
+                                </div>
+                                <div class="toggle-content">
+                                    <div class="toggle-content-inner">
+                                        <p class="toggle-text">
+                                            From LTV to pricing experiments, we build the analytics layer for revenue optimization:
+                                        </p>
+                                        <ul class="toggle-list">
+                                            <li>LTV modeling: predictive models for customer lifetime value by cohort.</li>
+                                            <li>Pricing elasticity: how does price impact conversion and revenue?</li>
+                                            <li>Subscription metrics: MRR, ARR, churn, expansion revenue, and renewal rates.</li>
+                                            <li>Revenue attribution: tie revenue back to campaigns, features, and product changes.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Section -->
+                <section class="performance-section">
+                    <div class="performance-container">
+                        <div class="performance-header">
+                            <h1>Faster, Leaner, Smarter.</h1>
+                            <h1>Engineer for performance.</h1>
+                            <h1>Tune costs continuously.</h1>
+                            <h1>Max ROI per dollar.</h1>
+                        </div>
+
+                        <div class="performance-table-header">
+                            <div class="performance-column-title">Pillar</div>
+                            <div class="performance-column-title">What we do</div>
+                            <div class="performance-column-title">Why it matters</div>
+                        </div>
+
+                        <div class="performance-rows-container">
+                            <div class="performance-row">
+                                <div class="pillar-card">
+                                    <div class="pillar-content">
+                                        <h3 class="pillar-title">Build once, pay right</h3>
+                                        <span class="pillar-arrow">→</span>
+                                    </div>
+                                </div>
+
+                                <div class="performance-text-card">
+                                    <p>
+                                        Partitioning & clustering: pruning. Customer usage. Spot vs. cold storage. 
+                                        Lifecycle rules, compression, late-binding materialized views, pre-aggregates, and 
+                                        warehouse auto-suspend. Smaller tables = less cost + faster queries.
+                                    </p>
+                                </div>
+
+                                <div class="performance-text-card">
+                                    <p>
+                                        "We saved 40% on Snowflake by switching to a 
+                                        smartest storage on the right tier, 
+                                        predictable headroom vs. cost."
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="performance-row">
+                                <div class="pillar-card">
+                                    <div class="pillar-content">
+                                        <h3 class="pillar-title">FinOps & Observability</h3>
+                                        <span class="pillar-arrow">→</span>
+                                    </div>
+                                </div>
+
+                                <div class="performance-text-card">
+                                    <p>
+                                        Cost monitors & budgets by project/environment/dataset. Anomaly alerts. 
+                                        Real-time dashboards for queries, storage, compute. Slot utilization & BigQuery 
+                                        on-demand. Capacity & latency: SCAN-cofficient, Pipeline breakdown. 
+                                        Daily exports to Looker or BI; cross-source baseline, burndown baselines, 
+                                        burnline queries.
+                                    </p>
+                                </div>
+
+                                <div class="performance-text-card">
+                                    <p>
+                                        Daily visibility action items: remove runaway 
+                                        statuses scan without surprises: prevent 
+                                        runaway bills.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="performance-row">
+                                <div class="pillar-card">
+                                    <div class="pillar-content">
+                                        <h3 class="pillar-title">Continuous improvement</h3>
+                                        <span class="pillar-arrow">→</span>
+                                    </div>
+                                </div>
+
+                                <div class="performance-text-card">
+                                    <p>
+                                        Monthly Efficiency Sprints with documented wins. Golden paths for 
+                                        efficient defaults. Vendor & finance negotiation.
+                                    </p>
+                                </div>
+
+                                <div class="performance-text-card">
+                                    <p>
+                                        Compounding gains: embedded optimization practice, captured 
+                                        platform discount/relations.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Staff Augmentation Tab (SECOND TAB - tab1 content) -->
+            <div id="staff-content" class="tab-content">
+                <!-- Section 1: Staff Augmentation | What problem does it solve -->
+                <section class="problem-solution-section" id="staff">
+                    <div class="network-bg"></div>
+                    <div class="problem-solution-container">
+                        <h1 class="problem-solution-header">Staff Augmentation | What problem does it solve</h1>
+                        
+                        <div class="problem-solution-cards-container">
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h2>The Problem</h2>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <div class="back-content">
+                                            <h3>The Problem</h3>
+                                            <p>Modern businesses face constant pressure to innovate and deliver faster. In tech-driven industries like software development and gaming, the challenge is clear:</p>
+                                            <ul>
+                                                <li>Finding specialized, high-level skills quickly.</li>
+                                                <li>Avoiding the cost and delays of traditional hiring.</li>
+                                                <li>Bridging immediate talent gaps without long-term commitments.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h2>Our Solution</h2>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <div class="back-content">
+                                            <h3>Our Solution</h3>
+                                            <p>Our Staff Augmentation service gives you on-demand access to top-tier, pre-vetted global talent. These professionals integrate seamlessly into your workflows, helping you:</p>
+                                            <ul>
+                                                <li>Scale your team with agility.</li>
+                                                <li>Accelerate project delivery.</li>
+                                                <li>Drive innovation without disrupting your culture.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <h2>The Advantage</h2>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <div class="back-content">
+                                            <h3>The Advantage</h3>
+                                            <p>With Mindbits, you gain:</p>
+                                            <ul>
+                                                <li>Flexibility to expand or reduce your team as needed.</li>
+                                                <li>Speed in onboarding the right experts at the right time.</li>
+                                                <li>Cost efficiency by reducing recruitment overhead.</li>
+                                                <li>Operational excellence and a lasting competitive edge.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider"></div>
+
+                <!-- Section 2: Staff Augmentation vs Traditional Recruitment -->
+                <div class="comparison-section">
+                    <div class="comparison-header">
+                        <h1>Staff Augmentation vs Traditional Recruitment</h1>
+                    </div>
+
+                    <div class="table-header">
+                        <div class="column-title">Aspect</div>
+                        <div class="column-title">Traditional Recruitment</div>
+                        <div class="column-title">Staff Augmentation</div>
+                    </div>
+
+                    <div class="rows-container">
+                        <div class="row">
+                            <div class="aspect-card">
+                                <div class="aspect-content">
+                                    <h3 class="aspect-title">Hiring Model</h3>
+                                    <span class="aspect-arrow">→</span>
+                                </div>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    Recruiters help you find, vet, and hire permanent employees onto your payroll.
+                                </p>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    We provide immediate, specialized talent for specific needs or projects.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="aspect-card">
+                                <div class="aspect-content">
+                                    <h3 class="aspect-title">Focus</h3>
+                                    <span class="aspect-arrow">→</span>
+                                </div>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    Long-term cultural and skill alignment to build your core team.
+                                </p>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    Short- to mid-term project demands and bridging immediate talent gaps.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="aspect-card">
+                                <div class="aspect-content">
+                                    <h3 class="aspect-title">Management</h3>
+                                    <span class="aspect-arrow">→</span>
+                                </div>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    You manage all HR responsibilities: onboarding, benefits, and career development.
+                                </p>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    Talent remains on our payroll and under our HR administration.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="aspect-card">
+                                <div class="aspect-content">
+                                    <h3 class="aspect-title">Integration</h3>
+                                    <span class="aspect-arrow">→</span>
+                                </div>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    Employees become part of your permanent workforce.
+                                </p>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    Professionals integrate into your workflows but stay external to your payroll.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="aspect-card">
+                                <div class="aspect-content">
+                                    <h3 class="aspect-title">Flexibility</h3>
+                                    <span class="aspect-arrow">→</span>
+                                </div>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    Limited — scaling requires lengthy hiring processes.
+                                </p>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    High — scale teams up or down quickly without long-term commitments.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="aspect-card">
+                                <div class="aspect-content">
+                                    <h3 class="aspect-title">Cost & Overhead</h3>
+                                    <span class="aspect-arrow">→</span>
+                                </div>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    Higher costs due to recruitment, benefits, and long-term obligations.
+                                </p>
+                            </div>
+
+                            <div class="text-card">
+                                <p>
+                                    Cost-efficient — no recruitment overhead or permanent commitments.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Section 3: Staff Augmentation | Hiring Pipeline -->
+                <div class="pipeline-section">
+                    <div class="section-container">
+                        <div class="section-header">
+                            <h1>Staff Augmentation | Hiring Pipeline</h1>
+                        </div>
+
+                        <div class="pipeline-content-wrapper">
+                            <div class="steps-section">
+                                <div class="step-item">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h3 class="step-title">Kick-off & Alignment</h3>
+                                        <p class="step-description">
+                                            We start with a deep-dive meeting to understand the role's scope, responsibilities, 
+                                            and the ideal candidate profile. Together, we align on key logistics, including the 
+                                            number of interview stages you want to conduct.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="step-item">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h3 class="step-title">Sourcing & Attraction</h3>
+                                        <p class="step-description">
+                                            With the blueprint in place, we activate a multi-channel sourcing strategy—posting 
+                                            the role and proactively reaching both active and passive candidates.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="step-item">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h3 class="step-title">Screening & Assessments</h3>
+                                        <p class="step-description">
+                                            Our team carefully reviews resumes, conducts comprehensive HR screenings, and 
+                                            facilitates any required technical assessments.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="step-item">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <h3 class="step-title">Client Interviews</h3>
+                                        <p class="step-description">
+                                            Qualified candidates move forward to the interview stages you've defined. We act as 
+                                            the central hub of communication, ensuring a smooth and positive candidate experience.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="step-item">
+                                    <div class="step-number">5</div>
+                                    <div class="step-content">
+                                        <h3 class="step-title">Closing & Onboarding</h3>
+                                        <p class="step-description">
+                                            Once you make the final decision, we handle the offer letter, manage all hiring 
+                                            paperwork, and initiate a structured onboarding process for a successful start.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="step-item">
+                                    <div class="step-number">6</div>
+                                    <div class="step-content">
+                                        <h3 class="step-title">Continuous Communication</h3>
+                                        <p class="step-description">
+                                            At every stage, we provide feedback to candidates and maintain proactive contact with 
+                                            you. This end-to-end ownership transforms hiring from a challenge into a strategic advantage.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="image-section">
+                                <div class="image-wrapper">
+                                    <img src="assets/Hombre.png" 
+                                        alt="Professional Staff Augmentation" 
+                                        class="main-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Section 4: Staff Augmentation | Tangible Benefits -->
+                <div class="benefits-section">
+                    <div class="section-container">
+                        <div class="benefits-header">
+                            <h1>Staff Augmentation | Tangible Benefits</h1>
+                        </div>
+
+                        <div class="carousel-wrapper" id="carouselWrapperStaff">
+                            <div class="carousel-nav">
+                                <button class="nav-arrow prev" id="prevBtnStaff">‹</button>
+                                <button class="nav-arrow next" id="nextBtnStaff">›</button>
+                            </div>
+
+                            <div class="carousel-container" id="carouselStaff">
+                                <div class="benefit-item">
+                                    <div class="image-container">
+                                        <div class="benefit-image-wrapper benefit-img img1"></div>
+                                    </div>
+                                    <div class="text-content">
+                                        <h3 class="benefit-title">Accelerated Time-to-Hire</h3>
+                                        <p class="benefit-description">
+                                            Our streamlined hiring pipeline—from kick-off to onboarding—delivers pre-vetted talent in weeks, not months. Meet critical deadlines without delays.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="benefit-item">
+                                    <div class="image-container">
+                                        <div class="benefit-image-wrapper benefit-img img2"></div>
+                                    </div>
+                                    <div class="text-content">
+                                        <h3 class="benefit-title">Significant Cost Reduction</h3>
+                                        <p class="benefit-description">
+                                            Avoid the high overhead of permanent hires (recruiter fees, benefits, payroll taxes, severance). Access specialized skills with a predictable, budget-friendly model.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="benefit-item">
+                                    <div class="image-container">
+                                        <div class="benefit-image-wrapper benefit-img img3"></div>
+                                    </div>
+                                    <div class="text-content">
+                                        <h3 class="benefit-title">Agile & Scalable Teams</h3>
+                                        <p class="benefit-description">
+                                            Bridge skill gaps instantly and scale your team up or down as projects evolve. Respond to market demands with precision, without long-term commitments.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="benefit-item">
+                                    <div class="image-container">
+                                        <div class="benefit-image-wrapper benefit-img img4"></div>
+                                    </div>
+                                    <div class="text-content">
+                                        <h3 class="benefit-title">Global, Top-Tier Talent Pool</h3>
+                                        <p class="benefit-description">
+                                            Tap into diverse, high-impact professionals in data analytics, product management, and software development—giving you a direct competitive edge.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="benefit-item">
+                                    <div class="image-container">
+                                        <div class="benefit-image-wrapper benefit-img img5"></div>
+                                    </div>
+                                    <div class="text-content">
+                                        <h3 class="benefit-title">Reduced Administrative Burden</h3>
+                                        <p class="benefit-description">
+                                            We manage HR, payroll, benefits, and compliance (including cross-border hires), freeing your team to focus on strategy and growth.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="benefit-item">
+                                    <div class="image-container">
+                                        <div class="benefit-image-wrapper benefit-img img6"></div>
+                                    </div>
+                                    <div class="text-content">
+                                        <h3 class="benefit-title">Cultural & Technical Fit</h3>
+                                        <p class="benefit-description">
+                                            Beyond resumes: our HR screenings and tailored technical assessments ensure every professional integrates seamlessly into your workflows from day one.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-progress">
+                            <div class="progress-fill" id="progressFillStaff"></div>
+                        </div>
+                    </div>
+                </div>
+
+            
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer" id="contact">
+            <!-- Footer Main - Dark gradient section -->
+            <div class="footer-main">
+                <div class="footer-content">
+                    <!-- Contact Form -->
+                    <div class="contact-form">
+                        <h3>Have a project in mind?</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label>Your name*</label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail*</label>
+                                <input type="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Message*</label>
+                                <textarea required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+
+                    <!-- Footer Info -->
+                    <div class="footer-info">
+                        <h2>Let's talk.</h2>
+                        <p>Tell us about your project</p>
+                        <p><strong>Quick response.</strong></p>
+                        <p>If you're ready to create and collaborate, we'd love to hear from you.</p>
+                        <p><strong>Clear next steps.</strong></p>
+                        <p>After the consultation, we'll provide you with a detailed plan of a timeline.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom - White section -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <!-- Contact Info -->
+                    <div class="footer-contact">
+                        <h4>Contact</h4>
+                        <p>(+54) 11 6895-8605</p>
+                        <p><a href="mailto:hello@mindbits.ai">hello@mindbits.ai</a></p>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="footer-nav">
+                        <h4>Navigation</h4>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Data</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Social Media & Logo -->
+                    <div class="footer-logo-section">
+                        <div class="footer-social">
+                            <h4>Social</h4>
+                            <div class="social-icons">
+                                <a href="#" class="social-icon" title="LinkedIn">in</a>
+                                <a href="#" class="social-icon" title="Twitter">𝕏</a>
+                                <a href="#" class="social-icon" title="Instagram">IG</a>
+                            </div>
+                        </div>
+                        <div style="margin-top: 30px;">
+                            <img src="assets/logoClasico.png" alt="Mindbits Logo" class="footer-logo" style="max-width: 400px; height: auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright - Blue section -->
+            <div class="footer-copyright">
+                <p> 2026 Mindbits. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script>
+            // ============================================ GLOBAL VARIABLES ============================================
+            const header = document.getElementById('mainHeader');
+            let currentHeroSlide = 0;
+            const heroSlides = document.querySelectorAll('.hero-slide');
+            const heroIndicators = document.querySelectorAll('.hero-indicator');
+            let heroInterval;
+
+            // ============================================ HAMBURGER MENU FUNCTIONALITY ============================================
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburgerMenu.addEventListener('click', function() {
+                hamburgerMenu.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburgerMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!header.contains(event.target)) {
+                    hamburgerMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+
+            // ============================================ TAB SWITCHING FUNCTIONALITY ============================================
+            function switchTab(tabName) {
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                    tab.style.display = 'none';
+                });
+                
+                // Show selected tab content
+                const selectedTab = document.getElementById(tabName + '-content');
+                selectedTab.classList.add('active');
+                selectedTab.style.display = 'block';
+                
+                // Update active tab button
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector('.tab-button.' + tabName).classList.add('active');
+                
+                // Scroll to top of content
+                const tabsContainer = document.querySelector('.tabs-container');
+                const offset = tabsContainer.offsetTop;
+                window.scrollTo({
+                    top: offset - 100,
+                    behavior: 'smooth'
+                });
+            }
+
+            // ============================================ HERO CAROUSEL ============================================
+            function showHeroSlide(index) {
+                // Remove all classes
+                heroSlides.forEach(slide => {
+                    slide.classList.remove('active', 'prev', 'next');
+                });
+                heroIndicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                // Calculate positions for parallax effect
+                const totalSlides = heroSlides.length;
+                const prevIndex = (index - 1 + totalSlides) % totalSlides;
+                const nextIndex = (index + 1) % totalSlides;
+                
+                // Set classes for parallax effect
+                heroSlides[index].classList.add('active');
+                if (totalSlides > 1) {
+                    heroSlides[prevIndex].classList.add('prev');
+                    heroSlides[nextIndex].classList.add('next');
+                }
+                
+                // Update indicators
+                if (heroIndicators[index]) {
+                    heroIndicators[index].classList.add('active');
+                }
+                
+                currentHeroSlide = index;
+            }
+
+            function changeHeroSlide(direction) {
+                currentHeroSlide += direction;
+                
+                if (currentHeroSlide >= heroSlides.length) {
+                    currentHeroSlide = 0;
+                } else if (currentHeroSlide < 0) {
+                    currentHeroSlide = heroSlides.length - 1;
+                }
+                
+                showHeroSlide(currentHeroSlide);
+                resetHeroInterval();
+            }
+
+            function goToHeroSlide(index) {
+                currentHeroSlide = index;
+                showHeroSlide(currentHeroSlide);
+                resetHeroInterval();
+            }
+
+            function startHeroInterval() {
+                heroInterval = setInterval(() => {
+                    changeHeroSlide(1);
+                }, 2500); // Slower rotation - 2.5 seconds
+            }
+
+            function resetHeroInterval() {
+                clearInterval(heroInterval);
+                startHeroInterval();
+            }
+
+            function initHeroCarousel() {
+                if (heroSlides.length === 0) return;
+                
+                // Initialize first slide with parallax effect
+                showHeroSlide(0);
+                
+                // Start auto-rotation
+                startHeroInterval();
+                
+                // Pause on hover
+                const heroCarousel = document.querySelector('.hero-carousel');
+                if (heroCarousel) {
+                    heroCarousel.addEventListener('mouseenter', () => {
+                        clearInterval(heroInterval);
+                    });
+                    
+                    heroCarousel.addEventListener('mouseleave', () => {
+                        startHeroInterval();
+                    });
+                }
+                
+                // Add touch support for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                heroCarousel.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+                
+                heroCarousel.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+                
+                function handleSwipe() {
+                    const swipeThreshold = 50;
+                    const diff = touchStartX - touchEndX;
+                    
+                    if (Math.abs(diff) > swipeThreshold) {
+                        if (diff > 0) {
+                            changeHeroSlide(1); // Swipe left, go to next
+                        } else {
+                            changeHeroSlide(-1); // Swipe right, go to prev
+                        }
+                    }
+                }
+            }
+
+            // ============================================ OBSERVERS FOR ANIMATIONS ============================================
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, observerOptions);
+
+            // ============================================ ANALYTICS SECTION - PYRAMID ============================================
+            function initPyramidAnimations() {
+                // Observar capas de la pirámide
+                document.querySelectorAll('#analytics-content .pyramid-layer').forEach(layer => {
+                    observer.observe(layer);
+                });
+
+                // Observar elementos de contenido
+                document.querySelectorAll('#analytics-content .content-item').forEach(item => {
+                    observer.observe(item);
+                });
+
+                // Efectos hover para capas de la pirámide
+                document.querySelectorAll('#analytics-content .pyramid-layer').forEach(layer => {
+                    layer.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-5px) scale(1.02)';
+                    });
+
+                    layer.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    });
+                });
+            }
+
+            // ============================================ ANALYTICS SECTION - HOW IT WORKS ============================================
+            function initHowItWorksAnimations() {
+                const bulletItems = document.querySelectorAll('#analytics-content .bullet-item');
+
+                function revealTextOnScroll() {
+                    const viewportHeight = window.innerHeight;
+                    
+                    bulletItems.forEach(item => {
+                        const rect = item.getBoundingClientRect();
+                        const itemCenter = rect.top + rect.height / 2;
+                        
+                        const triggerPoint = viewportHeight * 0.7;
+                        const fadeDistance = viewportHeight * 0.5;
+                        
+                        if (itemCenter < triggerPoint) {
+                            const distance = triggerPoint - itemCenter;
+                            const progress = Math.min(distance / fadeDistance, 1);
+                            const opacity = 0.15 + (progress * 0.85);
+                            item.style.opacity = opacity;
+                        } else {
+                            item.style.opacity = 0.15;
+                        }
+                    });
+                }
+
+                let ticking = false;
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            revealTextOnScroll();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                });
+
+                // Reveal inicial al cargar la página
+                revealTextOnScroll();
+            }
+
+            // ============================================ ANALYTICS SECTION - BOTTOM LINE ============================================
+            function initBottomLineAnimation() {
+                const scribbleObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const svg = entry.target.querySelector('.scribble-svg');
+                            const text = entry.target.querySelector('.bottom-line-text');
+                            
+                            svg.classList.add('animate');
+                            text.classList.add('visible');
+                            
+                            scribbleObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { 
+                    threshold: 0.2,
+                    rootMargin: '0px 0px -30% 0px'
+                });
+
+                const bottomLineSection = document.querySelector('#analytics-content .section-bottom-line');
+                if (bottomLineSection) {
+                    scribbleObserver.observe(bottomLineSection);
+                }
+            }
+
+            // ============================================ ANALYTICS SECTION - TOGGLE PANELS ============================================
+            function togglePanel(header) {
+                const panel = header.parentElement;
+                const content = panel.querySelector('.toggle-content');
+                const contentInner = panel.querySelector('.toggle-content-inner');
+                const isActive = panel.classList.contains('active');
+
+                // Cerrar todos los paneles
+                document.querySelectorAll('#analytics-content .toggle-panel').forEach(p => {
+                    p.classList.remove('active');
+                    p.querySelector('.toggle-content').style.maxHeight = null;
+                });
+
+                // Abrir el panel clickeado si no estaba activo
+                if (!isActive) {
+                    panel.classList.add('active');
+                    content.style.maxHeight = contentInner.offsetHeight + 'px';
+                }
+            }
+
+            // ============================================ STAFF SECTION - PIPELINE ANIMATIONS ============================================
+            function initPipelineAnimations() {
+                const stepItems = document.querySelectorAll('#staff-content .step-item');
+                const imageWrapper = document.querySelector('#staff-content .image-wrapper');
+
+                if (stepItems.length > 0) {
+                    const pipelineObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('animate');
+                            }
+                        });
+                    }, {
+                        threshold: 0.1
+                    });
+
+                    // Observar cada step item
+                    stepItems.forEach(item => {
+                        pipelineObserver.observe(item);
+                    });
+
+                    // Observar la imagen
+                    if (imageWrapper) {
+                        const imageDelayObserver = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    setTimeout(() => {
+                                        entry.target.classList.add('animate');
+                                    }, 300);
+                                }
+                            });
+                        }, {
+                            threshold: 0.2
+                        });
+                        
+                        imageDelayObserver.observe(imageWrapper);
+                    }
+                }
+            }
+
+            // ============================================ STAFF SECTION - BENEFITS CAROUSEL ============================================
+            function initBenefitsCarouselStaff() {
+                const carousel = document.getElementById('carouselStaff');
+                const carouselWrapper = document.getElementById('carouselWrapperStaff');
+                const prevBtn = document.getElementById('prevBtnStaff');
+                const nextBtn = document.getElementById('nextBtnStaff');
+                const progressFill = document.getElementById('progressFillStaff');
+
+                if (!carousel) return;
+
+                let isDragging = false;
+                let startPos = 0;
+                let currentTranslate = 0;
+                let prevTranslate = 0;
+                let currentIndex = 0;
+
+                const items = document.querySelectorAll('#staff-content .benefit-item');
+                const totalItems = items.length;
+
+                function getCardsPerView() {
+                    if (window.innerWidth <= 768) return 1;
+                    if (window.innerWidth <= 1200) return 2;
+                    return 3;
+                }
+
+                function getMaxScroll() {
+                    const cardsPerView = getCardsPerView();
+                    return Math.max(0, totalItems - cardsPerView);
+                }
+
+                function updateCarousel() {
+                    const itemWidth = items[0].offsetWidth;
+                    const gap = window.innerWidth <= 768 ? 20 : 40;
+                    const offset = -(currentIndex * (itemWidth + gap));
+                    
+                    carousel.style.transform = `translateX(${offset}px)`;
+                    
+                    const maxScroll = getMaxScroll();
+                    const progress = maxScroll > 0 ? ((currentIndex / maxScroll) * 100) : 100;
+                    progressFill.style.width = `${progress}%`;
+                    
+                    prevBtn.classList.toggle('disabled', currentIndex === 0);
+                    nextBtn.classList.toggle('disabled', currentIndex >= maxScroll);
+                }
+
+                function touchStart(e) {
+                    isDragging = true;
+                    startPos = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+                    carousel.classList.add('dragging');
+                }
+
+                function touchMove(e) {
+                    if (!isDragging) return;
+                    
+                    const currentPosition = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+                    const diff = currentPosition - startPos;
+                    currentTranslate = prevTranslate + diff;
+                }
+
+                function touchEnd() {
+                    if (!isDragging) return;
+                    
+                    isDragging = false;
+                    carousel.classList.remove('dragging');
+                    
+                    const movedBy = currentTranslate - prevTranslate;
+                    const threshold = 50;
+                    
+                    if (movedBy < -threshold && currentIndex < getMaxScroll()) {
+                        currentIndex++;
+                    } else if (movedBy > threshold && currentIndex > 0) {
+                        currentIndex--;
+                    }
+                    
+                    prevTranslate = currentTranslate;
+                    updateCarousel();
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateCarousel();
+                    }
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    if (currentIndex < getMaxScroll()) {
+                        currentIndex++;
+                        updateCarousel();
+                    }
+                });
+
+                carousel.addEventListener('mousedown', touchStart);
+                carousel.addEventListener('mousemove', touchMove);
+                carousel.addEventListener('mouseup', touchEnd);
+                carousel.addEventListener('mouseleave', touchEnd);
+
+                carousel.addEventListener('touchstart', touchStart);
+                carousel.addEventListener('touchmove', touchMove);
+                carousel.addEventListener('touchend', touchEnd);
+
+                carousel.addEventListener('dragstart', (e) => e.preventDefault());
+
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => {
+                        currentIndex = Math.min(currentIndex, getMaxScroll());
+                        updateCarousel();
+                    }, 250);
+                });
+
+                updateCarousel();
+            }
+
+            // ============================================ STAFF SECTION - FLIP CARDS TOUCH SUPPORT ============================================
+            function initFlipCardsTouchSupport() {
+                if ('ontouchstart' in window) {
+                    const flipCards = document.querySelectorAll('#staff-content .flip-card');
+                    flipCards.forEach(card => {
+                        card.addEventListener('click', function(e) {
+                            flipCards.forEach(c => {
+                                if (c !== this) c.classList.remove('active');
+                            });
+                            this.classList.toggle('active');
+                        });
+                    });
+
+                    document.addEventListener('click', function(e) {
+                        if (!e.target.closest('#staff-content .flip-card')) {
+                            flipCards.forEach(card => card.classList.remove('active'));
+                        }
+                    });
+                }
+            }
+
+            // ============================================ STAFF AUGMENTATION - ASPECT CARDS CLICK HANDLERS ============================================
+            function initAspectCards() {
+                document.querySelectorAll('#staff-content .aspect-card').forEach(card => {
+                    card.addEventListener('click', function() {
+                        console.log('Aspect clicked:', this.querySelector('.aspect-title').textContent);
+                    });
+                });
+            }
+
+            // ============================================ FORM SUBMISSION ============================================
+            function initContactForm() {
+                document.getElementById('contactForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                });
+            }
+
+            // ============================================ SMOOTH SCROLLING FOR ANCHOR LINKS ============================================
+            function initSmoothScrolling() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            const offset = targetElement.offsetTop - 80;
+                            window.scrollTo({
+                                top: offset,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+
+            // ============================================ STAFF BOTTOM LINE ANIMATION ============================================
+            function initStaffBottomLineAnimation() {
+                const bottomLineSection = document.querySelector('.bottom-line-section');
+                if (!bottomLineSection) return;
+
+                const scribblePaths = bottomLineSection.querySelectorAll('.scribble-svg path');
+                const texts = bottomLineSection.querySelectorAll('.bottom-line-text, .cta-button');
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Animate all scribble paths
+                            scribblePaths.forEach(path => {
+                                path.style.strokeDashoffset = 0;
+                            });
+
+                            // Animate texts with staggered delay
+                            texts.forEach((text, index) => {
+                                setTimeout(() => {
+                                    text.style.opacity = 1;
+                                    text.style.transform = 'translateY(0)';
+                                }, index * 200);
+                            });
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                observer.observe(bottomLineSection);
+            }
+
+            // ============================================ TRUST SECTION ANIMATIONS ============================================
+            function initTrustSectionAnimations() {
+                const trustObserverOptions = {
+                    threshold: 0.2,
+                    rootMargin: '0px 0px -100px 0px'
+                };
+
+                const trustObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, trustObserverOptions);
+
+                // Observe all section blocks in trust section
+                document.querySelectorAll('.section-trust .section-block').forEach(section => {
+                    trustObserver.observe(section);
+                });
+
+                // Trigger first section immediately if in viewport
+                window.addEventListener('load', () => {
+                    const firstSection = document.querySelector('.section-trust .section-block');
+                    if (firstSection) {
+                        const rect = firstSection.getBoundingClientRect();
+                        if (rect.top < window.innerHeight) {
+                            firstSection.classList.add('visible');
+                        }
+                    }
+                });
+            }
+
+            // ============================================ INITIALIZATION ON DOM LOAD ============================================
+            // Initialize tabs when DOM is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('Mindbits - Unified Platform initialized');
+                
+                // Initialize all components
+                initHeroCarousel();
+                initSmoothScrolling();
+                initContactForm();
+                initFlipCardsTouchSupport();
+                initAspectCards();
+                initBenefitsCarouselStaff();
+                initPipelineAnimations();
+                initPyramidAnimations();
+                initHowItWorksAnimations();
+                initBottomLineAnimation();
+                initTrustSectionAnimations();
+                initStaffBottomLineAnimation();
+
+                // Initial scroll animations trigger
+                window.dispatchEvent(new Event('scroll'));
+            });
+
+            // ============================================ GLOBAL EVENT LISTENERS ============================================
+            window.addEventListener('scroll', () => {
+                handleHeaderScroll();
+            });
+        </script>
+    </body>
+    </html>
