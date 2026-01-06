@@ -56,7 +56,9 @@
         html {
             scroll-behavior: smooth;
             overflow-x: hidden;
+            overflow-y: auto;   /* <- corregido */
             width: 100%;
+            min-height: 100%;
         }
 
         body {
@@ -64,8 +66,11 @@
             background: #ffffff;
             color: var(--mindbits-blue);
             overflow-x: hidden;
+            min-height: 100vh;
             width: 100%;
             scrollbar-width: none;
+            scroll-behavior: smooth;
+            position: relative;
             -ms-overflow-style: none;
             line-height: 1.6;
         }
@@ -85,8 +90,10 @@
                 height: 64px;
                 padding: 0 40px;
                 box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-                position: sticky;
+                position: fixed;
                 top: 0;
+                left: 0;
+                right:0;
                 z-index: 1000;
                 margin: 0 auto;
                 max-width: 1400px;
@@ -5083,4 +5090,5 @@
             // No scroll handler needed for now
         </script>
     </body>
+
     </html>
