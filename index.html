@@ -1,84 +1,83 @@
     <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mindbits - Data Intelligence & Staff Augmentation</title>
-        
-        <!-- Google Fonts - Inter -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-        
-        <style>
-            /* ============================================ ROOT VARIABLES & GLOBAL STYLES ============================================ */
-            :root {
-                --mindbits-orange: #f5841f;
-                --mindbits-blue: #27306b;
-                --mindbits-purple: #7b5ea7;
-                --mindbits-pink: #ec5b8c;
-                --mindbits-yellow: #ffa33a;
-                --mindbits-red: #ff5d6c;
-                --mindbits-light-blue: #6cc0ff;
-                
-                /* Pyramid gradients */
-                --pyramid-1-start: #70a6d9;
-                --pyramid-1-end: #68cce7;
-                --pyramid-2-start: #f05b90;
-                --pyramid-2-end: #da4a9a;
-                --pyramid-3-start: #fcb13d;
-                --pyramid-3-end: #f47521;
-                --pyramid-4-start: #f26968;
-                --pyramid-4-end: #ee397a;
-                --pyramid-5-start: #9f6cae;
-                --pyramid-5-end: #6b56a4;
-                
-                /* Typography sizes */
-                --text-normal: 16px;
-                --text-large: 18px;
-                --subtitle: 22px;
-                --heading: 32px;
-                --heading-large: 36px;
-                --ui-button: 14px;
-                
-                /* Border radius */
-                --border-radius: 16px;
-                
-                /* Transitions */
-                --transition: all 0.3s cubic-bezier(0.2, 0.6, 0.1, 1);
-            }
-
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            html {
-                scroll-behavior: smooth;
-                overflow-x: hidden;
-                width: 100%;
-            }
-
-            body {
-                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                background: #ffffff;
-                color: var(--mindbits-blue);
-                overflow-x: hidden;
-                width: 100%;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-                line-height: 1.6;
-            }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindbits - Data Intelligence & Staff Augmentation</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <style>
+        /* ============================================ ROOT VARIABLES & GLOBAL STYLES ============================================ */
+        :root {
+            --mindbits-orange: #f5841f;
+            --mindbits-blue: #27306b;
+            --mindbits-purple: #7b5ea7;
+            --mindbits-pink: #ec5b8c;
+            --mindbits-yellow: #ffa33a;
+            --mindbits-red: #ff5d6c;
+            --mindbits-light-blue: #6cc0ff;
             
-            body::-webkit-scrollbar {
-                display: none;
-            }
+            /* Typography sizes */
+            --text-normal: 16px;
+            --text-large: 18px;
+            --subtitle: 22px;
+            --heading: 32px;
+            --heading-large: 36px;
+            --ui-button: 14px;
+            
+            /* Border radius */
+            --border-radius: 16px;
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.2, 0.6, 0.1, 1);
+            
+            /* Pyramid gradients */
+            --pyramid-1-start: #70a6d9;
+            --pyramid-1-end: #68cce7;
+            --pyramid-2-start: #f05b90;
+            --pyramid-2-end: #da4a9a;
+            --pyramid-3-start: #fcb13d;
+            --pyramid-3-end: #f47521;
+            --pyramid-4-start: #f26968;
+            --pyramid-4-end: #ee397a;
+            --pyramid-5-start: #9f6cae;
+            --pyramid-5-end: #6b56a4;
+        }
 
-            img {
-                max-width: 100%;
-                height: auto;
-            }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: var(--mindbits-blue);
+            overflow-x: hidden;
+            width: 100%;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            line-height: 1.6;
+        }
+        
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
 
             /* ============================================ HEADER ============================================ */
             .header {
@@ -263,37 +262,126 @@
                 width: 100%;
                 max-width: 1200px;
                 margin: 40px auto;
-                gap: 20px;
-                overflow-x: hidden;
-                padding: 0 40px;
+                margin-bottom: 0px;
+                gap: 0;
+                overflow: visible;
+                padding: 0;
+                background: transparent;
+                position: relative;
+            }
+            
+            .tabs-container::before {
+                content: '';
+                position: absolute;
+                top: 8px;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, #e0e0e0, #c0c0c0, #e0e0e0);
+                z-index: 1;
+                border-radius: 1px;
+            }
+            
+            .tabs-container::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 5px;
+                background: var(--mindbits-orange);
+                z-index: 3;
+                border-radius: 2px;
+                box-shadow: 0 2px 8px rgba(245, 132, 31, 0.3);
             }
 
             .tab-button {
                 flex: 1;
-                padding: 30px 20px;
-                border: none;
+                padding: 12px 24px;
+                border: 2px solid #d0d0d0;
+                border-top-left-radius: 12px;
+                border-top-right-radius: 12px;
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
                 cursor: pointer;
-                transition: var(--transition);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 font-family: 'Inter', sans-serif;
-                font-size: var(--subtitle);
-                font-weight: 700;
-                text-transform: uppercase;
+                font-size: 13px;
+                font-weight: 600;
+                text-transform: none;
                 text-align: center;
-                line-height: 1.2;
+                line-height: 1.3;
                 position: relative;
                 white-space: nowrap;
                 background: var(--mindbits-blue);
                 color: #ffffff;
+                margin-right: -2px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                z-index: 2;
+            }
+            
+            .tab-button::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                border-radius: 2px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .tab-button::after {
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                height: 0;
+                background: var(--mindbits-orange);
+                border-radius: 2px;
+                opacity: 0;
+                transition: all 0.3s ease;
             }
             
             .tab-button.active {
                 background: var(--mindbits-orange);
-                box-shadow: inset 0 -5px 0 rgba(255, 255, 255, 0.3);
+                color: #ffffff;
+                font-weight: 700;
+                z-index: 3;
+                transform: translateY(-6px) scale(1.02);
+                box-shadow: 0 8px 24px rgba(245, 132, 31, 0.3);
+                border-color: var(--mindbits-orange);
+            }
+            
+            .tab-button.active::before {
+                opacity: 1;
+            }
+            
+            .tab-button.active::after {
+                width: 100%;
+                height: 3px;
+                bottom: -3px;
+                background: var(--mindbits-orange);
+                box-shadow: 0 2px 4px rgba(245, 132, 31, 0.4);
             }
 
-            .tab-button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            .tab-button:hover:not(.active) {
+                background: rgba(39, 48, 107, 0.9);
+                transform: translateY(-3px);
+                box-shadow: 0 4px 16px rgba(39, 48, 107, 0.2);
+                border-color: var(--mindbits-blue);
+            }
+            
+            .tab-button:hover:not(.active)::before {
+                opacity: 0.7;
+            }
+            
+            .tab-button:hover:not(.active)::after {
+                opacity: 0.6;
+                background: var(--mindbits-blue);
             }
 
             /* ============================================ TABS CONTENT ============================================ */
@@ -469,13 +557,18 @@
             }
 
             .flip-card-front h2 {
-                font-size: 32px;
+                font-size: 28px;
                 font-weight: 700;
                 color: white;
-                text-align: center;
-                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-                position: relative;
                 z-index: 1;
+                position: absolute;
+                top: 50%;
+                left: 20px;
+                right: 20px;
+                transform: translateY(-50%);
+                text-align: center;
+                margin: 0;
+                transition: opacity 0.3s ease;
             }
 
             .flip-card-back {
@@ -496,8 +589,10 @@
                 transform: rotateY(-180deg);
             }
 
-            .flip-card-back::-webkit-scrollbar {
-                width: 6px;
+            /* Hide title during flip */
+            .flip-card:hover .flip-card-front h2,
+            .flip-card.active .flip-card-front h2 {
+                opacity: 0;
             }
 
             .flip-card-back::-webkit-scrollbar-track {
@@ -1155,13 +1250,14 @@
                 align-items: center;
                 gap: 0;
                 position: sticky;
-                top: 40px;
-                padding: 20px 0;
-                margin: 20px auto 0;
+                top: 60px;
+                padding: 40px 0;
+                margin: 40px auto 0;
                 width: 100%;
-                max-width: 600px;
+                max-width: 1000px;
                 min-height: 80vh;
                 justify-content: flex-end;
+                transform: translateY(20px);
             }
 
             .pyramid-layer {
@@ -1187,7 +1283,6 @@
                 left: 2px;
                 right: 2px;
                 bottom: 2px;
-                background: rgba(255, 255, 255, 0.1);
                 z-index: 0;
                 border-radius: 14px 14px 0 0;
             }
@@ -1217,27 +1312,30 @@
 
             /* Pyramid levels */
             .pyramid-layer:nth-child(1) { 
-                width: 150px;
-                height: 120px;
-                background: linear-gradient(135deg, var(--pyramid-1-start) 0%, var(--pyramid-1-end) 100%);
+                width: 200px;
+                height: 160px;
+                background: url('assets/piramides/01 (2).png') no-repeat center center;
+                background-size: contain;
                 clip-path: polygon(50% 0%, 8% 90%, 92% 90%);
                 z-index: 5;
                 margin-bottom: 0;
             }
 
             .pyramid-layer:nth-child(2) { 
-                width: 230px;
-                height: 90px;
-                background: linear-gradient(135deg, var(--pyramid-2-start) 0%, var(--pyramid-2-end) 100%);
+                width: 300px;
+                height: 120px;
+                background: url('assets/piramides/02 (2).png') no-repeat center center;
+                background-size: contain;
                 clip-path: polygon(19% 0%, 81% 0%, 100% 100%, 0% 100%);
                 z-index: 4;
                 margin-bottom: 0;
             }
 
             .pyramid-layer:nth-child(3) { 
-                width: 330px;
-                height: 90px;
-                background: linear-gradient(135deg, var(--pyramid-3-start) 0%, var(--pyramid-3-end) 100%);
+                width: 420px;
+                height: 120px;
+                background: url('assets/piramides/03 (2).png') no-repeat center center;
+                background-size: contain;
                 clip-path: polygon(14% 0%, 86% 0%, 100% 100%, 0% 100%);
                 z-index: 3;
                 margin-top: 15px;
@@ -1245,9 +1343,10 @@
             }
 
             .pyramid-layer:nth-child(4) { 
-                width: 430px;
-                height: 90px;
-                background: linear-gradient(135deg, var(--pyramid-4-start) 0%, var(--pyramid-4-end) 100%);
+                width: 540px;
+                height: 120px;
+                background: url('assets/piramides/04 (2).png') no-repeat center center;
+                background-size: contain;
                 clip-path: polygon(12% 0%, 88% 0%, 100% 100%, 0% 100%);
                 z-index: 2;
                 margin-top: 15px;
@@ -1255,9 +1354,10 @@
             }
 
             .pyramid-layer:nth-child(5) { 
-                width: 530px;
-                height: 90px;
-                background: linear-gradient(135deg, var(--pyramid-5-start) 0%, var(--pyramid-5-end) 100%);
+                width: 660px;
+                height: 120px;
+                background: url('assets/piramides/05 (2).png') no-repeat center center;
+                background-size: contain;
                 clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
                 z-index: 1;
                 margin-top: 15px;
@@ -1268,7 +1368,7 @@
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                transform: translate(-50%, -50%) translateZ(20px);
+                transform: translate(-50%, -50%) translateX(15px) translateZ(20px);
                 width: 150px;
                 height: 150px;
                 display: flex;
@@ -2125,9 +2225,7 @@
                 }
                 
                 /* Footer */
-                .footer-content,
-                .footer-bottom-content {
-                    grid-template-columns: 1fr;
+                .footer-content, .footer-bottom-content {
                     gap: 50px;
                 }
                 
@@ -2766,13 +2864,13 @@
                 /* Footer */
                 .footer-content {
                     grid-template-columns: 1fr;
-                    gap: 60px;
-                    align-items: start;
+                    gap: 30px;
                 }
-
+                
                 .footer-bottom-content {
                     grid-template-columns: 1fr;
                     gap: 30px;
+                    text-align: center;
                 }
 
                 .footer-info {
@@ -3023,6 +3121,7 @@
                 background-position: center;
                 padding: 40px 20px;
                 margin: 0 30px;
+                margin-top: 20px;
                 position: relative;
                 z-index: 1;
                 border-radius: 16px;
@@ -3403,9 +3502,9 @@
                 <nav class="nav-links">
                     <a href="index.html">Home</a>
                     <a href="pricing.html">Pricing</a>
-                    <a href="#staff">Faqs</a>
-                    <a href="#about">About Us</a>
-                    <a href="#contact">Contact</a>
+                    <a href="faqs.html">Faqs</a>
+                    <a href="who.html">About Us</a>
+                  
                 </nav>
                 <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation">
                     <span></span>
@@ -3620,11 +3719,11 @@
                         <h1 class="section-title">How it Works</h1>
 
                         <ul class="bullet-list">
-                            <li class="bullet-item"><strong>One source, many views:</strong> dynamic data modeling + modular visualization.</li>
-                            <li class="bullet-item"><strong>Same truth for all:</strong> summarize, slice, or expand a single dataset by audience.</li>
-                            <li class="bullet-item"><strong>No silos:</strong> avoids duplication and misalignment across teams.</li>
-                            <li class="bullet-item"><strong>Flow of information:</strong> insights move upward; decisions cascade downward with consistency.</li>
-                            <li class="bullet-item"><strong>Cultural impact:</strong> aligned metrics turn data into a shared language; analytics become part of the daily rhythm, where intuition meets evidence.</li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">One source, many views:</strong> <span style="font-size: 20px;">dynamic data modeling + modular visualization.</span></li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">Same truth for all:</strong> <span style="font-size: 20px;">summarize, slice, or expand a single dataset by audience.</span></li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">No silos:</strong> <span style="font-size: 20px;">avoids duplication and misalignment across teams.</span></li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">Flow of information:</strong> <span style="font-size: 20px;">insights move upward; decisions cascade downward with consistency.</span></li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">Cultural impact:</strong> <span style="font-size: 20px;">aligned metrics turn data into a shared language; analytics become part of daily rhythm, where intuition meets evidence.</span></li>
                         </ul>
                     </div>
                 </section>
@@ -3843,7 +3942,7 @@
                 <section class="problem-solution-section" id="staff">
                     <div class="network-bg"></div>
                     <div class="problem-solution-container">
-                        <h1 class="problem-solution-header">Staff Augmentation | What problem does it solve</h1>
+                        <h1 class="problem-solution-header">What problem does it solve</h1>
                         
                         <div class="problem-solution-cards-container">
                             <div class="flip-card">
@@ -3854,11 +3953,11 @@
                                     <div class="flip-card-back">
                                         <div class="back-content">
                                             <h3>The Problem</h3>
-                                            <p>Modern businesses face constant pressure to innovate and deliver faster. In tech-driven industries like software development and gaming, the challenge is clear:</p>
+                                            <p>Modern businesses face pressure to innovate and deliver faster.</p>
                                             <ul>
-                                                <li>Finding specialized, high-level skills quickly.</li>
-                                                <li>Avoiding the cost and delays of traditional hiring.</li>
-                                                <li>Bridging immediate talent gaps without long-term commitments.</li>
+                                                <li>Finding specialized skills quickly.</li>
+                                                <li>Avoiding traditional hiring costs and delays.</li>
+                                                <li>Bridging talent gaps without long-term commitments.</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -3873,7 +3972,7 @@
                                     <div class="flip-card-back">
                                         <div class="back-content">
                                             <h3>Our Solution</h3>
-                                            <p>Our Staff Augmentation service gives you on-demand access to top-tier, pre-vetted global talent. These professionals integrate seamlessly into your workflows, helping you:</p>
+                                            <p>Our Staff Augmentation service gives you on-demand access to top-tier, pre-vetted global talent.</p>
                                             <ul>
                                                 <li>Scale your team with agility.</li>
                                                 <li>Accelerate project delivery.</li>
@@ -3912,7 +4011,7 @@
                 <!-- Section 2: Staff Augmentation vs Traditional Recruitment -->
                 <div class="comparison-section">
                     <div class="comparison-header">
-                        <h1>Staff Augmentation vs Traditional Recruitment</h1>
+                        <h1>Traditional Recruitment vs Staff Augmentation</h1>
                     </div>
 
                     <div class="table-header">
@@ -4056,7 +4155,7 @@
                 <div class="pipeline-section">
                     <div class="section-container">
                         <div class="section-header">
-                            <h1>Staff Augmentation | Hiring Pipeline</h1>
+                            <h1>Hiring Pipeline</h1>
                         </div>
 
                         <div class="pipeline-content-wrapper">
@@ -4146,7 +4245,7 @@
                 <div class="benefits-section">
                     <div class="section-container">
                         <div class="benefits-header">
-                            <h1>Staff Augmentation | Tangible Benefits</h1>
+                            <h1>Tangible Benefits</h1>
                         </div>
 
                         <div class="carousel-wrapper" id="carouselWrapperStaff">
@@ -4272,7 +4371,7 @@
                         <p><strong>Quick response.</strong></p>
                         <p>If you're ready to create and collaborate, we'd love to hear from you.</p>
                         <p><strong>Clear next steps.</strong></p>
-                        <p>After the consultation, we'll provide you with a detailed plan of a timeline.</p>
+                        <p>After consultation, we'll provide you with a detailed plan of a timeline.</p>
                     </div>
                 </div>
             </div>
@@ -4291,9 +4390,10 @@
                     <div class="footer-nav">
                         <h4>Navigation</h4>
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Data</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
+                            <li><a href="faqs.html">Faqs</a></li>
+                            <li><a href="who.html">About Us</a></li>
                         </ul>
                     </div>
 
@@ -4308,7 +4408,7 @@
                             </div>
                         </div>
                         <div style="margin-top: 30px;">
-                            <img src="assets/logoClasico.png" alt="Mindbits Logo" class="footer-logo" style="max-width: 400px; height: auto;">
+                            <img src="assets/logoClasico.png" alt="Mindbits Logo" class="footer-logo">
                         </div>
                     </div>
                 </div>
@@ -4980,9 +5080,7 @@
             });
 
             // ============================================ GLOBAL EVENT LISTENERS ============================================
-            window.addEventListener('scroll', () => {
-                handleHeaderScroll();
-            });
+            // No scroll handler needed for now
         </script>
     </body>
     </html>

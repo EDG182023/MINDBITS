@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindbits - FAQ</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #27306b;
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: #ffffff;
+            height: 64px;
+            padding: 0 40px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+        
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+        
+        .logo {
+            max-width: 150px;
+            height: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #27306b;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #f5841f;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #f5841f;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+        
+        .hamburger-menu span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #27306b;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* ========== FAQ SECTION ========== */
+        .faq-section {
+            padding: 80px 40px;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #27306b;
+            margin-bottom: 0;
+        }
+
+        /* FAQ Items - Enhanced Animation */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .faq-item {
+            background: #ffffff;
+            border-bottom: 1px solid #e8e8e8;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .faq-item:first-child {
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .faq-item:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 35px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .faq-question::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #f5841f, #e67419);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+
+        .faq-item.active .faq-question::before {
+            width: 100%;
+        }
+
+        .faq-question h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #27306b;
+            margin: 0;
+            padding-right: 20px;
+            flex: 1;
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .faq-item.active .faq-question h3 {
+            color: #ffffff;
+        }
+
+        .faq-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid #27306b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .faq-toggle::before,
+        .faq-toggle::after {
+            content: '';
+            position: absolute;
+            background: #27306b;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-toggle::before {
+            width: 16px;
+            height: 2px;
+        }
+
+        .faq-toggle::after {
+            width: 2px;
+            height: 16px;
+            opacity: 1;
+        }
+
+        .faq-item.active .faq-toggle {
+            background: #f5841f;
+            border-color: #f5841f;
+            transform: rotate(45deg);
+            box-shadow: 0 4px 12px rgba(245, 132, 31, 0.3);
+        }
+
+        .faq-item.active .faq-toggle::before {
+            background: #ffffff;
+            transform: rotate(90deg);
+        }
+
+        .faq-item.active .faq-toggle::after {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #f8f9fa;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+
+        .faq-answer-content {
+            padding: 30px 35px;
+            color: #27306b;
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+        }
+
+        .faq-item.active .faq-answer-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-answer-content p {
+            margin-bottom: 15px;
+        }
+
+        .faq-answer-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-answer-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 15px 0;
+        }
+
+        .faq-answer-content ul li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .faq-answer-content ul li::before {
+            content: '•';
+            position: absolute;
+            left: 10px;
+            color: #f5841f;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #ffffff;
+            color: #27306b;
+            margin-top: 60px;
+        }
+
+        .footer-main {
+            background-image: url('assets/formulario.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px;
+            margin: 0 30px;
+            position: relative;
+            z-index: 1;
+            border-radius: 16px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .contact-form {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-form h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #27306b;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #27306b;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #f5841f;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #f5841f;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #e67419;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 132, 31, 0.4);
+        }
+
+        .footer-info {
+            text-align: left;
+            color: #ffffff;
+        }
+
+        .footer-info h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .footer-info p {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-info strong {
+            color: #f5841f;
+        }
+
+        .footer-bottom {
+            background: #ffffff;
+            padding: 40px;
+        }
+
+        .footer-bottom-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: start;
+            justify-items: center;
+            text-align: center;
+        }
+
+        .footer-contact {
+            font-size: 15px;
+            color: #27306b;
+        }
+
+        .footer-contact h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #27306b;
+        }
+
+        .footer-contact p {
+            margin-bottom: 8px;
+            color: #27306b;
+        }
+
+        .footer-contact a {
+            color: #27306b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: #f5841f;
+        }
+
+        .footer-nav {
+            font-size: 15px;
+            color: #27306b;
+        }
+
+        .footer-nav h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #27306b;
+        }
+
+        .footer-nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .footer-nav ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-nav ul li a {
+            color: #27306b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav ul li a:hover {
+            color: #f5841f;
+        }
+
+        .footer-social h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #27306b;
+        }
+
+        .social-icons {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: #f5841f;
+            transform: scale(1.1);
+        }
+
+        .footer-logo-section {
+            text-align: center;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .footer-logo {
+            max-width: 300px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .footer-copyright {
+            background-image: url('assets/fondoblue.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 20px 40px;
+            text-align: center;
+            color: #f5841f;
+        }
+
+        .footer-copyright p {
+            font-size: 14px;
+            margin: 0;
+            color: #f5841f;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                align-items: start;
+            }
+
+            .footer-bottom-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-info {
+                text-align: center;
+            }
+
+            .footer-logo {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                max-width: 140px;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                flex-direction: column;
+                gap: 0;
+                padding: 20px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                padding: 15px 0;
+                border-bottom: 1px solid #e0e0e0;
+                text-align: center;
+                font-size: 16px;
+            }
+            
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+
+            .faq-section {
+                padding: 60px 20px;
+            }
+
+            .faq-header h1 {
+                font-size: 28px;
+            }
+
+            .faq-question {
+                padding: 22px 20px;
+            }
+
+            .faq-question h3 {
+                font-size: 16px;
+            }
+
+            .faq-toggle {
+                width: 32px;
+                height: 32px;
+            }
+
+            .faq-toggle::before {
+                width: 12px;
+            }
+
+            .faq-toggle::after {
+                height: 12px;
+            }
+
+            .faq-answer-content {
+                padding: 25px 20px;
+                font-size: 15px;
+            }
+
+            .footer-main {
+                padding: 60px 20px;
+            }
+
+            .footer-bottom {
+                padding: 30px 20px;
+            }
+
+            .contact-form {
+                padding: 25px 20px;
+            }
+
+            .contact-form h3 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .footer-info h2 {
+                font-size: 28px;
+            }
+            
+            .footer-info p {
+                font-size: 15px;
+            }
+
+            .footer-copyright {
+                padding: 15px 20px;
+            }
+            
+            .footer-logo {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .faq-header h1 {
+                font-size: 24px;
+            }
+            
+            .footer-logo {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="mainHeader">
+        <div class="header-inner">
+            <img src="assets/logoClasico.png" alt="Mindbits Logo" class="logo">
+            <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="faqs.html">Faqs</a>
+                    <a href="who.html">About Us</a>
+            </nav>
+            <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header">
+                <h1>Frequently Asked Questions</h1>
+            </div>
+
+            <div class="faq-list">
+                <!-- FAQ 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What services does Mindbits.ai provide?</h3>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We specialize in data analytics, artificial intelligence and machine learning consulting. Core services include:</p>
+                            <ul>
+                                <li>Predictive and behavioral modeling.</li>
+                                <li>Product and monetization analytics.</li>
+                                <li>Data architecture and dashboarding.</li>
+                                <li>Pricing optimization and forecasting.</li>
+                                <li>AI integration and automation.</li>
+                            </ul>
+                            <p>We help companies turn raw data into actionable strategies that drive measurable outcomes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What industries do you work with?</h3>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We work across multiple industries, with deepest expertise in gaming, from mobile and console to live-service titles. We also collaborate with tech startups, SaaS companies and AI-driven businesses that want to scale their data and analytics.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How does Mindbits.ai structure its engagements?</h3>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We offer three flexible pricing models:</p>
+                            <ul>
+                                <li><strong>By Hour/Month:</strong> Perfect for ongoing consulting and specialized support.</li>
+                                <li><strong>By Project:</strong> Results-oriented for clearly defined objectives.</li>
+                                <li><strong>AI Cloud Service:</strong> Scalable, managed AI solutions with usage-based pricing.</li>
+                            </ul>
+                            <p>All models align value with impact and provide transparent pricing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is your typical project timeline?</h3>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Project timelines vary based on complexity and scope:</p>
+                            <ul>
+                                <li><strong>Quick consultations:</strong> 2-4 weeks</li>
+                                <li><strong>Predictive models:</strong> 6-12 weeks</li>
+                                <li><strong>Full analytics platforms:</strong> 3-6 months</li>
+                                <li><strong>AI integration projects:</strong> 8-16 weeks</li>
+                            </ul>
+                            <p>We always provide detailed project plans with clear milestones and deliverables.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do you ensure data security and compliance?</h3>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Security and compliance are fundamental to our process:</p>
+                            <ul>
+                                <li>End-to-end encryption and secure data handling</li>
+                                <li>GDPR and industry-specific compliance frameworks</li>
+                                <li>Regular security audits and penetration testing</li>
+                                <li>Comprehensive data governance policies</li>
+                                <li>Secure development environments and deployment protocols</li>
+                            </ul>
+                            <p>We sign NDAs and provide full documentation of our security measures.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What kind of support do you provide post-launch?</h3>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We provide comprehensive post-launch support:</p>
+                            <ul>
+                                <li>24/7 monitoring and alerting systems</li>
+                                <li>Regular performance optimization and updates</li>
+                                <li>Dedicated support channels and response teams</li>
+                                <li>Documentation and training for your team</li>
+                                <li>Continuous improvement based on user feedback</li>
+                            </ul>
+                            <p>Our goal is to ensure long-term success and ROI from your AI investments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" id="contact">
+            <!-- Footer Main - Dark gradient section -->
+            <div class="footer-main">
+                <div class="footer-content">
+                    <!-- Contact Form -->
+                    <div class="contact-form">
+                        <h3>Have a project in mind?</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label>Your name*</label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail*</label>
+                                <input type="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Message*</label>
+                                <textarea required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+
+                    <!-- Footer Info -->
+                    <div class="footer-info">
+                        <h2>Let's talk.</h2>
+                        <p>Tell us about your project</p>
+                        <p><strong>Quick response.</strong></p>
+                        <p>If you're ready to create and collaborate, we'd love to hear from you.</p>
+                        <p><strong>Clear next steps.</strong></p>
+                        <p>After consultation, we'll provide you with a detailed plan of a timeline.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom - White section -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <!-- Contact Info -->
+                    <div class="footer-contact">
+                        <h4>Contact</h4>
+                        <p>(+54) 11 6895-8605</p>
+                        <p><a href="mailto:hello@mindbits.ai">hello@mindbits.ai</a></p>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="footer-nav">
+                        <h4>Navigation</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
+                            <li><a href="faqs.html">Faqs</a></li>
+                            <li><a href="who.html">About Us</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Social Media & Logo -->
+                    <div class="footer-logo-section">
+                        <div class="footer-social">
+                            <h4>Social</h4>
+                            <div class="social-icons">
+                                <a href="#" class="social-icon" title="LinkedIn">in</a>
+                                <a href="#" class="social-icon" title="Twitter">𝕏</a>
+                                <a href="#" class="social-icon" title="Instagram">IG</a>
+                            </div>
+                        </div>
+                        <div style="margin-top: 30px;">
+                            <img src="assets/logoClasico.png" alt="Mindbits Logo" class="footer-logo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright - Blue section -->
+            <div class="footer-copyright">
+                <p> 2026 Mindbits. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script>
+            // ============================================ HAMBURGER MENU FUNCTIONALITY ============================================
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const navLinks = document.querySelector('.nav-links');
+            const header = document.querySelector('.header');
+
+            hamburgerMenu.addEventListener('click', function() {
+                hamburgerMenu.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburgerMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!header.contains(event.target)) {
+                    hamburgerMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+
+            // ============================================ FAQ FUNCTIONALITY ============================================
+            function initFAQ() {
+                const faqItems = document.querySelectorAll('.faq-item');
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question');
+                    const toggle = item.querySelector('.faq-toggle');
+                    
+                    question.addEventListener('click', function() {
+                        const isActive = item.classList.contains('active');
+                        
+                        // Close all other items
+                        faqItems.forEach(otherItem => {
+                            if (otherItem !== item) {
+                                otherItem.classList.remove('active');
+                            }
+                        });
+                        
+                        // Toggle current item
+                        item.classList.toggle('active');
+                    });
+                });
+            }
+
+            // Form submission
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                this.reset();
+            });
+
+            // Initialize when DOM is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                initFAQ();
+            });
+        </script>
+    </body>
+</html>
