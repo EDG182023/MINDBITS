@@ -73,7 +73,6 @@
             position: relative;
             -ms-overflow-style: none;
             line-height: 1.6;
-            padding-top: 65px;
         }
         
         body::-webkit-scrollbar {
@@ -85,7 +84,54 @@
             height: auto;
         }
 
-            /* ============================================ HEADER ============================================ */
+            /* ============================================ LANGUAGE SYSTEM ============================================ */
+        [data-lang-en],
+        [data-lang-es] {
+            display: inline;
+        }
+
+        html[lang="es"] [data-lang-en] {
+            display: none;
+        }
+
+        html[lang="en"] [data-lang-es] {
+            display: none;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f5f5f5;
+            padding: 6px 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        .language-selector button {
+            background: transparent;
+            border: none;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--mindbits-blue);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .language-selector button.active {
+            background: var(--mindbits-orange);
+            color: #ffffff;
+        }
+
+        .language-selector button:hover:not(.active) {
+            background: rgba(245, 132, 31, 0.1);
+        }
+
+        /* ============================================ HEADER ============================================ */
             .header {
                 background: #ffffff;
                 height: 64px;
@@ -185,6 +231,7 @@
             .hero-section {
                 width: 100%;
                 height: 390px;
+                margin-top: 65px;
                 overflow: hidden;
                 position: relative;
                 background: linear-gradient(135deg, #1a2a3a 0%, #3a5a6a 100%);
@@ -198,6 +245,7 @@
                 margin: 0 auto;
                 perspective: 1200px;
                 transform-style: preserve-3d;
+               
             }
 
             .hero-carousel-container {
@@ -207,6 +255,7 @@
                 display: flex;
                 transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                 transform-style: preserve-3d;
+                
             }
 
             .hero-slide {
@@ -221,6 +270,69 @@
                 padding: 10px;
                 transform: translateX(120%) scale(0.7);
                 backface-visibility: hidden;
+            }
+            
+            .hero-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                z-index: 3;
+            }
+            
+            .hero-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 8px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+                transition: transform 0.4s ease, filter 0.8s ease;
+            }
+            
+            .hero-slide.active .hero-image {
+                filter: brightness(0.5);
+            }
+            
+            .hero-slide.prev .hero-image,
+            .hero-slide.next .hero-image {
+                filter: brightness(0.5);
+            }
+            
+            .hero-title {
+                font-size: 36px;
+                font-weight: 700;
+                color: #ffffff;
+                margin-bottom: 15px;
+                line-height: 1.2;
+                position: relative;
+                display: inline-block;
+            }
+            
+            .hero-title::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 50%;
+                bottom: 0;
+                background: linear-gradient(to top, var(--mindbits-orange) 0%, rgba(245, 132, 31, 0.7) 50%, rgba(245, 132, 31, 0.01) 100%);
+                z-index: -1;
+                border-radius: 2px;
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            
+            .hero-slide.active .hero-title::before {
+                transform: scaleX(1);
+            }
+            
+            .hero-title .highlight {
+                position: relative;
+                display: inline-block;
+                color: #ffffff;
             }
 
             .hero-slide.active {
@@ -495,21 +607,36 @@
                 margin-bottom: 80px;
             }
 
+            .flip-cards-container {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                max-width: 1400px;
+                margin: 0 auto;
+                flex-wrap: nowrap;
+                padding: 0 20px;
+                height: auto;
+            }
+
             .problem-solution-cards-container {
                 display: flex;
                 justify-content: center;
-                gap: 40px;
-                max-width: 1200px;
+                gap: 30px;
+                max-width: 1400px;
                 margin: 0 auto;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding: 0 20px;
             }
 
             .flip-card {
-                width: 280px;
-                height: 450px;
+                width: 320px;
+                height: 560px;
                 position: relative;
-                cursor: pointer;
+                transform-style: preserve-3d;
+                flex-shrink: 0;
                 perspective: 1000px;
+                display: flex;
             }
 
             .flip-card-inner {
@@ -571,18 +698,20 @@
             }
 
             .flip-card-front h2 {
-                font-size: 28px;
+                font-size: 24px;
                 font-weight: 700;
                 color: white;
-                z-index: 1;
+                text-align: center;
                 position: absolute;
                 top: 50%;
-                left: 20px;
-                right: 20px;
-                transform: translateY(-50%);
-                text-align: center;
+                left: 50%;
+                transform: translate(-50%, -50%);
                 margin: 0;
+                padding: 20px;
+                z-index: 3;
                 transition: opacity 0.3s ease;
+                word-wrap: break-word;
+                hyphens: auto;
             }
 
             .flip-card-back {
@@ -682,6 +811,33 @@
 
                 .back-content h3 {
                     font-size: 22px;
+                }
+            }
+
+            /* Agregar este nuevo media query para tablets y móviles */
+            @media (max-width: 768px) {
+                .footer-bottom-content {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                    text-align: left;
+                }
+
+                .footer-contact,
+                .footer-nav,
+                .footer-logo-section {
+                    text-align: center;
+                }
+
+                /* Footer Info - Alineación izquierda */
+                .footer-info,
+                .footer-info h2,
+                .footer-info p {
+                    text-align: left;
+                }
+                
+                .contact-form {
+                    text-align: left;
+                    padding: 25px 20px;
                 }
             }
 
@@ -1154,8 +1310,8 @@
                 justify-content: center;
                 transition: var(--transition);
                 pointer-events: all;
-                opacity: 0;
-                transform: scale(0.8);
+                opacity: 1;
+                transform: scale(1);
             }
 
             .carousel-wrapper:hover .nav-arrow {
@@ -1180,11 +1336,11 @@
             }
 
             .nav-arrow.prev {
-                margin-left: -60px;
+                margin-left: 10px;
             }
 
             .nav-arrow.next {
-                margin-right: -60px;
+                margin-right: 80px;
             }
 
             .carousel-progress {
@@ -1643,11 +1799,19 @@
             .bullet-item {
                 font-size: var(--text-large);
                 line-height: 1.8;
-                margin-bottom: 50px;
-                opacity: 0.15;
-                transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                margin-bottom: 50px;                
+                transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                 color: rgba(255, 255, 255, 0.95);
                 font-weight: 300;
+            }
+            
+            .how-it-works-section .bullet-item.animating {
+                color: var(--mindbits-orange) !important;
+            }
+            
+            /* Test class - remove this after testing */
+            .how-it-works-section .bullet-item.test-orange {
+                color: var(--mindbits-orange) !important;
             }
 
             .bullet-item strong {
@@ -1656,8 +1820,7 @@
 
             .bullet-item::before {
                 content: "· ";
-                margin-right: 12px;
-                opacity: 0.6;
+                margin-right: 12px;               
                 font-weight: 700;
             }
 
@@ -2073,6 +2236,7 @@
                     grid-template-columns: 1fr;
                     gap: 60px;
                     align-items: start;
+                    text-align: left;
                 }
 
                 .footer-bottom-content {
@@ -2086,8 +2250,9 @@
                     text-align: center;
                 }
 
-                .footer-info {
-                    text-align: center;
+                /* Alinear el texto del formulario a la izquierda */
+                .contact-form {
+                    text-align: left;
                 }
 
                 .footer-logo-section {
@@ -2244,7 +2409,7 @@
                 }
                 
                 .footer-info {
-                    text-align: center;
+                    text-align: left;
                 }
                 
                 .footer-logo-section {
@@ -2404,8 +2569,23 @@
                 .pyramid-layer:nth-child(5) { width: 390px; height: 70px; }
                 
                 .icon-wrapper {
-                    width: 30px;
-                    height: 30px;
+                    width: 40px;
+                    height: 40px;
+                }
+                
+                /* Mantener animaciones en responsive */
+                .pyramid-layer {
+                    animation: fadeUp 0.6s ease forwards;
+                }
+                
+                .pyramid-layer.animate-in {
+                    animation: fadeInLeft 0.8s ease forwards;
+                    animation-delay: 0.4s;
+                }
+                
+                .pyramid-layer.animate-in .icon-wrapper {
+                    animation: iconFadeIn 0.5s ease forwards;
+                    animation-delay: 0.4s;
                 }
                 
                 /* Benefits Carousel */
@@ -2472,6 +2652,14 @@
                     padding: 15px 20px;
                 }
                 
+                .footer-info p {
+                    font-size: 15px;
+                }
+                
+                .footer-logo {
+                    max-width: 250px;
+                }
+                
                 /* Contact Form - Responsive fixes */
                 .contact-form {
                     padding: 25px 20px;
@@ -2504,24 +2692,23 @@
                 
                 /* Footer Info - Responsive fixes */
                 .footer-info {
-                    text-align: center;
+                    text-align: left;
                 }
                 
                 .footer-info h2 {
                     font-size: var(--heading);
-                    text-align: center;
+                    text-align: left;
                 }
                 
                 .footer-info p {
                     font-size: 15px;
-                    text-align: center;
+                    text-align: left;
                 }
                 
                 /* Footer Bottom - Responsive fixes */
                 .footer-bottom-content {
                     grid-template-columns: 1fr;
                     gap: 30px;
-                    text-align: center;
                 }
                 
                 .footer-contact,
@@ -2624,6 +2811,27 @@
                 .pyramid-layer:nth-child(3) { width: 210px; height: 60px; }
                 .pyramid-layer:nth-child(4) { width: 260px; height: 60px; }
                 .pyramid-layer:nth-child(5) { width: 320px; height: 60px; }
+                
+                /* Mantener iconos visibles en mobile */
+                .icon-wrapper {
+                    width: 35px;
+                    height: 35px;
+                }
+                
+                /* Mantener animaciones en mobile */
+                .pyramid-layer {
+                    animation: fadeUp 0.6s ease forwards;
+                }
+                
+                .pyramid-layer.animate-in {
+                    animation: fadeInLeft 0.8s ease forwards;
+                    animation-delay: 0.4s;
+                }
+                
+                .pyramid-layer.animate-in .icon-wrapper {
+                    animation: iconFadeIn 0.5s ease forwards;
+                    animation-delay: 0.4s;
+                }
                 
                 /* Step Numbers */
                 .step-number,
@@ -2740,10 +2948,107 @@
                 .footer-content {
                     grid-template-columns: 1fr;
                     gap: 40px;
+                    text-align: center;
                 }
                 
                 .footer-info p {
                     font-size: 14px;
+                }
+            }
+
+            /* Large Mobile (480px - 767px) */
+            @media (max-width: 767px) {
+                /* Header - Hamburger Menu */
+                .hamburger-menu {
+                    display: flex;
+                }
+                
+                .nav-links {
+                    display: none;
+                    position: fixed;
+                    top: 64px;
+                    left: 0;
+                    right: 0;
+                    background: #ffffff;
+                    flex-direction: column;
+                    gap: 0;
+                    padding: 20px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                }
+                
+                .nav-links.active {
+                    display: flex;
+                }
+                
+                .nav-links a {
+                    padding: 15px 0;
+                    border-bottom: 1px solid #e0e0e0;
+                    text-align: center;
+                    font-size: 16px;
+                }
+                
+                .nav-links a:last-child {
+                    border-bottom: none;
+                }
+                
+                /* Tabs */
+                .tabs-container {
+                    flex-wrap: wrap;
+                    gap: 10px;
+                }
+                
+                .tab-button {
+                    font-size: var(--text-normal);
+                    padding: 20px 15px;
+                }
+                
+                /* Contact Form - Large Mobile fixes */
+                .contact-form {
+                    padding: 20px 15px;
+                }
+                
+                .contact-form h3 {
+                    font-size: 18px;
+                    margin-bottom: 15px;
+                }
+                
+                .form-group {
+                    margin-bottom: 12px;
+                }
+                
+                .form-group label {
+                    font-size: 12px;
+                    margin-bottom: 4px;
+                }
+                
+                .form-group input,
+                .form-group textarea {
+                    padding: 8px 12px;
+                    font-size: 13px;
+                }
+                
+                .submit-btn {
+                    padding: 10px;
+                    font-size: 13px;
+                }
+                
+                .footer-info p {
+                    font-size: 14px;
+                }
+                
+                .footer-bottom-content {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+
+                .footer-logo-section {
+                    text-align: center;
+                }
+                
+                /* Footer Logo - Responsive sizing */
+                .footer-logo {
+                    max-width: 250px;
                 }
             }
 
@@ -2810,6 +3115,27 @@
                 .pyramid-layer:nth-child(3) { width: 190px; height: 60px; }
                 .pyramid-layer:nth-child(4) { width: 235px; height: 60px; }
                 .pyramid-layer:nth-child(5) { width: 290px; height: 60px; }
+                
+                /* Mantener iconos visibles en smallest */
+                .icon-wrapper {
+                    width: 30px;
+                    height: 30px;
+                }
+                
+                /* Mantener animaciones en smallest */
+                .pyramid-layer {
+                    animation: fadeUp 0.6s ease forwards;
+                }
+                
+                .pyramid-layer.animate-in {
+                    animation: fadeInLeft 0.8s ease forwards;
+                    animation-delay: 0.4s;
+                }
+                
+                .pyramid-layer.animate-in .icon-wrapper {
+                    animation: iconFadeIn 0.5s ease forwards;
+                    animation-delay: 0.4s;
+                }
                 
                 /* Icons */
                 .icon {
@@ -2884,11 +3210,6 @@
                 .footer-bottom-content {
                     grid-template-columns: 1fr;
                     gap: 30px;
-                    text-align: center;
-                }
-
-                .footer-info {
-                    text-align: center;
                 }
 
                 .footer-logo-section {
@@ -2944,12 +3265,62 @@
                 .footer-content {
                     grid-template-columns: 1fr;
                     gap: 30px;
+                    text-align: center;
                 }
 
                 /* Footer Copyright - Small Mobile */
                 .footer-copyright {
                     padding: 12px 15px;
                     text-align: center;
+                }
+                
+                .footer-logo {
+                    max-width: 200px;
+                }
+
+                /* Agregar estos estilos para mejorar la responsividad del footer */
+                @media (max-width: 480px) {
+                    .footer-main {
+                        padding: 40px 15px;
+                        margin: 0 15px;
+                    }
+
+                    .contact-form {
+                        padding: 20px 15px;
+                    }
+
+                    .footer-bottom {
+                        padding: 30px 15px;
+                    }
+
+                    .footer-bottom-content {
+                        padding: 0 15px;
+                    }
+                }
+
+                /* Mejorar la alineación del logo en el footer */
+                .footer-logo-section {
+                    text-align: center;
+                    width: 100%;
+                }
+
+                .footer-logo {
+                    max-width: 300px;
+                    height: auto;
+                    margin: 0 auto;
+                    display: block;
+                }
+
+                /* Alinear el contenido del formulario a la izquierda */
+                .contact-form h3,
+                .contact-form .form-group {
+                    text-align: left;
+                }
+
+                /* Mantener el botón centrado si lo deseas */
+                .contact-form .submit-btn {
+                    display: block;
+                    margin: 30px auto 0;
                 }
             }
 
@@ -3147,7 +3518,7 @@
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 80px;
-                align-items: center;
+                align-items: start;
             }
 
             /* Contact Form */
@@ -3156,6 +3527,7 @@
                 padding: 40px;
                 border-radius: 16px;
                 box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+                text-align: left;
             }
 
             .contact-form h3 {
@@ -3163,10 +3535,12 @@
                 font-weight: 700;
                 color: #27306b;
                 margin-bottom: 30px;
+                text-align: left;
             }
 
             .form-group {
                 margin-bottom: 20px;
+                text-align: left;
             }
 
             .form-group label {
@@ -3175,6 +3549,7 @@
                 font-weight: 600;
                 color: #27306b;
                 margin-bottom: 8px;
+                text-align: left;
             }
 
             .form-group input,
@@ -3220,8 +3595,18 @@
 
             /* Footer Info */
             .footer-info {
-                text-align: left;
+                text-align: left; /* Cambiar de center a left */
                 color: #ffffff;
+            }
+
+            /* Asegurar que los párrafos también estén alineados a la izquierda */
+            .footer-info p {
+                text-align: left;
+            }
+
+            /* Si quieres que los títulos h2 también estén alineados */
+            .footer-info h2 {
+                text-align: left;
             }
 
             .footer-info h2 {
@@ -3513,11 +3898,29 @@
         <header class="header" id="mainHeader">
             <div class="header-inner">
                 <img src="assets/logoClasico.png" alt="Mindbits Logo" class="logo">
+                <div class="header-right">
+                    <div class="language-selector">
+                        <button class="active" data-lang="en">EN</button>
+                        <button data-lang="es">ES</button>
+                    </div>
+                </div>
                 <nav class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="pricing.html">Pricing</a>
-                    <a href="faqs.html">Faqs</a>
-                    <a href="who.html">About Us</a>
+                    <a href="index.html">
+                        <span data-lang-en>Home</span>
+                        <span data-lang-es>Inicio</span>
+                    </a>
+                    <a href="pricing.html">
+                        <span data-lang-en>Pricing</span>
+                        <span data-lang-es>Precios</span>
+                    </a>
+                    <a href="faqs.html">
+                        <span data-lang-en>Faqs</span>
+                        <span data-lang-es>Preguntas</span>
+                    </a>
+                    <a href="who.html">
+                        <span data-lang-en>About Us</span>
+                        <span data-lang-es>Nosotros</span>
+                    </a>
                   
                 </nav>
                 <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation">
@@ -3534,15 +3937,35 @@
                 <div class="hero-carousel-container">
                     <div class="hero-slide active">
                         <img src="assets/hero/Competitive Rates, Boutique Quality.jpg" alt="Competitive Rates, Boutique Quality" class="hero-image">
+                        <div class="hero-content">
+                            <div class="hero-content-overlay">
+                                <h1 class="hero-title"><span class="highlight">Best-Value</span> Rates, Boutique Service</h1>
+                            </div>
+                        </div>
                     </div>
                     <div class="hero-slide">
                         <img src="assets/hero/Extensive Gaming & Analytics Expertise.jpg" alt="Extensive Gaming & Analytics Expertise" class="hero-image">
+                        <div class="hero-content">
+                            <div class="hero-content-overlay">
+                                <h1 class="hero-title"><span class="highlight">Strong</span> Gaming & Analytics Know-How</h1>
+                            </div>
+                        </div>
                     </div>
                     <div class="hero-slide">
                         <img src="assets/hero/Latin American Talent Advantage.jpg" alt="Latin American Talent Advantage" class="hero-image">
+                        <div class="hero-content">
+                            <div class="hero-content-overlay">
+                                <h1 class="hero-title"><span class="highlight">World-Class</span> LatAm Talent</h1>
+                            </div>
+                        </div>
                     </div>
                     <div class="hero-slide">
                         <img src="assets/hero/Tailored Teams and Dedicated Support.jpg" alt="Tailored Teams and Dedicated Support" class="hero-image">
+                        <div class="hero-content">
+                            <div class="hero-content-overlay">
+                                <h1 class="hero-title"><span class="highlight">Tailored</span> Talent & End-to-End Support</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -3580,8 +4003,14 @@
                 <section class="pyramid-analytics-section">
                     <div class="pyramid-header-container">
                         <div class="pyramid-header">
-                            <h1>From Architecture to Agentic AI</h1>
-                            <h2>The complete data-to-intelligence pipeline</h2>
+                            <h1>
+                                <span data-lang-en>From Architecture to Agentic AI</span>
+                                <span data-lang-es>De arquitectura a IA basada en agentes</span>
+                            </h1>
+                            <h2>
+                                <span data-lang-en>The complete data-to-intelligence pipeline</span>
+                                <span data-lang-es>El pipeline completo de datos a inteligencia</span>
+                            </h2>
                         </div>
 
                         <div class="pyramid-content-wrapper">
@@ -3619,28 +4048,58 @@
 
                             <div class="pyramid-content-list">
                                 <div class="content-item">
-                                    <h3>Artificial Intelligence (Top Layer)</h3>
-                                    <p>We integrate AI and LLM models that reason, act, and learn from user behavior. They run on top of your data ecosystem for contextual accuracy and continuous adaptation.</p>
+                                    <h3>
+                                        <span data-lang-en>Artificial Intelligence</span>
+                                        <span data-lang-es>Artificial Intelligence</span>
+                                    </h3>
+                                    <p>
+                                        <span data-lang-en>AI models (from classic ML to agentic AI with ChatGPT/LLMs) that reason, act, and learn continuously, trained on your data ecosystem for contextual accuracy and adaptability.</span>
+                                        <span data-lang-es>Modelos de IA (desde ML clásico hasta agentic AI con ChatGPT/LLMs) que razonan, actúan y aprenden de forma continua, entrenados sobre tu ecosistema de datos para lograr precisión contextual y adaptabilidad.</span>
+                                    </p>
                                 </div>
 
                                 <div class="content-item">
-                                    <h3>Advanced Analytics & Reporting</h3>
-                                    <p>We turn data into clear, actionable insights. Predictive models, dashboards, and automated narratives enable proactive decision-making.</p>
+                                    <h3>
+                                        <span data-lang-en>Advanced Analytics & Reporting</span>
+                                        <span data-lang-es>Advanced Analytics & Reporting</span>
+                                    </h3>
+                                    <p>
+                                        <span data-lang-en>Predictive models, real-time dashboards, and automated narratives that deliver clear, actionable insights for proactive decision-making.</span>
+                                        <span data-lang-es>Modelos predictivos, dashboards en tiempo real y narrativas automatizadas que entregan insights claros y accionables para decidir antes de necesitarlo.</span>
+                                    </p>
                                 </div>
 
                                 <div class="content-item">
-                                    <h3>Automated Data Validation</h3>
-                                    <p>We detect outliers and errors before they reach reporting layers. Automated statistical controls ensure data quality and prevent downstream issues.</p>
+                                    <h3>
+                                        <span data-lang-en>Automated Data Validation</span>
+                                        <span data-lang-es>Automated Data Validation</span>
+                                    </h3>
+                                    <p>
+                                        <span data-lang-en>Pre-reporting statistical controls to detect outliers and errors early, preventing problems from propagating downstream.</span>
+                                        <span data-lang-es>Controles estadísticos previos al reporting para detectar outliers y errores temprano, evitando que los problemas se propaguen downstream.</span>
+                                    </p>
                                 </div>
 
                                 <div class="content-item">
-                                    <h3>Data Engineering</h3>
-                                    <p>We design scalable, reliable data pipelines and architectures. Quality, governance, and structured flow across systems and cloud sources are ensured.</p>
+                                    <h3>
+                                        <span data-lang-en>Data Engineering</span>
+                                        <span data-lang-es>Data Engineering</span>
+                                    </h3>
+                                    <p>
+                                        <span data-lang-en>Pipelines, data quality, and governance in scalable, resilient architectures spanning internal systems, cloud, and live streams.</span>
+                                        <span data-lang-es>Pipelines, calidad de datos y gobernanza en arquitecturas escalables y resilientes que abarcan sistemas internos, nube y streams en vivo.</span>
+                                    </p>
                                 </div>
 
                                 <div class="content-item">
-                                    <h3>Data Architecture (Foundation)</h3>
-                                    <p>We build end-to-end data ecosystems as the foundation for everything else. Secure, efficient storage, processing, and orchestration prepare your data for AI.</p>
+                                    <h3>
+                                        <span data-lang-en>Data Architecture</span>
+                                        <span data-lang-es>Data Architecture</span>
+                                    </h3>
+                                    <p>
+                                        <span data-lang-en>End-to-end design (storage, processing, API orchestration) for secure, efficient flows, ready for AI from day one.</span>
+                                        <span data-lang-es>Diseño end-to-end (storage, processing, orquestación de APIs) para flujos seguros y eficientes, listos para IA desde el día uno.</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -3651,74 +4110,113 @@
                 <section class="intelligence-section">
                     <div class="intelligence-container">
                         <div class="intelligence-header">
-                            <h1>Turning Data into Shared Intelligence</h1>
+                            <h1>
+                                <span data-lang-en>Turning Data into Shared Intelligence</span>
+                                <span data-lang-es>Convirtiendo datos en inteligencia compartida</span>
+                            </h1>
                         </div>
 
                         <div class="content-grid">
                             <div class="column">
-                                <div class="column-header">Audience</div>
+                                <div class="column-header">
+                                    <span data-lang-en>Audience</span>
+                                    <span data-lang-es>Audiencia</span>
+                                </div>
                                 <div class="cards-container">
                                     <div class="intelligence-card">
                                         <div class="intelligence-card-content">
-                                            <div class="card-title">Operational teams</div>
+                                            <div class="card-title">
+                                                <span data-lang-en>Operational teams</span>
+                                                <span data-lang-es>Equipos operativos</span>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="intelligence-card">
                                         <div class="intelligence-card-content">
-                                            <div class="card-title">Middle management</div>
+                                            <div class="card-title">
+                                                <span data-lang-en>Middle management</span>
+                                                <span data-lang-es>Mando medio</span>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="intelligence-card">
                                         <div class="intelligence-card-content">
-                                            <div class="card-title">Executives</div>
+                                            <div class="card-title">
+                                                <span data-lang-en>Executives</span>
+                                                <span data-lang-es>Ejecutivos</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="column">
-                                <div class="column-header">What they see</div>
+                                <div class="column-header">
+                                    <span data-lang-en>What they see</span>
+                                    <span data-lang-es>Qué ven</span>
+                                </div>
                                 <div class="cards-container">
                                     <div class="intelligence-card">
                                         <div class="intelligence-card-content">
-                                            <div class="card-text">Real-time, detailed views of processes and KPIs</div>
+                                            <div class="card-text">
+                                                <span data-lang-en>Real-time, detailed views of processes and KPIs</span>
+                                                <span data-lang-es>Vistas en tiempo real, detalles de procesos y KPIs</span>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="intelligence-card">
                                         <div class="intelligence-card-content">
-                                            <div class="card-text">Performance summaries, trends, and correlations across business units</div>
+                                            <div class="card-text">
+                                                <span data-lang-en>Performance summaries, trends, and correlations across business units</span>
+                                                <span data-lang-es>Resúmenes de performance, tendencias y correlaciones entre unidades de negocio</span>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="intelligence-card">
                                         <div class="intelligence-card-content">
-                                            <div class="card-text">Unified, strategic view with decision-driving insights</div>
+                                            <div class="card-text">
+                                                <span data-lang-en>Unified, strategic view with decision-driving insights</span>
+                                                <span data-lang-es>Visión unificada y estratégica con insights que impulsan decisiones</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="column">
-                                <div class="column-header">Purpose</div>
+                                <div class="column-header">
+                                    <span data-lang-en>Purpose</span>
+                                    <span data-lang-es>Propósito</span>
+                                </div>
                                 <div class="cards-container">
                                     <div class="intelligence-card">
                                         <div class="intelligence-card-content">
-                                            <div class="card-text">Day-to-day tracking and action</div>
+                                            <div class="card-text">
+                                                <span data-lang-en>Day-to-day tracking and action</span>
+                                                <span data-lang-es>Seguimiento y acción del día a día</span>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="intelligence-card">
                                         <div class="intelligence-card-content">
-                                            <div class="card-text">Coordinated performance oversight</div>
+                                            <div class="card-text">
+                                                <span data-lang-en>Coordinated performance oversight</span>
+                                                <span data-lang-es>Supervisión coordinada del rendimiento</span>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="intelligence-card">
                                         <div class="intelligence-card-content">
-                                            <div class="card-text">Decision-making and long-term planning</div>
+                                            <div class="card-text">
+                                                <span data-lang-en>Decision-making and long-term planning</span>
+                                                <span data-lang-es>Toma de decisiones y planificación de largo plazo</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -3730,14 +4228,47 @@
                 <!-- How it Works Section -->
                 <section class="how-it-works-section">
                     <div class="how-it-works-container">
-                        <h1 class="section-title">How it Works</h1>
+                        <h1 class="section-title">
+                            <span data-lang-en>How it Works</span>
+                            <span data-lang-es>Cómo funciona</span>
+                        </h1>
 
                         <ul class="bullet-list">
-                            <li class="bullet-item"><strong style="font-size: 25px;">One source, many views:</strong> <span style="font-size: 20px;">dynamic data modeling + modular visualization.</span></li>
-                            <li class="bullet-item"><strong style="font-size: 25px;">Same truth for all:</strong> <span style="font-size: 20px;">summarize, slice, or expand a single dataset by audience.</span></li>
-                            <li class="bullet-item"><strong style="font-size: 25px;">No silos:</strong> <span style="font-size: 20px;">avoids duplication and misalignment across teams.</span></li>
-                            <li class="bullet-item"><strong style="font-size: 25px;">Flow of information:</strong> <span style="font-size: 20px;">insights move upward; decisions cascade downward with consistency.</span></li>
-                            <li class="bullet-item"><strong style="font-size: 25px;">Cultural impact:</strong> <span style="font-size: 20px;">aligned metrics turn data into a shared language; analytics become part of daily rhythm, where intuition meets evidence.</span></li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">
+                                <span data-lang-en>One source, many views:</span>
+                                <span data-lang-es>Una fuente, muchas vistas:</span>
+                            </strong> <span style="font-size: 20px;">
+                                <span data-lang-en>dynamic data modeling + modular visualization.</span>
+                                <span data-lang-es>modelado de datos dinámico + visualización modular.</span>
+                            </span></li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">
+                                <span data-lang-en>Same truth for all:</span>
+                                <span data-lang-es>La misma verdad para todos:</span>
+                            </strong> <span style="font-size: 20px;">
+                                <span data-lang-en>summarize, slice, or expand a single dataset by audience.</span>
+                                <span data-lang-es>resumir, segmentar o expandir un único dataset según la audiencia.</span>
+                            </span></li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">
+                                <span data-lang-en>No silos:</span>
+                                <span data-lang-es>Sin silos:</span>
+                            </strong> <span style="font-size: 20px;">
+                                <span data-lang-en>avoids duplication and misalignment across teams.</span>
+                                <span data-lang-es>evita duplicación y desalineación entre equipos.</span>
+                            </span></li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">
+                                <span data-lang-en>Flow of information:</span>
+                                <span data-lang-es>Flujo de información:</span>
+                            </strong> <span style="font-size: 20px;">
+                                <span data-lang-en>insights move upward; decisions cascade downward with consistency.</span>
+                                <span data-lang-es>los insights suben; las decisiones bajan con consistencia.</span>
+                            </span></li>
+                            <li class="bullet-item"><strong style="font-size: 25px;">
+                                <span data-lang-en>Cultural impact:</span>
+                                <span data-lang-es>Impacto cultural:</span>
+                            </strong> <span style="font-size: 20px;">
+                                <span data-lang-en>aligned metrics turn data into a shared language; analytics become part of daily rhythm, where intuition meets evidence.</span>
+                                <span data-lang-es>métricas alineadas convierten los datos en un lenguaje compartido; la analítica pasa a ser parte del ritmo diario, donde la intuición se encuentra con la evidencia.</span>
+                            </span></li>
                         </ul>
                     </div>
                 </section>
@@ -3746,7 +4277,10 @@
                 <section class="section-bottom-line">
                     <div class="bottom-line-container">
                         <div class="scribble-wrapper">
-                            <div class="bottom-line-label">Bottom line:</div>
+                            <div class="bottom-line-label">
+                                <span data-lang-en>Bottom line:</span>
+                                <span data-lang-es>En síntesis:</span>
+                            </div>
 
                             <!-- Loose Circle Scribble SVG -->
                             <svg class="scribble-svg" role="presentation" viewBox="0 0 800 350" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -3755,7 +4289,8 @@
                         </div>
 
                         <p class="bottom-line-text">
-                            Dashboards aren't the end of analytics, they're the bridge to shared intelligence across the organization.
+                            <span data-lang-en>Dashboards aren't the end of analytics, they're the bridge to shared intelligence across the organization.</span>
+                            <span data-lang-es>Los dashboards no son el final de la analítica, son el puente hacia una inteligencia compartida en toda la organización.</span>
                         </p>
                     </div>
                 </section>
@@ -3764,28 +4299,48 @@
                 <section class="hypothesis-section">
                     <div class="hypothesis-container">
                         <div class="hypothesis-header">
-                            <h1 class="hypothesis-title">From Hypothesis to Proven Growth</h1>
+                            <h1 class="hypothesis-title">
+                                <span data-lang-en>From Hypothesis to Proven Growth</span>
+                                <span data-lang-es>De hipótesis a crecimiento comprobado</span>
+                            </h1>
                             <p class="hypothesis-description">
-                                We help you replace guesswork with measurable impact. Mindbits.ai designs experimentation programs and robust attribution so your team learns fast, scales what works, and stops what doesn't.
+                                <span data-lang-en>We help you replace guesswork with measurable impact. Mindbits.ai designs experimentation programs and robust attribution so your team learns fast, scales what works, and stops what doesn't.</span>
+                                <span data-lang-es>Te ayudamos a reemplazar la intuición por impacto medible. Mindbits.ai diseña programas de experimentación y atribución robusta para que tu equipo aprenda rápido, escale lo que funciona y frene lo que no.</span>
                             </p>
                         </div>
 
                         <div class="toggle-panels">
                             <div class="toggle-panel">
                                 <div class="toggle-header" onclick="togglePanel(this)">
-                                    <h3 class="toggle-title">A/B Testing as a System (not a one-off)</h3>
+                                    <h3 class="toggle-title">
+                                        <span data-lang-en>A/B Testing as a System (not a one-off)</span>
+                                        <span data-lang-es>A/B Testing como sistema</span>
+                                    </h3>
                                     <div class="toggle-icon"></div>
                                 </div>
                                 <div class="toggle-content">
                                     <div class="toggle-content-inner">
                                         <p class="toggle-text">
-                                            We build an experimentation engine your product and marketing teams can run weekly:
+                                            <span data-lang-en>We build an experimentation engine your product and marketing teams can run weekly:</span>
+                                            <span data-lang-es>Construimos un motor de experimentación que tus equipos de producto y marketing pueden ejecutar semanalmente:</span>
                                         </p>
                                         <ul class="toggle-list">
-                                            <li>Hypothesis → Design → Power: test plans with effect size targets, sample size, and power calculations.</li>
-                                            <li>Guardrails: metrics for revenue, retention, latency, crashes, and fraud, so wins don't hide trade-offs.</li>
-                                            <li>Statistical rigor: sequential testing, CUPED/variance reduction, and non-parametric tests when needed.</li>
-                                            <li>Automation: experiment registry, auto-exposure, and pipelines for lift computation and reporting.</li>
+                                            <li>
+                                                <span data-lang-en>Hypothesis → Design → Power: test plans with effect size targets, sample size, and power calculations.</span>
+                                                <span data-lang-es>Hipótesis → Diseño → Potencia: planes de test con objetivos de tamaño del efecto, tamaño de muestra y cálculos de potencia.</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Guardrails: metrics for revenue, retention, latency, crashes, and fraud, so wins don't hide trade-offs.</span>
+                                                <span data-lang-es>Guardrails: métricas de ingresos, retención, latencia, crashes (cierres inesperados) y fraude, para que los wins no oculten trade-offs.</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Statistical rigor: sequential testing, CUPED/variance reduction, and non-parametric tests when needed.</span>
+                                                <span data-lang-es>Rigor estadístico: sequential testing, CUPED/reducción de varianza y tests no paramétricos cuando corresponde.</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Automation: experiment registry, auto-exposure, and pipelines for lift computation and reporting.</span>
+                                                <span data-lang-es>Automatización: registro de experimentos, auto-exposición y pipelines para cálculo de lift y reportes.</span>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -3793,19 +4348,35 @@
 
                             <div class="toggle-panel">
                                 <div class="toggle-header" onclick="togglePanel(this)">
-                                    <h3 class="toggle-title">User Acquisition you can actually trust</h3>
+                                    <h3 class="toggle-title">
+                                        <span data-lang-en>User Acquisition you can actually trust</span>
+                                        <span data-lang-es>User Acquisition en la que realmente podés confiar</span>
+                                    </h3>
                                     <div class="toggle-icon"></div>
                                 </div>
                                 <div class="toggle-content">
                                     <div class="toggle-content-inner">
                                         <p class="toggle-text">
-                                            We reconcile acquisition spend with real business outcomes:
+                                            <span data-lang-en>We reconcile acquisition spend with real business outcomes:</span>
+                                            <span data-lang-es>Alineamos el gasto de adquisición con resultados reales de negocio:</span>
                                         </p>
                                         <ul class="toggle-list">
-                                            <li>Attribution you can defend: SKAN/SKAdNetwork workflows, MMP integration, server-side postbacks, and MMM/MTA when applicable.</li>
-                                            <li>Incrementality over vanity: geo-split tests, PSA/ghost ads, and holdouts to quantify true lift.</li>
-                                            <li>Creative & audience feedback loops: rapid creative iteration, audience pruning, and budget reallocation based on causal impact.</li>
-                                            <li>Fraud & quality controls: detection of click spam/device farms, uninstall/retention filters, and cohort quality scoring.</li>
+                                            <li>
+                                                <span data-lang-en>Attribution you can defend: SKAN/SKAdNetwork workflows, MMP integration, server-side postbacks, and MMM/MTA when applicable.</span>
+                                                <span data-lang-es>Atribución defendible: workflows SKAN/SKAdNetwork, integración con MMP, postbacks server-side y MMM/MTA cuando aplica.</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Incrementality over vanity: geo-split tests, PSA/ghost ads, and holdouts to quantify true lift.</span>
+                                                <span data-lang-es>Incrementalidad por sobre vanidad: geo-split tests, PSA/ghost ads y holdouts para cuantificar el true lift.</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Creative & audience feedback loops: rapid creative iteration, audience pruning, and budget reallocation based on causal impact.</span>
+                                                <span data-lang-es>Loops de feedback de creatividades y audiencias: iteración rápida de creatividades, poda de audiencias y reasignación de presupuesto basada en impacto causal.</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Fraud & quality controls: detection of click spam/device farms, uninstall/retention filters, and cohort quality scoring.</span>
+                                                <span data-lang-es>Controles de fraude y calidad: detección de click spam/device farms, filtros de uninstall/retención y scoring de calidad por cohorte.</span>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -3858,40 +4429,62 @@
                 <section class="performance-section">
                     <div class="performance-container">
                         <div class="performance-header">
-                            <h1>Faster, Leaner, Smarter.</h1>
-                            <h1>Engineer for performance.</h1>
-                            <h1>Tune costs continuously.</h1>
-                            <h1>Max ROI per dollar.</h1>
+                            <h1>
+                                <span data-lang-en>Faster, Leaner, Smarter.</span>
+                                <span data-lang-es>Más rápido, más liviano, más inteligente</span>
+                            </h1>
+                            <h1>
+                                <span data-lang-en>Engineer for performance.</span>
+                                <span data-lang-es>Ingeniería para performance.</span>
+                            </h1>
+                            <h1>
+                                <span data-lang-en>Tune costs continuously.</span>
+                                <span data-lang-es>Optimización de costos continua.</span>
+                            </h1>
+                            <h1>
+                                <span data-lang-en>Max ROI per dollar.</span>
+                                <span data-lang-es>Máximo ROI por dólar.</span>
+                            </h1>
                         </div>
 
                         <div class="performance-table-header">
-                            <div class="performance-column-title">Pillar</div>
-                            <div class="performance-column-title">What we do</div>
-                            <div class="performance-column-title">Why it matters</div>
+                            <div class="performance-column-title">
+                                <span data-lang-en>Pillar</span>
+                                <span data-lang-es>Pilar</span>
+                            </div>
+                            <div class="performance-column-title">
+                                <span data-lang-en>What we do</span>
+                                <span data-lang-es>Qué hacemos</span>
+                            </div>
+                            <div class="performance-column-title">
+                                <span data-lang-en>Why it matters</span>
+                                <span data-lang-es>Por qué importa</span>
+                            </div>
                         </div>
 
                         <div class="performance-rows-container">
                             <div class="performance-row">
                                 <div class="pillar-card">
                                     <div class="pillar-content">
-                                        <h3 class="pillar-title">Build once, pay right</h3>
+                                        <h3 class="pillar-title">
+                                            <span data-lang-en>Build once, pay right</span>
+                                            <span data-lang-es>Build once, pay right</span>
+                                        </h3>
                                         <span class="pillar-arrow">→</span>
                                     </div>
                                 </div>
 
                                 <div class="performance-text-card">
                                     <p>
-                                        Partitioning & clustering: pruning. Customer usage. Spot vs. cold storage. 
-                                        Lifecycle rules, compression, late-binding materialized views, pre-aggregates, and 
-                                        warehouse auto-suspend. Smaller tables = less cost + faster queries.
+                                        <span data-lang-en>Partitioning & clustering; pruning/selective trimming; columnar design. Hot vs. cold storage; lifecycle rules; compaction; consumption-defined schemas. Cached aggregates; incremental models; updates with service level agreements.</span>
+                                        <span data-lang-es>Particionamiento y clustering; poda/recorte selectivo; diseño columnar. Almacenamiento "caliente" vs. "frío"; reglas de ciclo de vida; compactación; esquemas definidos al consumo. Agregados en caché; modelos incrementales; actualizaciones con acuerdos de servicio.</span>
                                     </p>
                                 </div>
 
                                 <div class="performance-text-card">
                                     <p>
-                                        "We saved 40% on Snowflake by switching to a 
-                                        smartest storage on the right tier, 
-                                        predictable headroom vs. cost."
+                                        <span data-lang-en>Lower base spend, fewer bytes read/scanned, data at the right storage tier, predictable freshness vs. cost.</span>
+                                        <span data-lang-es>Menor gasto base, menos bytes leídos/escaneados, datos en el nivel de almacenamiento correcto, frescura predecible vs. costo.</span>
                                     </p>
                                 </div>
                             </div>
@@ -3899,26 +4492,25 @@
                             <div class="performance-row">
                                 <div class="pillar-card">
                                     <div class="pillar-content">
-                                        <h3 class="pillar-title">FinOps & Observability</h3>
+                                        <h3 class="pillar-title">
+                                            <span data-lang-en>FinOps & Observability</span>
+                                            <span data-lang-es>FinOps y observabilidad</span>
+                                        </h3>
                                         <span class="pillar-arrow">→</span>
                                     </div>
                                 </div>
 
                                 <div class="performance-text-card">
                                     <p>
-                                        Cost monitors & budgets by project/environment/dataset. Anomaly alerts. 
-                                        Real-time dashboards for queries, storage, compute. Slot utilization & BigQuery 
-                                        on-demand. Capacity & latency: SCAN-cofficient, Pipeline breakdown. 
-                                        Daily exports to Looker or BI; cross-source baseline, burndown baselines, 
-                                        burnline queries.
+                                        <span data-lang-en>Cost monitoring & budgeting by project/team/workload; anomaly alerts. Scan heatmaps; most expensive queries/processes; automatic recommendations.</span>
+                                        <span data-lang-es>Monitoreo de costos y presupuestos por proyecto/equipo/carga; alertas por anomalías. Mapas de calor de escaneo; consultas/procesos más costosos; recomendaciones automáticas.</span>
                                     </p>
                                 </div>
 
                                 <div class="performance-text-card">
                                     <p>
-                                        Daily visibility action items: remove runaway 
-                                        statuses scan without surprises: prevent 
-                                        runaway bills.
+                                        <span data-lang-en>Daily visibility, faster corrections, controlled latency, scale without surprises, prevention of overcosts/uncontrolled bills.</span>
+                                        <span data-lang-es>Visibilidad diaria, correcciones más rápidas, latencia controlada, escala sin sorpresas, prevención de sobrecostos/facturas descontroladas.</span>
                                     </p>
                                 </div>
                             </div>
@@ -3926,22 +4518,25 @@
                             <div class="performance-row">
                                 <div class="pillar-card">
                                     <div class="pillar-content">
-                                        <h3 class="pillar-title">Continuous improvement</h3>
+                                        <h3 class="pillar-title">
+                                            <span data-lang-en>Continuous improvement</span>
+                                            <span data-lang-es>Mejora continua</span>
+                                        </h3>
                                         <span class="pillar-arrow">→</span>
                                     </div>
                                 </div>
 
                                 <div class="performance-text-card">
                                     <p>
-                                        Monthly Efficiency Sprints with documented wins. Golden paths for 
-                                        efficient defaults. Vendor & finance negotiation.
+                                        <span data-lang-en>Monthly efficiency sprints with comparative measurements (before/after benchmarks) and documented wins. Recommended golden paths for efficient defaults. Vendor review and feature capture.</span>
+                                        <span data-lang-es>Sprints de eficiencia mensuales con mediciones comparativas (before/after benchmarks) y logros documentados. Rutas recomendadas (golden paths) para defaults eficientes. Revisión de proveedores y funcionalidades.</span>
                                     </p>
                                 </div>
 
                                 <div class="performance-text-card">
                                     <p>
-                                        Compounding gains: embedded optimization practice, captured 
-                                        platform discount/relations.
+                                        <span data-lang-en>Compounding savings, consistent engineering practices, captured discounts and new platform features.</span>
+                                        <span data-lang-es>Ahorros compuestos, prácticas de ingeniería consistentes, captura de descuentos y nuevas funciones de la plataforma.</span>
                                     </p>
                                 </div>
                             </div>
@@ -3953,72 +4548,140 @@
             <!-- Staff Augmentation Tab (SECOND TAB - tab1 content) -->
             <div id="staff-content" class="tab-content">
                 <!-- Section 1: Staff Augmentation | What problem does it solve -->
-                <section class="problem-solution-section" id="staff">
-                    <div class="network-bg"></div>
-                    <div class="problem-solution-container">
-                        <h1 class="problem-solution-header">What problem does it solve</h1>
+            <section class="problem-solution-section" id="staff">
+                <div class="network-bg"></div>
+                <div class="problem-solution-container">
+                    <h1 class="problem-solution-header">
+                        <span data-lang-en>What problem does it solve</span>
+                        <span data-lang-es>Staff Augmentation | ¿Qué problema resuelve?</span>
+                    </h1>
+                    
+                    <div class="flip-cards-container">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <h2>
+                                        <span data-lang-en>Time-to-Hire</span>
+                                        <span data-lang-es>Tiempo de Contratación</span>
+                                    </h2>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="back-content">
+                                        <h3>
+                                            <span data-lang-en>Time-to-Hire Problem</span>
+                                            <span data-lang-es>Problema de Tiempo de Contratación</span>
+                                        </h3>
+                                        <p>
+                                            <span data-lang-en>Traditional recruitment takes 45-60 days to fill technical positions, causing project delays and lost opportunities.</span>
+                                            <span data-lang-es>El reclutamiento tradicional tarda 45-60 días en llenar posiciones técnicas, causando retrasos en proyectos y pérdida de oportunidades.</span>
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <span data-lang-en>Extended vacancy periods</span>
+                                                <span data-lang-es>Períodos de vacantes extendidos</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Team burnout and overload</span>
+                                                <span data-lang-es>Agotamiento y sobrecarga del equipo</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Delayed project timelines</span>
+                                                <span data-lang-es>Cronologías de proyectos retrasadas</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Increased recruitment costs</span>
+                                                <span data-lang-es>Costos de reclutamiento incrementados</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <div class="problem-solution-cards-container">
-                            <div class="flip-card">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front">
-                                        <h2>The Problem</h2>
-                                    </div>
-                                    <div class="flip-card-back">
-                                        <div class="back-content">
-                                            <h3>The Problem</h3>
-                                            <p>Modern businesses face pressure to innovate and deliver faster.</p>
-                                            <ul>
-                                                <li>Finding specialized skills quickly.</li>
-                                                <li>Avoiding traditional hiring costs and delays.</li>
-                                                <li>Bridging talent gaps without long-term commitments.</li>
-                                            </ul>
-                                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <h2>
+                                        <span data-lang-en>Cost Efficiency</span>
+                                        <span data-lang-es>Eficiencia de Costos</span>
+                                    </h2>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="back-content">
+                                        <h3>
+                                            <span data-lang-en>Cost Efficiency Problem</span>
+                                            <span data-lang-es>Problema de Eficiencia de Costos</span>
+                                        </h3>
+                                        <p>
+                                            <span data-lang-en>Traditional hiring involves hidden costs: recruitment fees, onboarding expenses, benefits administration, and infrastructure overhead.</span>
+                                            <span data-lang-es>La contratación tradicional involucra costos ocultos: tarifas de reclutamiento, gastos de incorporación, administración de beneficios y overhead de infraestructura.</span>
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <span data-lang-en>High recruitment agency fees</span>
+                                                <span data-lang-es>Altas tarifas de agencias de reclutamiento</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Training and onboarding costs</span>
+                                                <span data-lang-es>Costos de capacitación e incorporación</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Benefits and overhead expenses</span>
+                                                <span data-lang-es>Gastos de beneficios y overhead</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Equipment and infrastructure costs</span>
+                                                <span data-lang-es>Costos de equipo e infraestructura</span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="flip-card">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front">
-                                        <h2>Our Solution</h2>
-                                    </div>
-                                    <div class="flip-card-back">
-                                        <div class="back-content">
-                                            <h3>Our Solution</h3>
-                                            <p>Our Staff Augmentation service gives you on-demand access to top-tier, pre-vetted global talent.</p>
-                                            <ul>
-                                                <li>Scale your team with agility.</li>
-                                                <li>Accelerate project delivery.</li>
-                                                <li>Drive innovation without disrupting your culture.</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                        </div>
+                        
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <h2>
+                                        <span data-lang-en>Flexibility</span>
+                                        <span data-lang-es>Flexibilidad</span>
+                                    </h2>
                                 </div>
-                            </div>
-
-                            <div class="flip-card">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front">
-                                        <h2>The Advantage</h2>
-                                    </div>
-                                    <div class="flip-card-back">
-                                        <div class="back-content">
-                                            <h3>The Advantage</h3>
-                                            <p>With Mindbits, you gain:</p>
-                                            <ul>
-                                                <li>Flexibility to expand or reduce your team as needed.</li>
-                                                <li>Speed in onboarding the right experts at the right time.</li>
-                                                <li>Cost efficiency by reducing recruitment overhead.</li>
-                                                <li>Operational excellence and a lasting competitive edge.</li>
-                                            </ul>
-                                        </div>
+                                <div class="flip-card-back">
+                                    <div class="back-content">
+                                        <h3>
+                                            <span data-lang-en>Flexibility Problem</span>
+                                            <span data-lang-es>Problema de Flexibilidad</span>
+                                        </h3>
+                                        <p>
+                                            <span data-lang-en>Permanent hires create rigid team structures that can't adapt to changing business needs and market demands.</span>
+                                            <span data-lang-es>Las contrataciones permanentes crean estructuras de equipo rígidas que no pueden adaptarse a las cambiantes necesidades comerciales y demandas del mercado.</span>
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <span data-lang-en>Inflexible team composition</span>
+                                                <span data-lang-es>Composición de equipo inflexible</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Difficulty scaling up/down</span>
+                                                <span data-lang-es>Dificultad para escalar hacia arriba/abajo</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Long-term commitment risks</span>
+                                                <span data-lang-es>Riesgos de compromiso a largo plazo</span>
+                                            </li>
+                                            <li>
+                                                <span data-lang-en>Limited access to specialized skills</span>
+                                                <span data-lang-es>Acceso limitado a habilidades especializadas</span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
                 <div class="section-divider"></div>
 
@@ -4029,11 +4692,18 @@
                     </div>
 
                     <div class="table-header">
-                        <div class="column-title">Aspect</div>
-                        <div class="column-title">Traditional Recruitment</div>
+                        <div class="column-title">
+                            <span data-lang-en>Aspect</span>
+                            <span data-lang-es>Aspecto</span>
+                        </div>
+                        <div class="column-title">
+                            <span data-lang-en>Traditional Recruitment</span>
+                            <span data-lang-es>Reclutamiento tradicional</span>
+                        </div>
                         <div class="column-title">
                             <img src="assets/LogoGrandeNaranja.png" alt="Mindbits" class="col-logo">
-                            Staff augmentation
+                            <span data-lang-en>Staff augmentation</span>
+                            <span data-lang-es>Staff Augmentation</span>
                         </div>
                     </div>
 
@@ -4041,20 +4711,25 @@
                         <div class="row">
                             <div class="aspect-card">
                                 <div class="aspect-content">
-                                    <h3 class="aspect-title">Hiring Model</h3>
+                                    <h3 class="aspect-title">
+                                        <span data-lang-en>Hiring Model</span>
+                                        <span data-lang-es>Modelo de contratación</span>
+                                    </h3>
                                     <span class="aspect-arrow">→</span>
                                 </div>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    Recruiters help you find, vet, and hire permanent employees onto your payroll.
+                                    <span data-lang-en>Recruiters help you find, vet, and hire permanent employees onto your payroll.</span>
+                                    <span data-lang-es>Recruiters te ayudan a encontrar, evaluar y contratar empleados permanentes en tu nómina.</span>
                                 </p>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    We provide immediate, specialized talent for specific needs or projects.
+                                    <span data-lang-en>We provide immediate, specialized talent for specific needs or projects.</span>
+                                    <span data-lang-es>Proveemos talento inmediato y especializado para necesidades o proyectos específicos.</span>
                                 </p>
                             </div>
                         </div>
@@ -4062,20 +4737,25 @@
                         <div class="row">
                             <div class="aspect-card">
                                 <div class="aspect-content">
-                                    <h3 class="aspect-title">Focus</h3>
+                                    <h3 class="aspect-title">
+                                        <span data-lang-en>Focus</span>
+                                        <span data-lang-es>Enfoque</span>
+                                    </h3>
                                     <span class="aspect-arrow">→</span>
                                 </div>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    Long-term cultural and skill alignment to build your core team.
+                                    <span data-lang-en>Long-term cultural and skill alignment to build your core team.</span>
+                                    <span data-lang-es>Alineación cultural y de habilidades a largo plazo para construir tu equipo core.</span>
                                 </p>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    Short- to mid-term project demands and bridging immediate talent gaps.
+                                    <span data-lang-en>Short- to mid-term project demands and bridging immediate talent gaps.</span>
+                                    <span data-lang-es>Demandas de proyecto de corto/mediano plazo y cobertura inmediata de gaps de talento.</span>
                                 </p>
                             </div>
                         </div>
@@ -4083,20 +4763,25 @@
                         <div class="row">
                             <div class="aspect-card">
                                 <div class="aspect-content">
-                                    <h3 class="aspect-title">Management</h3>
+                                    <h3 class="aspect-title">
+                                        <span data-lang-en>Management</span>
+                                        <span data-lang-es>Gestión</span>
+                                    </h3>
                                     <span class="aspect-arrow">→</span>
                                 </div>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    You manage all HR responsibilities: onboarding, benefits, and career development.
+                                    <span data-lang-en>You manage all HR responsibilities: onboarding, benefits, and career development.</span>
+                                    <span data-lang-es>Vos gestionás todo lo de RR.HH: onboarding, beneficios y desarrollo de carrera.</span>
                                 </p>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    Talent remains on our payroll and under our HR administration.
+                                    <span data-lang-en>Talent remains on our payroll and under our HR administration.</span>
+                                    <span data-lang-es>El talento queda en nuestra nómina y bajo nuestra administración de RR.HH.</span>
                                 </p>
                             </div>
                         </div>
@@ -4104,20 +4789,25 @@
                         <div class="row">
                             <div class="aspect-card">
                                 <div class="aspect-content">
-                                    <h3 class="aspect-title">Integration</h3>
+                                    <h3 class="aspect-title">
+                                        <span data-lang-en>Integration</span>
+                                        <span data-lang-es>Integración</span>
+                                    </h3>
                                     <span class="aspect-arrow">→</span>
                                 </div>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    Employees become part of your permanent workforce.
+                                    <span data-lang-en>Employees become part of your permanent workforce.</span>
+                                    <span data-lang-es>Empleados se incorporan a tu fuerza laboral permanente.</span>
                                 </p>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    Professionals integrate into your workflows but stay external to your payroll.
+                                    <span data-lang-en>Professionals integrate into your workflows but stay external to your payroll.</span>
+                                    <span data-lang-es>Profesionales se integran a tus flujos, pero no a tu nómina.</span>
                                 </p>
                             </div>
                         </div>
@@ -4125,20 +4815,25 @@
                         <div class="row">
                             <div class="aspect-card">
                                 <div class="aspect-content">
-                                    <h3 class="aspect-title">Flexibility</h3>
+                                    <h3 class="aspect-title">
+                                        <span data-lang-en>Flexibility</span>
+                                        <span data-lang-es>Flexibilidad</span>
+                                    </h3>
                                     <span class="aspect-arrow">→</span>
                                 </div>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    Limited — scaling requires lengthy hiring processes.
+                                    <span data-lang-en>Limited — scaling requires lengthy hiring processes.</span>
+                                    <span data-lang-es>Limitada: escalar requiere procesos de contratación extensos.</span>
                                 </p>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    High — scale teams up or down quickly without long-term commitments.
+                                    <span data-lang-en>High — scale teams up or down quickly without long-term commitments.</span>
+                                    <span data-lang-es>Alta: escalás rápido sin compromisos de largo plazo.</span>
                                 </p>
                             </div>
                         </div>
@@ -4146,20 +4841,25 @@
                         <div class="row">
                             <div class="aspect-card">
                                 <div class="aspect-content">
-                                    <h3 class="aspect-title">Cost & Overhead</h3>
+                                    <h3 class="aspect-title">
+                                        <span data-lang-en>Cost & Overhead</span>
+                                        <span data-lang-es>Costo & overhead</span>
+                                    </h3>
                                     <span class="aspect-arrow">→</span>
                                 </div>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    Higher costs due to recruitment, benefits, and long-term obligations.
+                                    <span data-lang-en>Higher costs due to recruitment, benefits, and long-term obligations.</span>
+                                    <span data-lang-es>Costos mayores por reclutamiento, beneficios y obligaciones de largo plazo.</span>
                                 </p>
                             </div>
 
                             <div class="text-card">
                                 <p>
-                                    Cost-efficient — no recruitment overhead or permanent commitments.
+                                    <span data-lang-en>Cost-efficient — no recruitment overhead or permanent commitments.</span>
+                                    <span data-lang-es>Eficiente: sin overhead de reclutamiento ni compromisos permanentes.</span>
                                 </p>
                             </div>
                         </div>
@@ -4172,7 +4872,10 @@
                 <div class="pipeline-section">
                     <div class="section-container">
                         <div class="section-header">
-                            <h1>Hiring Pipeline</h1>
+                            <h1>
+                                <span data-lang-en>Hiring Pipeline</span>
+                                <span data-lang-es>Pipeline de contratación</span>
+                            </h1>
                         </div>
 
                         <div class="pipeline-content-wrapper">
@@ -4180,11 +4883,15 @@
                                 <div class="step-item">
                                     <div class="step-number">1</div>
                                     <div class="step-content">
-                                        <h3 class="step-title">Kick-off & Alignment</h3>
+                                        <h3 class="step-title">
+                                            <span data-lang-en>Kick-off & Alignment</span>
+                                            <span data-lang-es>Kick-off & Alineación</span>
+                                        </h3>
                                         <p class="step-description">
-                                            We start with a deep-dive meeting to understand the role's scope, responsibilities, 
+                                            <span data-lang-en>We start with a deep-dive meeting to understand the role's scope, responsibilities, 
                                             and the ideal candidate profile. Together, we align on key logistics, including the 
-                                            number of interview stages you want to conduct.
+                                            number of interview stages you want to conduct.</span>
+                                            <span data-lang-es>Reunión para entender alcance del rol, responsabilidades y perfil ideal. Definimos en conjunto la cantidad de etapas de entrevista.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4192,10 +4899,14 @@
                                 <div class="step-item">
                                     <div class="step-number">2</div>
                                     <div class="step-content">
-                                        <h3 class="step-title">Sourcing & Attraction</h3>
+                                        <h3 class="step-title">
+                                            <span data-lang-en>Sourcing & Attraction</span>
+                                            <span data-lang-es>Sourcing & Atracción</span>
+                                        </h3>
                                         <p class="step-description">
-                                            With the blueprint in place, we activate a multi-channel sourcing strategy—posting 
-                                            the role and proactively reaching both active and passive candidates.
+                                            <span data-lang-en>With the blueprint in place, we activate a multi-channel sourcing strategy—posting 
+                                            the role and proactively reaching both active and passive candidates.</span>
+                                            <span data-lang-es>Con el plano listo, activamos una estrategia multicanal: publicamos el rol y contactamos candidatos activos y pasivos.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4203,10 +4914,14 @@
                                 <div class="step-item">
                                     <div class="step-number">3</div>
                                     <div class="step-content">
-                                        <h3 class="step-title">Screening & Assessments</h3>
+                                        <h3 class="step-title">
+                                            <span data-lang-en>Screening & Assessments</span>
+                                            <span data-lang-es>Screening & Evaluaciones</span>
+                                        </h3>
                                         <p class="step-description">
-                                            Our team carefully reviews resumes, conducts comprehensive HR screenings, and 
-                                            facilitates any required technical assessments.
+                                            <span data-lang-en>Our team carefully reviews resumes, conducts comprehensive HR screenings, and 
+                                            facilitates any required technical assessments.</span>
+                                            <span data-lang-es>Revisión exhaustiva de CVs, entrevistas HR y facilitación de evaluaciones técnicas necesarias.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4214,10 +4929,14 @@
                                 <div class="step-item">
                                     <div class="step-number">4</div>
                                     <div class="step-content">
-                                        <h3 class="step-title">Client Interviews</h3>
+                                        <h3 class="step-title">
+                                            <span data-lang-en>Client Interviews</span>
+                                            <span data-lang-es>Entrevistas con el cliente</span>
+                                        </h3>
                                         <p class="step-description">
-                                            Qualified candidates move forward to the interview stages you've defined. We act as 
-                                            the central hub of communication, ensuring a smooth and positive candidate experience.
+                                            <span data-lang-en>Qualified candidates move forward to the interview stages you've defined. We act as 
+                                            the central hub of communication, ensuring a smooth and positive candidate experience.</span>
+                                            <span data-lang-es>Los candidatos calificados avanzan por las etapas que definiste. Somos el hub de comunicación, asegurando una experiencia fluida.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4225,10 +4944,14 @@
                                 <div class="step-item">
                                     <div class="step-number">5</div>
                                     <div class="step-content">
-                                        <h3 class="step-title">Closing & Onboarding</h3>
+                                        <h3 class="step-title">
+                                            <span data-lang-en>Closing & Onboarding</span>
+                                            <span data-lang-es>Cierre & Onboarding</span>
+                                        </h3>
                                         <p class="step-description">
-                                            Once you make the final decision, we handle the offer letter, manage all hiring 
-                                            paperwork, and initiate a structured onboarding process for a successful start.
+                                            <span data-lang-en>Once you make the final decision, we handle the offer letter, manage all hiring 
+                                            paperwork, and initiate a structured onboarding process for a successful start.</span>
+                                            <span data-lang-es>Con tu decisión final, gestionamos oferta, documentación y un onboarding estructurado para un arranque exitoso.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4236,10 +4959,14 @@
                                 <div class="step-item">
                                     <div class="step-number">6</div>
                                     <div class="step-content">
-                                        <h3 class="step-title">Continuous Communication</h3>
+                                        <h3 class="step-title">
+                                            <span data-lang-en>Continuous Communication</span>
+                                            <span data-lang-es>Comunicación continua</span>
+                                        </h3>
                                         <p class="step-description">
-                                            At every stage, we provide feedback to candidates and maintain proactive contact with 
-                                            you. This end-to-end ownership transforms hiring from a challenge into a strategic advantage.
+                                            <span data-lang-en>At every stage, we provide feedback to candidates and maintain proactive contact with 
+                                            you. This end-to-end ownership transforms hiring from a challenge into a strategic advantage.</span>
+                                            <span data-lang-es>En cada etapa damos feedback a candidatos y mantenemos contacto proactivo con vos. Este end-to-end convierte la contratación en una ventaja estratégica.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4262,7 +4989,10 @@
                 <div class="benefits-section">
                     <div class="section-container">
                         <div class="benefits-header">
-                            <h1>Tangible Benefits</h1>
+                            <h1>
+                                <span data-lang-en>Tangible Benefits</span>
+                                <span data-lang-es>Beneficios tangibles</span>
+                            </h1>
                         </div>
 
                         <div class="carousel-wrapper" id="carouselWrapperStaff">
@@ -4277,9 +5007,13 @@
                                         <div class="benefit-image-wrapper benefit-img img1"></div>
                                     </div>
                                     <div class="text-content">
-                                        <h3 class="benefit-title">Accelerated Time-to-Hire</h3>
+                                        <h3 class="benefit-title">
+                                            <span data-lang-en>Accelerated Time-to-Hire</span>
+                                            <span data-lang-es>Time-to-hire acelerado</span>
+                                        </h3>
                                         <p class="benefit-description">
-                                            Our streamlined hiring pipeline—from kick-off to onboarding—delivers pre-vetted talent in weeks, not months. Meet critical deadlines without delays.
+                                            <span data-lang-en>Our streamlined hiring pipeline—from kick-off to onboarding—delivers pre-vetted talent in weeks, not months. Meet critical deadlines without delays.</span>
+                                            <span data-lang-es>Nuestro pipeline —del kick-off al onboarding— entrega talento preevaluado en semanas, no meses. Cumplí deadlines críticos sin demoras.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4289,9 +5023,13 @@
                                         <div class="benefit-image-wrapper benefit-img img2"></div>
                                     </div>
                                     <div class="text-content">
-                                        <h3 class="benefit-title">Significant Cost Reduction</h3>
+                                        <h3 class="benefit-title">
+                                            <span data-lang-en>Significant Cost Reduction</span>
+                                            <span data-lang-es>Reducción significativa de costos</span>
+                                        </h3>
                                         <p class="benefit-description">
-                                            Avoid the high overhead of permanent hires (recruiter fees, benefits, payroll taxes, severance). Access specialized skills with a predictable, budget-friendly model.
+                                            <span data-lang-en>Avoid the high overhead of permanent hires (recruiter fees, benefits, payroll taxes, severance). Access specialized skills with a predictable, budget-friendly model.</span>
+                                            <span data-lang-es>Evitá el overhead de contrataciones permanentes (fees de recruiters, beneficios, impuestos, indemnizaciones). Accedé a talentos especializados con un modelo previsible y amigable para tu presupuesto.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4301,9 +5039,13 @@
                                         <div class="benefit-image-wrapper benefit-img img3"></div>
                                     </div>
                                     <div class="text-content">
-                                        <h3 class="benefit-title">Agile & Scalable Teams</h3>
+                                        <h3 class="benefit-title">
+                                            <span data-lang-en>Agile & Scalable Teams</span>
+                                            <span data-lang-es>Equipos ágiles y escalables</span>
+                                        </h3>
                                         <p class="benefit-description">
-                                            Bridge skill gaps instantly and scale your team up or down as projects evolve. Respond to market demands with precision, without long-term commitments.
+                                            <span data-lang-en>Bridge skill gaps instantly and scale your team up or down as projects evolve. Respond to market demands with precision, without long-term commitments.</span>
+                                            <span data-lang-es>Cubrí gaps de talentos al instante y escalá arriba/abajo según evolucionen los proyectos. Respondé al mercado con precisión, sin compromisos a largo plazo.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4313,9 +5055,13 @@
                                         <div class="benefit-image-wrapper benefit-img img4"></div>
                                     </div>
                                     <div class="text-content">
-                                        <h3 class="benefit-title">Global, Top-Tier Talent Pool</h3>
+                                        <h3 class="benefit-title">
+                                            <span data-lang-en>Global, Top-Tier Talent Pool</span>
+                                            <span data-lang-es>Pool global de talento top</span>
+                                        </h3>
                                         <p class="benefit-description">
-                                            Tap into diverse, high-impact professionals in data analytics, product management, and software development—giving you a direct competitive edge.
+                                            <span data-lang-en>Tap into diverse, high-impact professionals in data analytics, product management, and software development—giving you a direct competitive edge.</span>
+                                            <span data-lang-es>Accedé a profesionales diversos y de alto impacto en Data Analytics, Product Management y Software Development. Es una ventaja competitiva directa.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4325,9 +5071,13 @@
                                         <div class="benefit-image-wrapper benefit-img img5"></div>
                                     </div>
                                     <div class="text-content">
-                                        <h3 class="benefit-title">Reduced Administrative Burden</h3>
+                                        <h3 class="benefit-title">
+                                            <span data-lang-en>Reduced Administrative Burden</span>
+                                            <span data-lang-es>Menor carga administrativa</span>
+                                        </h3>
                                         <p class="benefit-description">
-                                            We manage HR, payroll, benefits, and compliance (including cross-border hires), freeing your team to focus on strategy and growth.
+                                            <span data-lang-en>We manage HR, payroll, benefits, and compliance (including cross-border hires), freeing your team to focus on strategy and growth.</span>
+                                            <span data-lang-es>Gestionamos RR.HH, payroll, beneficios y compliance (incluidas contrataciones cross-border), liberando a tu equipo para enfocarse en su estrategia y crecimiento.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4337,9 +5087,13 @@
                                         <div class="benefit-image-wrapper benefit-img img6"></div>
                                     </div>
                                     <div class="text-content">
-                                        <h3 class="benefit-title">Cultural & Technical Fit</h3>
+                                        <h3 class="benefit-title">
+                                            <span data-lang-en>Cultural & Technical Fit</span>
+                                            <span data-lang-es>Fit cultural y técnico</span>
+                                        </h3>
                                         <p class="benefit-description">
-                                            Beyond resumes: our HR screenings and tailored technical assessments ensure every professional integrates seamlessly into your workflows from day one.
+                                            <span data-lang-en>Beyond resumes: our HR screenings and tailored technical assessments ensure every professional integrates seamlessly into your workflows from day one.</span>
+                                            <span data-lang-es>Más allá del CV: nuestros screenings de HR y evaluaciones técnicas a medida aseguran integración fluida desde el día uno.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -4363,32 +5117,65 @@
                 <div class="footer-content">
                     <!-- Contact Form -->
                     <div class="contact-form">
-                        <h3>Have a project in mind?</h3>
+                        <h3>
+                            <span data-lang-en>Have a project in mind?</span>
+                            <span data-lang-es>¿Tienes un proyecto en mente?</span>
+                        </h3>
                         <form id="contactForm">
                             <div class="form-group">
-                                <label>Your name*</label>
+                                <label>
+                                    <span data-lang-en>Your name*</span>
+                                    <span data-lang-es>Tu nombre*</span>
+                                </label>
                                 <input type="text" required>
                             </div>
                             <div class="form-group">
-                                <label>E-mail*</label>
+                                <label>
+                                    <span data-lang-en>E-mail*</span>
+                                    <span data-lang-es>Correo electrónico*</span>
+                                </label>
                                 <input type="email" required>
                             </div>
                             <div class="form-group">
-                                <label>Message*</label>
+                                <label>
+                                    <span data-lang-en>Message*</span>
+                                    <span data-lang-es>Mensaje*</span>
+                                </label>
                                 <textarea required></textarea>
                             </div>
-                            <button type="submit" class="submit-btn">Send Message</button>
+                            <button type="submit" class="submit-btn">
+                                <span data-lang-en>Send Message</span>
+                                <span data-lang-es>Enviar Mensaje</span>
+                            </button>
                         </form>
                     </div>
 
                     <!-- Footer Info -->
                     <div class="footer-info">
-                        <h2>Let's talk.</h2>
-                        <p>Tell us about your project</p>
-                        <p><strong>Quick response.</strong></p>
-                        <p>If you're ready to create and collaborate, we'd love to hear from you.</p>
-                        <p><strong>Clear next steps.</strong></p>
-                        <p>After consultation, we'll provide you with a detailed plan of a timeline.</p>
+                        <h2>
+                            <span data-lang-en>Let's talk.</span>
+                            <span data-lang-es>Hablemos.</span>
+                        </h2>
+                        <p>
+                            <span data-lang-en>Tell us about your project</span>
+                            <span data-lang-es>Cuéntanos sobre tu proyecto</span>
+                        </p>
+                        <p><strong>
+                            <span data-lang-en>Quick response.</span>
+                            <span data-lang-es>Respuesta rápida.</span>
+                        </strong></p>
+                        <p>
+                            <span data-lang-en>If you're ready to create and collaborate, we'd love to hear from you.</span>
+                            <span data-lang-es>Si estás listo para crear y colaborar, nos encantaría saber de ti.</span>
+                        </p>
+                        <p><strong>
+                            <span data-lang-en>Clear next steps.</span>
+                            <span data-lang-es>Pasos claros siguientes.</span>
+                        </strong></p>
+                        <p>
+                            <span data-lang-en>After consultation, we'll provide you with a detailed plan of a timeline.</span>
+                            <span data-lang-es>Después de la consulta, te proporcionaremos un plan detallado con una línea de tiempo.</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -4398,26 +5185,47 @@
                 <div class="footer-bottom-content">
                     <!-- Contact Info -->
                     <div class="footer-contact">
-                        <h4>Contact</h4>
+                        <h4>
+                            <span data-lang-en>Contact</span>
+                            <span data-lang-es>Contacto</span>
+                        </h4>
                         <p>(+54) 11 6895-8605</p>
                         <p><a href="mailto:hello@mindbits.ai">hello@mindbits.ai</a></p>
                     </div>
 
                     <!-- Navigation -->
                     <div class="footer-nav">
-                        <h4>Navigation</h4>
+                        <h4>
+                            <span data-lang-en>Navigation</span>
+                            <span data-lang-es>Navegación</span>
+                        </h4>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="faqs.html">Faqs</a></li>
-                            <li><a href="who.html">About Us</a></li>
+                            <li><a href="index.html">
+                                <span data-lang-en>Home</span>
+                                <span data-lang-es>Inicio</span>
+                            </a></li>
+                            <li><a href="pricing.html">
+                                <span data-lang-en>Pricing</span>
+                                <span data-lang-es>Precios</span>
+                            </a></li>
+                            <li><a href="faqs.html">
+                                <span data-lang-en>Faqs</span>
+                                <span data-lang-es>Preguntas</span>
+                            </a></li>
+                            <li><a href="who.html">
+                                <span data-lang-en>About Us</span>
+                                <span data-lang-es>Nosotros</span>
+                            </a></li>
                         </ul>
                     </div>
 
                     <!-- Social Media & Logo -->
                     <div class="footer-logo-section">
                         <div class="footer-social">
-                            <h4>Social</h4>
+                            <h4>
+                                <span data-lang-en>Social</span>
+                                <span data-lang-es>Redes</span>
+                            </h4>
                             <div class="social-icons">
                                 <a href="#" class="social-icon" title="LinkedIn">in</a>
                                 <a href="#" class="social-icon" title="Twitter">𝕏</a>
@@ -4433,12 +5241,41 @@
 
             <!-- Copyright - Blue section -->
             <div class="footer-copyright">
-                <p> 2026 Mindbits. All rights reserved.</p>
+                <p>© 2026 Mindbits. <span data-lang-en>All rights reserved.</span><span data-lang-es>Todos los derechos reservados.</span></p>
             </div>
         </footer>
 
         <script>
-            // ============================================ GLOBAL VARIABLES ============================================
+            // ============================================ LANGUAGE SWITCHING FUNCTIONALITY ============================================
+        function switchLanguage(lang) {
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.language-selector button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.language-selector button[data-lang="${lang}"]`).classList.add('active');
+            
+            // Save preference to localStorage
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Initialize language switching
+        document.querySelectorAll('.language-selector button').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                switchLanguage(lang);
+            });
+        });
+
+        // Load saved language preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+            switchLanguage(savedLang);
+        });
+
+        // ============================================ GLOBAL VARIABLES ============================================
             const header = document.getElementById('mainHeader');
             let currentHeroSlide = 0;
             const heroSlides = document.querySelectorAll('.hero-slide');
@@ -4644,12 +5481,19 @@
 
             // ============================================ ANALYTICS SECTION - HOW IT WORKS ============================================
             function initHowItWorksAnimations() {
-                const bulletItems = document.querySelectorAll('#analytics-content .bullet-item');
+                const bulletItems = document.querySelectorAll('.how-it-works-section .bullet-item');
+                console.log('Found bullet items:', bulletItems.length); // Debug
+                
+                // Temporary test - make first item orange
+                if (bulletItems.length > 0) {
+                    bulletItems[0].classList.add('test-orange');
+                    console.log('Added test-orange to first item');
+                }
 
                 function revealTextOnScroll() {
                     const viewportHeight = window.innerHeight;
                     
-                    bulletItems.forEach(item => {
+                    bulletItems.forEach((item, index) => {
                         const rect = item.getBoundingClientRect();
                         const itemCenter = rect.top + rect.height / 2;
                         
@@ -4659,10 +5503,18 @@
                         if (itemCenter < triggerPoint) {
                             const distance = triggerPoint - itemCenter;
                             const progress = Math.min(distance / fadeDistance, 1);
-                            const opacity = 0.15 + (progress * 0.85);
-                            item.style.opacity = opacity;
+
+                            
+                            // Add orange color during animation
+                            if (progress > 0.2) {
+                                item.classList.add('animating');
+                                console.log(`Item ${index} animating, progress: ${progress}`); // Debug
+                            } else {
+                                item.classList.remove('animating');
+                            }
                         } else {
-                            item.style.opacity = 0.15;
+                           
+                            item.classList.remove('animating');
                         }
                     });
                 }

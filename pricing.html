@@ -14,16 +14,113 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* ============================================ ROOT VARIABLES & GLOBAL STYLES ============================================ */
+        :root {
+            --mindbits-orange: #f5841f;
+            --mindbits-blue: #27306b;
+            --mindbits-purple: #7b5ea7;
+            --mindbits-pink: #ec5b8c;
+            --mindbits-yellow: #ffa33a;
+            --mindbits-red: #ff5d6c;
+            --mindbits-light-blue: #6cc0ff;
+            
+            /* Typography sizes */
+            --text-normal: 16px;
+            --text-large: 18px;
+            --subtitle: 22px;
+            --heading: 32px;
+            --heading-large: 36px;
+            --ui-button: 14px;
+            
+            /* Border radius */
+            --border-radius: 16px;
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.2, 0.6, 0.1, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            min-height: 100%;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #ffffff;
-            color: #27306b;
+            color: var(--mindbits-blue);
+            overflow-x: hidden;
+            min-height: 100vh;
+            width: 100%;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+            position: relative;
+            -ms-overflow-style: none;
+            line-height: 1.6;
+        }
+        
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ============================================ LANGUAGE SYSTEM ============================================ */
+        [data-lang-en],
+        [data-lang-es] {
+            display: inline;
+        }
+
+        html[lang="es"] [data-lang-en] {
+            display: none;
+        }
+
+        html[lang="en"] [data-lang-es] {
+            display: none;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f5f5f5;
+            padding: 6px 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        .language-selector button {
+            background: transparent;
+            border: none;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--mindbits-blue);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .language-selector button.active {
+            background: var(--mindbits-orange);
+            color: #ffffff;
+        }
+
+        .language-selector button:hover:not(.active) {
+            background: rgba(245, 132, 31, 0.1);
         }
 
         /* ========== HEADER ========== */
@@ -32,8 +129,10 @@
             height: 64px;
             padding: 0 40px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
             margin: 0 auto;
             max-width: 1400px;
@@ -78,11 +177,17 @@
         }
         
         .nav-links a:hover {
-            color: #f5841f;
+            color: var(--mindbits-orange);
         }
         
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
         /* Hamburger Menu */
@@ -292,7 +397,7 @@
             box-shadow: 0 4px 12px rgba(245, 132, 31, 0.4);
         }
 
-        /* ========== FOOTER ========== */
+        /* ========== FOOTER - CORRECTED RESPONSIVE ========== */
         .footer {
             background: #ffffff;
             color: #27306b;
@@ -304,6 +409,7 @@
             background-position: center;
             padding: 40px 20px;
             margin: 0 30px;
+            margin-top: 20px;
             position: relative;
             z-index: 1;
             border-radius: 16px;
@@ -315,7 +421,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
-            align-items: center;
+            align-items: start;
         }
 
         /* Contact Form */
@@ -324,6 +430,7 @@
             padding: 40px;
             border-radius: 16px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            text-align: left;
         }
 
         .contact-form h3 {
@@ -331,10 +438,12 @@
             font-weight: 700;
             color: #27306b;
             margin-bottom: 30px;
+            text-align: left;
         }
 
         .form-group {
             margin-bottom: 20px;
+            text-align: left;
         }
 
         .form-group label {
@@ -343,6 +452,7 @@
             font-weight: 600;
             color: #27306b;
             margin-bottom: 8px;
+            text-align: left;
         }
 
         .form-group input,
@@ -397,6 +507,7 @@
             font-weight: 800;
             margin-bottom: 20px;
             color: #ffffff;
+            text-align: left;
         }
 
         .footer-info p {
@@ -404,6 +515,7 @@
             line-height: 1.7;
             margin-bottom: 15px;
             color: rgba(255, 255, 255, 0.9);
+            text-align: left;
         }
 
         .footer-info strong {
@@ -717,11 +829,29 @@
     <header class="header" id="mainHeader">
         <div class="header-inner">
             <img src="assets/logoClasico.png" alt="Mindbits Logo" class="logo">
+            <div class="header-right">
+                <div class="language-selector">
+                    <button class="active" data-lang="en">EN</button>
+                    <button data-lang="es">ES</button>
+                </div>
+            </div>
             <nav class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="pricing.html">Pricing</a>
-                    <a href="faqs.html">Faqs</a>
-                    <a href="who.html">About Us</a>
+                <a href="index.html">
+                    <span data-lang-en>Home</span>
+                    <span data-lang-es>Inicio</span>
+                </a>
+                <a href="pricing.html">
+                    <span data-lang-en>Pricing</span>
+                    <span data-lang-es>Precios</span>
+                </a>
+                <a href="faqs.html">
+                    <span data-lang-en>Faqs</span>
+                    <span data-lang-es>Preguntas</span>
+                </a>
+                <a href="who.html">
+                    <span data-lang-en>About Us</span>
+                    <span data-lang-es>Nosotros</span>
+                </a>
             </nav>
             <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation">
                 <span></span>
@@ -735,12 +865,17 @@
     <section class="pricing-section">
         <div class="container">
             <div class="pricing-header">
-                <h1>Pricing Models</h1>
+                <h1>
+                    <span data-lang-en>Pricing Models</span>
+                    <span data-lang-es>Modelos de Pricing</span>
+                </h1>
                 <p>
-                    Every organization has different needs, timelines and levels of technological maturity. That's why we offer flexible, transparent pricing models that adapt to your scope, business goals, and the pace at which you want to scale AI.
+                    <span data-lang-en>Every organization has different needs, timelines and levels of technological maturity. That's why we offer flexible, transparent pricing models that adapt to your scope, business goals, and the pace at which you want to scale AI.</span>
+                    <span data-lang-es>Cada organización tiene diferentes necesidades, tiempos y madurez tecnológica. Por eso ofrecemos modelos de precios flexibles y transparentes, que se adaptan al alcance, a los objetivos de negocio y al ritmo al que querés escalar tus soluciones de IA.</span>
                 </p>
                 <p style="margin-top: 20px;">
-                    All our pricing models share the same philosophy: align the value we deliver with the impact we create.
+                    <span data-lang-en>All our pricing models share the same philosophy: align the value we deliver with the impact we create.</span>
+                    <span data-lang-es>Todos nuestros modelos comparten la misma filosofía: alinear el valor que entregamos con el impacto que generamos.</span>
                 </p>
             </div>
 
@@ -753,19 +888,38 @@
                   <img src="assets/clock.png" alt="clock icon" width="48" height="48">
                 </div>
             
-                <h3 class="card-title">By Hour/Month</h3>
+                <h3 class="card-title">
+                    <span data-lang-en>By Hour/Month</span>
+                    <span data-lang-es>Por hora / mes</span>
+                </h3>
                 <p class="card-description">
-                            Perfect for teams that need ongoing consulting or specialized support. Our experts work alongside your product, data, or engineering teams to design, fine-tune, and maintain AI models, data pipelines or performance dashboards. You only pay for the time used, with the flexibility to scale the engagement as needed.
-                        </p>
-                        <p style="font-size: 16px; font-weight: 700; margin-bottom: 15px; color: inherit;">Best for:</p>
-                        <ul class="card-features">
-                            <li>Companies that need full flexibility in resource allocation.</li>
-                            <li>Projects in continuous development or iteration.</li>
-                            <li>Teams looking for on-demand analytical or technical capacity.</li>
-                        </ul>
-                        <div class="card-cta">
-                            <a href="#contact" class="cta-button">Get Started</a>
-                        </div>
+                    <span data-lang-en>Perfect for teams that need ongoing consulting or specialized support. Our experts work alongside your product, data, or engineering teams to design, fine-tune, and maintain AI models, data pipelines or performance dashboards. You only pay for the time used, with the flexibility to scale the engagement as needed.</span>
+                    <span data-lang-es>Ideal para equipos que necesitan consultoría continua o soporte especializado. Nuestros expertos trabajan codo a codo con tus equipos de producto, datos o ingeniería para diseñar, ajustar y mantener modelos de IA, data pipelines o dashboards de performance. Pagás solo por el tiempo usado, con la flexibilidad de escalar el acompañamiento según necesidad.</span>
+                </p>
+                <p style="font-size: 16px; font-weight: 700; margin-bottom: 15px; color: inherit;">
+                    <span data-lang-en>Best for:</span>
+                    <span data-lang-es>Ideal para:</span>
+                </p>
+                <ul class="card-features">
+                    <li>
+                        <span data-lang-en>Companies that need full flexibility in resource allocation.</span>
+                        <span data-lang-es>Empresas que necesitan máxima flexibilidad en asignación de recursos.</span>
+                    </li>
+                    <li>
+                        <span data-lang-en>Projects in continuous development or iteration.</span>
+                        <span data-lang-es>Proyectos en desarrollo continuo o iteración.</span>
+                    </li>
+                    <li>
+                        <span data-lang-en>Teams looking for on-demand analytical or technical capacity.</span>
+                        <span data-lang-es>Equipos que buscan capacidad analítica o técnica on-demand.</span>
+                    </li>
+                </ul>
+                <div class="card-cta">
+                    <a href="#contact" class="cta-button">
+                        <span data-lang-en>Get Started</span>
+                        <span data-lang-es>Comenzar</span>
+                    </a>
+                </div>
                     </div>
                 </div>
 
@@ -777,19 +931,38 @@
                       <img src="assets/layers.png" alt="project icon" width="48" height="48">
                     </div>
                 
-                    <h3 class="card-title">By Project</h3>
+                    <h3 class="card-title">
+                        <span data-lang-en>By Project</span>
+                        <span data-lang-es>Por proyecto</span>
+                    </h3>
                     <p class="card-description">
-                            A results-oriented model for clearly defined objectives (e.g., predictive modeling, recommendation systems, process automation, dashboard implementation). Pricing is determined by scope, complexity and deliverables, providing full transparency from the start.
-                        </p>
-                        <p style="font-size: 16px; font-weight: 700; margin-bottom: 15px; color: inherit;">Best for:</p>
-                        <ul class="card-features">
-                            <li>Businesses seeking a specific and measurable outcome.</li>
-                            <li>End-to-end implementations, from design to production.</li>
-                            <li>Teams that value clear budgets and timelines.</li>
-                        </ul>
-                        <div class="card-cta">
-                            <a href="#contact" class="cta-button">Get Started</a>
-                        </div>
+                        <span data-lang-en>A results-oriented model for clearly defined objectives (e.g., predictive modeling, recommendation systems, process automation, dashboard implementation). Pricing is determined by scope, complexity and deliverables, providing full transparency from the start.</span>
+                        <span data-lang-es>Un modelo orientado a resultados para objetivos claramente definidos (por ejemplo, modelado predictivo, sistemas de recomendación, automatización de procesos, implementación de dashboards). El precio se determina por alcance, complejidad y entregables, con total transparencia desde el inicio.</span>
+                    </p>
+                    <p style="font-size: 16px; font-weight: 700; margin-bottom: 15px; color: inherit;">
+                        <span data-lang-en>Best for:</span>
+                        <span data-lang-es>Ideal para:</span>
+                    </p>
+                    <ul class="card-features">
+                        <li>
+                            <span data-lang-en>Businesses seeking a specific and measurable outcome.</span>
+                            <span data-lang-es>Negocios que buscan un resultado específico y medible.</span>
+                        </li>
+                        <li>
+                            <span data-lang-en>End-to-end implementations, from design to production.</span>
+                            <span data-lang-es>Implementaciones end-to-end, del diseño a producción.</span>
+                        </li>
+                        <li>
+                            <span data-lang-en>Teams that value clear budgets and timelines.</span>
+                            <span data-lang-es>Equipos que valoran presupuestos y cronogramas claros.</span>
+                        </li>
+                    </ul>
+                    <div class="card-cta">
+                        <a href="#contact" class="cta-button">
+                            <span data-lang-en>Get Started</span>
+                            <span data-lang-es>Comenzar</span>
+                        </a>
+                    </div>
                     </div>
                 </div>
 
@@ -801,19 +974,38 @@
                       <img src="assets/cloud-service.png" alt="cloud service icon" width="48" height="48">
                     </div>
                 
-                    <h3 class="card-title">AI Cloud Service</h3>
+                    <h3 class="card-title">
+                        <span data-lang-en>AI Cloud Service</span>
+                        <span data-lang-es>Servicio de IA en la nube</span>
+                    </h3>
                     <p class="card-description">
-                            For companies that need scalable, managed AI. We offer a cloud-based model that includes deployment, maintenance and continuous operation of AI models and data pipelines, with costs tied to usage or data processing volume.
-                        </p>
-                        <p style="font-size: 16px; font-weight: 700; margin-bottom: 15px; color: inherit;">Best for:</p>
-                        <ul class="card-features">
-                            <li>Organizations that want to scale without managing infrastructure.</li>
-                            <li>Products requiring always-on, production-grade AI.</li>
-                            <li>Businesses looking to integrate AI without heavy upfront investment.</li>
-                        </ul>
-                        <div class="card-cta">
-                            <a href="#contact" class="cta-button">Get Started</a>
-                        </div>
+                        <span data-lang-en>For companies that need scalable, managed AI. We offer a cloud-based model that includes deployment, maintenance and continuous operation of AI models and data pipelines, with costs tied to usage or data processing volume.</span>
+                        <span data-lang-es>Para compañías que necesitan IA escalable y gestionada. Ofrecemos un modelo cloud-based que incluye despliegue, mantenimiento y operación continua de modelos de IA y data pipelines, con costos atados al uso o al volumen de procesamiento de datos.</span>
+                    </p>
+                    <p style="font-size: 16px; font-weight: 700; margin-bottom: 15px; color: inherit;">
+                        <span data-lang-en>Best for:</span>
+                        <span data-lang-es>Ideal para:</span>
+                    </p>
+                    <ul class="card-features">
+                        <li>
+                            <span data-lang-en>Organizations that want to scale without managing infrastructure.</span>
+                            <span data-lang-es>Organizaciones que quieren escalar sin gestionar infraestructura.</span>
+                        </li>
+                        <li>
+                            <span data-lang-en>Products requiring always-on, production-grade AI.</span>
+                            <span data-lang-es>Productos que requieren IA en producción 24/7.</span>
+                        </li>
+                        <li>
+                            <span data-lang-en>Businesses looking to integrate AI without heavy upfront investment.</span>
+                            <span data-lang-es>Negocios que buscan integrar IA sin una fuerte inversión inicial.</span>
+                        </li>
+                    </ul>
+                    <div class="card-cta">
+                        <a href="#contact" class="cta-button">
+                            <span data-lang-en>Get Started</span>
+                            <span data-lang-es>Comenzar</span>
+                        </a>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -827,32 +1019,65 @@
             <div class="footer-content">
                 <!-- Contact Form -->
                 <div class="contact-form">
-                    <h3>Have a project in mind?</h3>
+                    <h3>
+                        <span data-lang-en>Have a project in mind?</span>
+                        <span data-lang-es>¿Tienes un proyecto en mente?</span>
+                    </h3>
                     <form id="contactForm">
                         <div class="form-group">
-                            <label>Your name*</label>
+                            <label>
+                                <span data-lang-en>Your name*</span>
+                                <span data-lang-es>Tu nombre*</span>
+                            </label>
                             <input type="text" required>
                         </div>
                         <div class="form-group">
-                            <label>E-mail*</label>
+                            <label>
+                                <span data-lang-en>E-mail*</span>
+                                <span data-lang-es>Correo electrónico*</span>
+                            </label>
                             <input type="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Message*</label>
+                            <label>
+                                <span data-lang-en>Message*</span>
+                                <span data-lang-es>Mensaje*</span>
+                            </label>
                             <textarea required></textarea>
                         </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
+                        <button type="submit" class="submit-btn">
+                            <span data-lang-en>Send Message</span>
+                            <span data-lang-es>Enviar Mensaje</span>
+                        </button>
                     </form>
                 </div>
 
                 <!-- Footer Info -->
                 <div class="footer-info">
-                    <h2>Let's talk.</h2>
-                    <p>Tell us about your project</p>
-                    <p><strong>Quick response.</strong></p>
-                    <p>If you're ready to create and collaborate, we'd love to hear from you.</p>
-                    <p><strong>Clear next steps.</strong></p>
-                    <p>After the consultation, we'll provide you with a detailed plan of a timeline.</p>
+                    <h2>
+                        <span data-lang-en>Let's talk.</span>
+                        <span data-lang-es>Hablemos.</span>
+                    </h2>
+                    <p>
+                        <span data-lang-en>Tell us about your project</span>
+                        <span data-lang-es>Cuéntanos sobre tu proyecto</span>
+                    </p>
+                    <p><strong>
+                        <span data-lang-en>Quick response.</span>
+                        <span data-lang-es>Respuesta rápida.</span>
+                    </strong></p>
+                    <p>
+                        <span data-lang-en>If you're ready to create and collaborate, we'd love to hear from you.</span>
+                        <span data-lang-es>Si estás listo para crear y colaborar, nos encantaría saber de ti.</span>
+                    </p>
+                    <p><strong>
+                        <span data-lang-en>Clear next steps.</span>
+                        <span data-lang-es>Pasos claros siguientes.</span>
+                    </strong></p>
+                    <p>
+                        <span data-lang-en>After the consultation, we'll provide you with a detailed plan of a timeline.</span>
+                        <span data-lang-es>Después de la consulta, te proporcionaremos un plan detallado con una línea de tiempo.</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -862,26 +1087,47 @@
             <div class="footer-bottom-content">
                 <!-- Contact Info -->
                 <div class="footer-contact">
-                    <h4>Contact</h4>
+                    <h4>
+                        <span data-lang-en>Contact</span>
+                        <span data-lang-es>Contacto</span>
+                    </h4>
                     <p>(+54) 11 6895-8605</p>
                     <p><a href="mailto:hello@mindbits.ai">hello@mindbits.ai</a></p>
                 </div>
 
                 <!-- Navigation -->
                 <div class="footer-nav">
-                    <h4>Navigation</h4>
+                    <h4>
+                        <span data-lang-en>Navigation</span>
+                        <span data-lang-es>Navegación</span>
+                    </h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="faqs.html">Faqs</a></li>
-                        <li><a href="who.html">About Us</a></li>
+                        <li><a href="index.html">
+                            <span data-lang-en>Home</span>
+                            <span data-lang-es>Inicio</span>
+                        </a></li>
+                        <li><a href="pricing.html">
+                            <span data-lang-en>Pricing</span>
+                            <span data-lang-es>Precios</span>
+                        </a></li>
+                        <li><a href="faqs.html">
+                            <span data-lang-en>Faqs</span>
+                            <span data-lang-es>Preguntas</span>
+                        </a></li>
+                        <li><a href="who.html">
+                            <span data-lang-en>About Us</span>
+                            <span data-lang-es>Nosotros</span>
+                        </a></li>
                     </ul>
                 </div>
 
                 <!-- Social Media & Logo -->
                 <div class="footer-logo-section">
                     <div class="footer-social">
-                        <h4>Social</h4>
+                        <h4>
+                            <span data-lang-en>Social</span>
+                            <span data-lang-es>Redes</span>
+                        </h4>
                         <div class="social-icons">
                             <a href="#" class="social-icon" title="LinkedIn">in</a>
                             <a href="#" class="social-icon" title="Twitter">𝕏</a>
@@ -897,7 +1143,7 @@
 
         <!-- Copyright - Blue section -->
         <div class="footer-copyright">
-            <p> 2026 Mindbits. All rights reserved.</p>
+            <p>© 2026 Mindbits. <span data-lang-en>All rights reserved.</span><span data-lang-es>Todos los derechos reservados.</span></p>
         </div>
     </footer>
 
@@ -947,6 +1193,37 @@
                     });
                 }
             });
+        });
+
+        // ============================================ LANGUAGE SWITCHING FUNCTIONALITY ============================================
+        function switchLanguage(lang) {
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.language-selector button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.language-selector button[data-lang="${lang}"]`).classList.add('active');
+            
+            // Save preference to localStorage
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Language selector event listeners
+        document.querySelectorAll('.language-selector button').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                switchLanguage(lang);
+            });
+        });
+
+        // Load saved language preference on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+            if (savedLang && document.documentElement.lang !== savedLang) {
+                switchLanguage(savedLang);
+            }
         });
 
         // ============================================ ANTI-INSPECTION MEASURES ============================================

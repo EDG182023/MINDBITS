@@ -14,16 +14,113 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* ============================================ ROOT VARIABLES & GLOBAL STYLES ============================================ */
+        :root {
+            --mindbits-orange: #f5841f;
+            --mindbits-blue: #27306b;
+            --mindbits-purple: #7b5ea7;
+            --mindbits-pink: #ec5b8c;
+            --mindbits-yellow: #ffa33a;
+            --mindbits-red: #ff5d6c;
+            --mindbits-light-blue: #6cc0ff;
+            
+            /* Typography sizes */
+            --text-normal: 16px;
+            --text-large: 18px;
+            --subtitle: 22px;
+            --heading: 32px;
+            --heading-large: 36px;
+            --ui-button: 14px;
+            
+            /* Border radius */
+            --border-radius: 16px;
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.2, 0.6, 0.1, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            min-height: 100%;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #ffffff;
-            color: #27306b;
+            color: var(--mindbits-blue);
+            overflow-x: hidden;
+            min-height: 100vh;
+            width: 100%;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+            position: relative;
+            -ms-overflow-style: none;
+            line-height: 1.6;
+        }
+        
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ============================================ LANGUAGE SYSTEM ============================================ */
+        [data-lang-en],
+        [data-lang-es] {
+            display: inline;
+        }
+
+        html[lang="es"] [data-lang-en] {
+            display: none;
+        }
+
+        html[lang="en"] [data-lang-es] {
+            display: none;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f5f5f5;
+            padding: 6px 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        .language-selector button {
+            background: transparent;
+            border: none;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--mindbits-blue);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .language-selector button.active {
+            background: var(--mindbits-orange);
+            color: #ffffff;
+        }
+
+        .language-selector button:hover:not(.active) {
+            background: rgba(245, 132, 31, 0.1);
         }
 
         /* ========== HEADER ========== */
@@ -32,11 +129,14 @@
             height: 64px;
             padding: 0 40px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
             margin: 0 auto;
             max-width: 1400px;
+            text-align: center;
         }
         
         .header-inner {
@@ -57,7 +157,7 @@
         }
         
         .nav-links a {
-            color: #27306b;
+            color: var(--mindbits-blue);
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
@@ -72,16 +172,22 @@
             height: 2px;
             bottom: -5px;
             left: 0;
-            background-color: #f5841f;
+            background-color: var(--mindbits-orange);
             transition: width 0.3s ease;
         }
         
         .nav-links a:hover {
-            color: #f5841f;
+            color: var(--mindbits-orange);
         }
         
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
         .hamburger-menu {
@@ -832,11 +938,29 @@
     <header class="header" id="mainHeader">
         <div class="header-inner">
             <img src="assets/logoClasico.png" alt="Mindbits Logo" class="logo">
+            <div class="header-right">
+                <div class="language-selector">
+                    <button class="active" data-lang="en">EN</button>
+                    <button data-lang="es">ES</button>
+                </div>
+            </div>
             <nav class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="pricing.html">Pricing</a>
-                    <a href="faqs.html">Faqs</a>
-                    <a href="who.html">About Us</a>
+                <a href="index.html">
+                    <span data-lang-en>Home</span>
+                    <span data-lang-es>Inicio</span>
+                </a>
+                <a href="pricing.html">
+                    <span data-lang-en>Pricing</span>
+                    <span data-lang-es>Precios</span>
+                </a>
+                <a href="faqs.html">
+                    <span data-lang-en>Faqs</span>
+                    <span data-lang-es>Preguntas</span>
+                </a>
+                <a href="who.html">
+                    <span data-lang-en>About Us</span>
+                    <span data-lang-es>Nosotros</span>
+                </a>
             </nav>
             <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation">
                 <span></span>
@@ -850,9 +974,18 @@
     <section class="who-we-are-section">
         <div class="container">
             <div class="who-we-are-card">
-                <h2>Who We Are</h2>
-                <p>We're a boutique data & AI consulting firm dedicated to turning data into actionable insights that drive business impact. We partner closely with clients to understand their unique challenges and assemble custom teams tailored to each project's goals.</p>
-                <p>Our mission: turn data into decisions and help every initiative we lead succeed. With a hands-on approach and deep domain expertise, we deliver solutions that are scalable, measurable, and sustainable.</p>
+                <h2>
+                    <span data-lang-en>Who We Are</span>
+                    <span data-lang-es>Quiénes somos</span>
+                </h2>
+                <p>
+                    <span data-lang-en>We're a boutique data & AI consulting firm dedicated to turning data into actionable insights that drive business impact. We partner closely with clients to understand their unique challenges and assemble custom teams tailored to each project's goals.</span>
+                    <span data-lang-es>Somos una consultora boutique dedicada a convertir los datos en insights accionables que generan impacto de negocio. Trabajamos codo a codo con cada cliente para entender sus desafíos y armar equipos a medida según los objetivos de cada proyecto.</span>
+                </p>
+                <p>
+                    <span data-lang-en>Our mission: turn data into decisions and help every initiative we lead succeed. With a hands-on approach and deep domain expertise, we deliver solutions that are scalable, measurable, and sustainable.</span>
+                    <span data-lang-es>Nuestra misión: Transformar datos en decisiones y garantizar el éxito de cada iniciativa que lideramos. Con un enfoque práctico y sólido expertise de dominio, entregamos soluciones escalables, medibles y sustentables.</span>
+                </p>
             </div>
         </div>
     </section>
@@ -861,7 +994,10 @@
     <section class="differentiator-section">
         <div class="container">
             <div class="section-header">
-                <h2>Our Differentiator</h2>
+                <h2>
+                    <span data-lang-en>Our Differentiator</span>
+                    <span data-lang-es>Nuestro diferencial</span>
+                </h2>
             </div>
 
             <div class="differentiator-grid">
@@ -871,8 +1007,14 @@
                         <img src="assets/hero/Extensive Gaming & Analytics Expertise.jpg" alt="Gaming Analytics">
                     </div>
                     <div class="diff-content">
-                        <h3>Extensive Gaming & Analytics Expertise</h3>
-                        <p>With 15+ years in the gaming industry, our Product Management and Analytics background lets us quickly understand business needs and design data-driven solutions that make an impact. Our industry knowledge helps us identify, select and guide top talent, saving clients time and resources.</p>
+                        <h3>
+                            <span data-lang-en>Extensive Gaming & Analytics Expertise</span>
+                            <span data-lang-es>Amplia experiencia en Gaming & Analytics</span>
+                        </h3>
+                        <p>
+                            <span data-lang-en>With 15+ years in the gaming industry, our Product Management and Analytics background lets us quickly understand business needs and design data-driven solutions that make an impact. Our industry knowledge helps us identify, select and guide top talent, saving clients time and resources.</span>
+                            <span data-lang-es>Con más de 15 años en la industria del gaming, nuestro background en Product Management y Analytics nos permite entender rápido las necesidades del negocio y diseñar soluciones data-driven con impacto. Ese conocimiento del sector nos ayuda a identificar, seleccionar y acompañar talentos, ahorrándoles a nuestros clientes tiempo y recursos.</span>
+                        </p>
                     </div>
                 </div>
 
@@ -882,8 +1024,14 @@
                         <img src="assets/hero/Tailored Teams and Dedicated Support.jpg" alt="Team Support">
                     </div>
                     <div class="diff-content">
-                        <h3>Tailored Teams and Dedicated Support</h3>
-                        <p>We build custom teams aligned with each client's specific requirements. Every engagement includes a dedicated Account Manager to ensure seamless communication, proactive follow-up, and immediate support when needed.</p>
+                        <h3>
+                            <span data-lang-en>Tailored Teams and Dedicated Support</span>
+                            <span data-lang-es>Equipos a medida y soporte dedicado</span>
+                        </h3>
+                        <p>
+                            <span data-lang-en>We build custom teams aligned with each client's specific requirements. Every engagement includes a dedicated Account Manager to ensure seamless communication, proactive follow-up, and immediate support when needed.</span>
+                            <span data-lang-es>Armamos equipos a medida según los requisitos de cada cliente. Cada servicio cuenta con un Account Manager dedicado para asegurar comunicación fluida, seguimiento proactivo y soporte inmediato cuando haga falta.</span>
+                        </p>
                     </div>
                 </div>
 
@@ -893,8 +1041,14 @@
                         <img src="assets/hero/Latin American Talent Advantage.jpg" alt="Latin American Talent">
                     </div>
                     <div class="diff-content">
-                        <h3>Latin American Talent Advantage</h3>
-                        <p>Access a diverse pool of highly skilled professionals across Latin America, operating in time zones compatible with the U.S. West Coast, East Coast and Europe, enabling real-time collaboration and agility.</p>
+                        <h3>
+                            <span data-lang-en>Latin American Talent Advantage</span>
+                            <span data-lang-es>Talento latinoamericano</span>
+                        </h3>
+                        <p>
+                            <span data-lang-en>Access a diverse pool of highly skilled professionals across Latin America, operating in time zones compatible with the U.S. West Coast, East Coast and Europe, enabling real-time collaboration and agility.</span>
+                            <span data-lang-es>Acceso a un pool diverso de profesionales altamente calificados en Latinoamérica, operando en husos horarios compatibles con la Costa Oeste y Este de EE. UU. y con Europa, lo que garantiza colaboración en tiempo real y agilidad.</span>
+                        </p>
                     </div>
                 </div>
 
@@ -904,8 +1058,14 @@
                         <img src="assets/hero/Competitive Rates, Boutique Quality.jpg" alt="Competitive Rates">
                     </div>
                     <div class="diff-content">
-                        <h3>Competitive Rates, Boutique Quality</h3>
-                        <p>Our model combines top-tier expertise with cost-effective pricing, giving clients the flexibility and value of a specialized firm without compromising quality or responsiveness.</p>
+                        <h3>
+                            <span data-lang-en>Competitive Rates, Boutique Quality</span>
+                            <span data-lang-es>Tarifas competitivas, calidad boutique</span>
+                        </h3>
+                        <p>
+                            <span data-lang-en>Our model combines top-tier expertise with cost-effective pricing, giving clients the flexibility and value of a specialized firm without compromising quality or responsiveness.</span>
+                            <span data-lang-es>Nuestro modelo combina expertise de primer nivel con precios competitivos, brindando la flexibilidad y el valor de una firma especializada sin comprometer calidad ni tiempos de respuesta.</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -915,17 +1075,38 @@
     <!-- Clients Section -->
     <section class="clients-section">
         <div class="clients-content">
-            <h2>Our Clients</h2>
-            <p>We collaborate with industry leaders and high-growth innovators who trust us to bring clarity, speed, and intelligence to their data.</p>
+            <h2>
+                <span data-lang-en>Our Clients</span>
+                <span data-lang-es>Nuestros clientes</span>
+            </h2>
+            <p>
+                <span data-lang-en>We collaborate with industry leaders and high-growth innovators who trust us to bring clarity, speed, and intelligence to their data.</span>
+                <span data-lang-es>Colaboramos con líderes de la industria e innovadores de alto crecimiento que confían en nosotros para aportar claridad, velocidad e inteligencia a sus datos.</span>
+            </p>
             
-            <p><strong>Our clients include:</strong></p>
+            <p><strong>
+                <span data-lang-en>Our clients include:</span>
+                <span data-lang-es>Entre nuestros clientes están:</span>
+            </strong></p>
             <ul>
-                <li>Global gaming publishers with millions of active players.</li>
-                <li>Emerging AI and data startups scaling their analytics capabilities.</li>
-                <li>Studios and developers optimizing player engagement and live operations.</li>
+                <li>
+                    <span data-lang-en>Global gaming publishers with millions of active players.</span>
+                    <span data-lang-es>Publishers globales de gaming con millones de jugadores activos.</span>
+                </li>
+                <li>
+                    <span data-lang-en>Emerging AI and data startups scaling their analytics capabilities.</span>
+                    <span data-lang-es>Startups de IA y datos que están escalando sus capacidades analíticas.</span>
+                </li>
+                <li>
+                    <span data-lang-en>Studios and developers optimizing player engagement and live operations.</span>
+                    <span data-lang-es>Estudios y desarrolladores que optimizan el engagement de jugadores y las operaciones en vivo.</span>
+                </li>
             </ul>
 
-            <p>We help our partners improve player retention, pricing strategies, and predictive performance, delivering measurable impact across their data ecosystem.</p>
+            <p>
+                <span data-lang-en>We help our partners improve player retention, pricing strategies, and predictive performance, delivering measurable impact across their data ecosystem.</span>
+                <span data-lang-es>Ayudamos a nuestros partners a mejorar la retención de jugadores, las estrategias de precios y el desempeño predictivo, generando impacto medible en todo su ecosistema de datos.</span>
+            </p>
         </div>
     </section>
 
@@ -934,31 +1115,64 @@
         <div class="footer-main">
             <div class="footer-content">
                 <div class="contact-form">
-                    <h3>Have a project in mind?</h3>
+                    <h3>
+                        <span data-lang-en>Have a project in mind?</span>
+                        <span data-lang-es>¿Tienes un proyecto en mente?</span>
+                    </h3>
                     <form id="contactForm">
                         <div class="form-group">
-                            <label>Your name*</label>
+                            <label>
+                                <span data-lang-en>Your name*</span>
+                                <span data-lang-es>Tu nombre*</span>
+                            </label>
                             <input type="text" required>
                         </div>
                         <div class="form-group">
-                            <label>E-mail*</label>
+                            <label>
+                                <span data-lang-en>E-mail*</span>
+                                <span data-lang-es>Correo electrónico*</span>
+                            </label>
                             <input type="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Message*</label>
+                            <label>
+                                <span data-lang-en>Message*</span>
+                                <span data-lang-es>Mensaje*</span>
+                            </label>
                             <textarea required></textarea>
                         </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
+                        <button type="submit" class="submit-btn">
+                            <span data-lang-en>Send Message</span>
+                            <span data-lang-es>Enviar Mensaje</span>
+                        </button>
                     </form>
                 </div>
 
                 <div class="footer-info">
-                    <h2>Let's talk.</h2>
-                    <p>Tell us about your project</p>
-                    <p><strong>Quick response.</strong></p>
-                    <p>If you're ready to create and collaborate, we'd love to hear from you.</p>
-                    <p><strong>Clear next steps.</strong></p>
-                    <p>After the consultation, we'll provide you with a detailed plan of a timeline.</p>
+                    <h2>
+                        <span data-lang-en>Let's talk.</span>
+                        <span data-lang-es>Hablemos.</span>
+                    </h2>
+                    <p>
+                        <span data-lang-en>Tell us about your project</span>
+                        <span data-lang-es>Cuéntanos sobre tu proyecto</span>
+                    </p>
+                    <p><strong>
+                        <span data-lang-en>Quick response.</span>
+                        <span data-lang-es>Respuesta rápida.</span>
+                    </strong></p>
+                    <p>
+                        <span data-lang-en>If you're ready to create and collaborate, we'd love to hear from you.</span>
+                        <span data-lang-es>Si estás listo para crear y colaborar, nos encantaría saber de ti.</span>
+                    </p>
+                    <p><strong>
+                        <span data-lang-en>Clear next steps.</span>
+                        <span data-lang-es>Pasos claros siguientes.</span>
+                    </strong></p>
+                    <p>
+                        <span data-lang-en>After the consultation, we'll provide you with a detailed plan of a timeline.</span>
+                        <span data-lang-es>Después de la consulta, te proporcionaremos un plan detallado con una línea de tiempo.</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -966,25 +1180,45 @@
         <div class="footer-bottom">
             <div class="footer-bottom-content">
                 <div class="footer-contact">
-                    <h4>Contact</h4>
+                    <h4>
+                        <span data-lang-en>Contact</span>
+                        <span data-lang-es>Contacto</span>
+                    </h4>
                     <p>(+54) 11 6895-8605</p>
                     <p><a href="mailto:hello@mindbits.ai">hello@mindbits.ai</a></p>
                 </div>
 
                 <div class="footer-nav">
-                    <h4>Navigation</h4>
+                    <h4>
+                        <span data-lang-en>Navigation</span>
+                        <span data-lang-es>Navegación</span>
+                    </h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="faqs.html">Faqs</a></li>
-                        <li><a href="who.html">About Us</a></li>
-
+                        <li><a href="index.html">
+                            <span data-lang-en>Home</span>
+                            <span data-lang-es>Inicio</span>
+                        </a></li>
+                        <li><a href="pricing.html">
+                            <span data-lang-en>Pricing</span>
+                            <span data-lang-es>Precios</span>
+                        </a></li>
+                        <li><a href="faqs.html">
+                            <span data-lang-en>Faqs</span>
+                            <span data-lang-es>Preguntas</span>
+                        </a></li>
+                        <li><a href="who.html">
+                            <span data-lang-en>About Us</span>
+                            <span data-lang-es>Nosotros</span>
+                        </a></li>
                     </ul>
                 </div>
 
                 <div class="footer-logo-section">
                     <div class="footer-social">
-                        <h4>Social</h4>
+                        <h4>
+                            <span data-lang-en>Social</span>
+                            <span data-lang-es>Redes</span>
+                        </h4>
                         <div class="social-icons">
                             <a href="#" class="social-icon" title="LinkedIn">in</a>
                             <a href="#" class="social-icon" title="Twitter">𝕏</a>
@@ -999,7 +1233,7 @@
         </div>
 
         <div class="footer-copyright">
-            <p> 2026 Mindbits. All rights reserved.</p>
+            <p>© 2026 Mindbits. <span data-lang-en>All rights reserved.</span><span data-lang-es>Todos los derechos reservados.</span></p>
         </div>
     </footer>
 
@@ -1049,6 +1283,37 @@
                     });
                 }
             });
+        });
+
+        // ============================================ LANGUAGE SWITCHING FUNCTIONALITY ============================================
+        function switchLanguage(lang) {
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.language-selector button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.language-selector button[data-lang="${lang}"]`).classList.add('active');
+            
+            // Save preference to localStorage
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Language selector event listeners
+        document.querySelectorAll('.language-selector button').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                switchLanguage(lang);
+            });
+        });
+
+        // Load saved language preference on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+            if (savedLang && document.documentElement.lang !== savedLang) {
+                switchLanguage(savedLang);
+            }
         });
 
         // ============================================ SCROLL ANIMATIONS ============================================

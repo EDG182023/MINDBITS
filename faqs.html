@@ -14,16 +14,113 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* ============================================ ROOT VARIABLES & GLOBAL STYLES ============================================ */
+        :root {
+            --mindbits-orange: #f5841f;
+            --mindbits-blue: #27306b;
+            --mindbits-purple: #7b5ea7;
+            --mindbits-pink: #ec5b8c;
+            --mindbits-yellow: #ffa33a;
+            --mindbits-red: #ff5d6c;
+            --mindbits-light-blue: #6cc0ff;
+            
+            /* Typography sizes */
+            --text-normal: 16px;
+            --text-large: 18px;
+            --subtitle: 22px;
+            --heading: 32px;
+            --heading-large: 36px;
+            --ui-button: 14px;
+            
+            /* Border radius */
+            --border-radius: 16px;
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.2, 0.6, 0.1, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            min-height: 100%;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #ffffff;
-            color: #27306b;
+            color: var(--mindbits-blue);
+            overflow-x: hidden;
+            min-height: 100vh;
+            width: 100%;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+            position: relative;
+            -ms-overflow-style: none;
+            line-height: 1.6;
+        }
+        
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ============================================ LANGUAGE SYSTEM ============================================ */
+        [data-lang-en],
+        [data-lang-es] {
+            display: inline;
+        }
+
+        html[lang="es"] [data-lang-en] {
+            display: none;
+        }
+
+        html[lang="en"] [data-lang-es] {
+            display: none;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f5f5f5;
+            padding: 6px 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        .language-selector button {
+            background: transparent;
+            border: none;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--mindbits-blue);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .language-selector button.active {
+            background: var(--mindbits-orange);
+            color: #ffffff;
+        }
+
+        .language-selector button:hover:not(.active) {
+            background: rgba(245, 132, 31, 0.1);
         }
 
         /* ========== HEADER ========== */
@@ -32,11 +129,14 @@
             height: 64px;
             padding: 0 40px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
             margin: 0 auto;
             max-width: 1400px;
+            text-align: center;
         }
         
         .header-inner {
@@ -57,7 +157,7 @@
         }
         
         .nav-links a {
-            color: #27306b;
+            color: var(--mindbits-blue);
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
@@ -72,16 +172,22 @@
             height: 2px;
             bottom: -5px;
             left: 0;
-            background-color: #f5841f;
+            background-color: var(--mindbits-orange);
             transition: width 0.3s ease;
         }
         
         .nav-links a:hover {
-            color: #f5841f;
+            color: var(--mindbits-orange);
         }
         
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
         .hamburger-menu {
@@ -701,11 +807,29 @@
     <header class="header" id="mainHeader">
         <div class="header-inner">
             <img src="assets/logoClasico.png" alt="Mindbits Logo" class="logo">
+            <div class="header-right">
+                <div class="language-selector">
+                    <button class="active" data-lang="en">EN</button>
+                    <button data-lang="es">ES</button>
+                </div>
+            </div>
             <nav class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="pricing.html">Pricing</a>
-                    <a href="faqs.html">Faqs</a>
-                    <a href="who.html">About Us</a>
+                <a href="index.html">
+                    <span data-lang-en>Home</span>
+                    <span data-lang-es>Inicio</span>
+                </a>
+                <a href="pricing.html">
+                    <span data-lang-en>Pricing</span>
+                    <span data-lang-es>Precios</span>
+                </a>
+                <a href="faqs.html">
+                    <span data-lang-en>Faqs</span>
+                    <span data-lang-es>Preguntas</span>
+                </a>
+                <a href="who.html">
+                    <span data-lang-en>About Us</span>
+                    <span data-lang-es>Nosotros</span>
+                </a>
             </nav>
             <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation">
                 <span></span>
@@ -719,27 +843,58 @@
     <section class="faq-section">
         <div class="container">
             <div class="faq-header">
-                <h1>Frequently Asked Questions</h1>
+                <h1>
+                    <span data-lang-en>Frequently Asked Questions</span>
+                    <span data-lang-es>Preguntas frecuentes</span>
+                </h1>
             </div>
 
             <div class="faq-list">
                 <!-- FAQ 1 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>What services does Mindbits.ai provide?</h3>
+                        <h3>
+                            <span data-lang-en>What services does Mindbits.ai provide?</span>
+                            <span data-lang-es>¿Qué servicios ofrece Mindbits.ai?</span>
+                        </h3>
                         <div class="faq-toggle"></div>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            <p>We specialize in data analytics, artificial intelligence and machine learning consulting. Core services include:</p>
+                            <p>
+                                <span data-lang-en>We specialize in data analytics, artificial intelligence and machine learning consulting.</span>
+                                <span data-lang-es>Nos especializamos en consultoría de analítica de datos, inteligencia artificial y machine learning.</span>
+                            </p>
+                            <p><strong>
+                                <span data-lang-en>Core services:</span>
+                                <span data-lang-es>Servicios principales:</span>
+                            </strong></p>
                             <ul>
-                                <li>Predictive and behavioral modeling.</li>
-                                <li>Product and monetization analytics.</li>
-                                <li>Data architecture and dashboarding.</li>
-                                <li>Pricing optimization and forecasting.</li>
-                                <li>AI integration and automation.</li>
+                                <li>
+                                    <span data-lang-en>Predictive and behavioral modeling.</span>
+                                    <span data-lang-es>Modelado predictivo y conductual.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>Product and monetization analytics.</span>
+                                    <span data-lang-es>Analítica de producto y monetización.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>Data architecture and dashboarding.</span>
+                                    <span data-lang-es>Arquitectura de datos y dashboarding.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>Pricing optimization and forecasting.</span>
+                                    <span data-lang-es>Optimización de precios y forecasting.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>AI integration and automation.</span>
+                                    <span data-lang-es>Integración y automatización de IA.</span>
+                                </li>
                             </ul>
-                            <p>We help companies turn raw data into actionable strategies that drive measurable outcomes.</p>
+                            <p>
+                                <span data-lang-en>We help companies turn raw data into actionable strategies with measurable outcomes.</span>
+                                <span data-lang-es>Ayudamos a las empresas a convertir datos en estrategias accionables con resultados medibles.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -747,12 +902,18 @@
                 <!-- FAQ 2 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>What industries do you work with?</h3>
+                        <h3>
+                            <span data-lang-en>What industries do you work with?</span>
+                            <span data-lang-es>¿Con qué industrias trabajan?</span>
+                        </h3>
                         <div class="faq-toggle"></div>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            <p>We work across multiple industries, with deepest expertise in gaming, from mobile and console to live-service titles. We also collaborate with tech startups, SaaS companies and AI-driven businesses that want to scale their data and analytics.</p>
+                            <p>
+                                <span data-lang-en>We work across multiple industries, with deepest expertise in gaming (mobile, console and live-service). We also collaborate with tech startups, SaaS businesses and AI-driven businesses that want to scale their analytics capabilities.</span>
+                                <span data-lang-es>Trabajamos en múltiples industrias, con mayor expertise en gaming (mobile, consola y live-service). También colaboramos con startups tech, empresas SaaS y negocios impulsados por IA que buscan escalar sus capacidades analíticas.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -760,18 +921,36 @@
                 <!-- FAQ 3 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>How does Mindbits.ai structure its engagements?</h3>
+                        <h3>
+                            <span data-lang-en>How does Mindbits.ai structure its engagements?</span>
+                            <span data-lang-es>¿Cómo estructuran las modalidades de trabajo?</span>
+                        </h3>
                         <div class="faq-toggle"></div>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            <p>We offer three flexible pricing models:</p>
+                            <p>
+                                <span data-lang-en>We offer three flexible pricing models:</span>
+                                <span data-lang-es>Ofrecemos tres modelos flexibles:</span>
+                            </p>
                             <ul>
-                                <li><strong>By Hour/Month:</strong> Perfect for ongoing consulting and specialized support.</li>
-                                <li><strong>By Project:</strong> Results-oriented for clearly defined objectives.</li>
-                                <li><strong>AI Cloud Service:</strong> Scalable, managed AI solutions with usage-based pricing.</li>
+                                <li>
+                                    <span data-lang-en>By Hour/Month: ongoing consulting or specialized support.</span>
+                                    <span data-lang-es>Por hora / mes: consultoría continua o soporte técnico.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>By Project: fixed-scope deliverables with clear results.</span>
+                                    <span data-lang-es>Por proyecto: entregables de alcance fijo con resultados claros.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>AI Cloud Service: managed and scalable AI in the cloud.</span>
+                                    <span data-lang-es>Servicio de IA en la nube: IA gestionada y escalable en la nube.</span>
+                                </li>
                             </ul>
-                            <p>All models align value with impact and provide transparent pricing.</p>
+                            <p>
+                                <span data-lang-en>Each service includes a dedicated Account Manager for communication, delivery and client satisfaction.</span>
+                                <span data-lang-es>Cada servicio incluye un Account Manager dedicado para comunicación, delivery y conformidad del cliente.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -779,19 +958,18 @@
                 <!-- FAQ 4 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>What is your typical project timeline?</h3>
+                        <h3>
+                            <span data-lang-en>Do you only work with large companies?</span>
+                            <span data-lang-es>¿Trabajan solo con empresas grandes?</span>
+                        </h3>
                         <div class="faq-toggle"></div>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            <p>Project timelines vary based on complexity and scope:</p>
-                            <ul>
-                                <li><strong>Quick consultations:</strong> 2-4 weeks</li>
-                                <li><strong>Predictive models:</strong> 6-12 weeks</li>
-                                <li><strong>Full analytics platforms:</strong> 3-6 months</li>
-                                <li><strong>AI integration projects:</strong> 8-16 weeks</li>
-                            </ul>
-                            <p>We always provide detailed project plans with clear milestones and deliverables.</p>
+                            <p>
+                                <span data-lang-en>No. We collaborate with global gaming leaders and established studios, but also with emerging startups and growing teams. Our boutique structure adapts to different scales, whether you're creating your first model or scaling a production analytics platform.</span>
+                                <span data-lang-es>No. Colaboramos con líderes globales de gaming y con estudios establecidos, pero también con startups emergentes y equipos en crecimiento. Nuestra estructura boutique se adapta a distintas escalas, ya sea que estés creando tu primer modelo o escalando una plataforma de analytics en producción.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -799,20 +977,18 @@
                 <!-- FAQ 5 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>How do you ensure data security and compliance?</h3>
+                        <h3>
+                            <span data-lang-en>Where are your teams located?</span>
+                            <span data-lang-es>¿Dónde están ubicados sus equipos?</span>
+                        </h3>
                         <div class="faq-toggle"></div>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            <p>Security and compliance are fundamental to our process:</p>
-                            <ul>
-                                <li>End-to-end encryption and secure data handling</li>
-                                <li>GDPR and industry-specific compliance frameworks</li>
-                                <li>Regular security audits and penetration testing</li>
-                                <li>Comprehensive data governance policies</li>
-                                <li>Secure development environments and deployment protocols</li>
-                            </ul>
-                            <p>We sign NDAs and provide full documentation of our security measures.</p>
+                            <p>
+                                <span data-lang-en>Our teams are based in Latin America, with time zones compatible with the US West Coast, East Coast and Europe. This enables real-time collaboration and high-quality work at competitive rates.</span>
+                                <span data-lang-es>Nuestros equipos están en Latinoamérica, con husos horarios compatibles con la Costa Oeste y Este de EE. UU. y Europa. Esto permite colaboración en tiempo real y trabajo de alta calidad a tarifas competitivas.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -820,20 +996,74 @@
                 <!-- FAQ 6 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>What kind of support do you provide post-launch?</h3>
+                        <h3>
+                            <span data-lang-en>How do you ensure data privacy and compliance?</span>
+                            <span data-lang-es>¿Cómo garantizan la privacidad y el compliance de datos?</span>
+                        </h3>
                         <div class="faq-toggle"></div>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            <p>We provide comprehensive post-launch support:</p>
+                            <p>
+                                <span data-lang-en>Data privacy is central to our operations. We follow GDPR and international compliance standards, ensuring that data handling, processing and storage comply with best practices and confidentiality agreements.</span>
+                                <span data-lang-es>La privacidad de datos es central en nuestra operación. Seguimos GDPR y estándares internacionales de compliance, asegurando que el manejo, procesamiento y almacenamiento cumplan buenas prácticas y acuerdos de confidencialidad.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>
+                            <span data-lang-en>What differentiates Mindbits.ai from other AI consultancies?</span>
+                            <span data-lang-es>¿Qué diferencia a Mindbits.ai de otras consultoras de IA?</span>
+                        </h3>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
                             <ul>
-                                <li>24/7 monitoring and alerting systems</li>
-                                <li>Regular performance optimization and updates</li>
-                                <li>Dedicated support channels and response teams</li>
-                                <li>Documentation and training for your team</li>
-                                <li>Continuous improvement based on user feedback</li>
+                                <li>
+                                    <span data-lang-en>Deep knowledge of gaming and analytics.</span>
+                                    <span data-lang-es>Conocimiento profundo de gaming y analytics.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>Proven experience in data-driven product strategy and monetization.</span>
+                                    <span data-lang-es>Experiencia probada en estrategia de producto data-driven y monetización.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>Custom teams for each project.</span>
+                                    <span data-lang-es>Equipos a medida para cada proyecto.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>Agile structure for greater speed and scalability.</span>
+                                    <span data-lang-es>Estructura ágil para mayor velocidad y escalabilidad.</span>
+                                </li>
+                                <li>
+                                    <span data-lang-en>Transparent communication and dedicated support.</span>
+                                    <span data-lang-es>Comunicación transparente y soporte dedicado.</span>
+                                </li>
                             </ul>
-                            <p>Our goal is to ensure long-term success and ROI from your AI investments.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 8 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>
+                            <span data-lang-en>How do I get started with Mindbits.ai?</span>
+                            <span data-lang-es>¿Cómo empiezo con Mindbits.ai?</span>
+                        </h3>
+                        <div class="faq-toggle"></div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>
+                                <span data-lang-en>Very simple: write to us from the contact form and tell us about your project or challenge. We schedule an introductory call to understand your objectives and together define the best collaboration model.</span>
+                                <span data-lang-es>Muy simple: escribinos desde el formulario de contacto y contanos tu proyecto o desafío. Agendamos una llamada introductoria para entender tus objetivos y definir juntos el mejor modelo de colaboración.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -847,32 +1077,65 @@
                 <div class="footer-content">
                     <!-- Contact Form -->
                     <div class="contact-form">
-                        <h3>Have a project in mind?</h3>
+                        <h3>
+                            <span data-lang-en>Have a project in mind?</span>
+                            <span data-lang-es>¿Tienes un proyecto en mente?</span>
+                        </h3>
                         <form id="contactForm">
                             <div class="form-group">
-                                <label>Your name*</label>
+                                <label>
+                                    <span data-lang-en>Your name*</span>
+                                    <span data-lang-es>Tu nombre*</span>
+                                </label>
                                 <input type="text" required>
                             </div>
                             <div class="form-group">
-                                <label>E-mail*</label>
+                                <label>
+                                    <span data-lang-en>E-mail*</span>
+                                    <span data-lang-es>Correo electrónico*</span>
+                                </label>
                                 <input type="email" required>
                             </div>
                             <div class="form-group">
-                                <label>Message*</label>
+                                <label>
+                                    <span data-lang-en>Message*</span>
+                                    <span data-lang-es>Mensaje*</span>
+                                </label>
                                 <textarea required></textarea>
                             </div>
-                            <button type="submit" class="submit-btn">Send Message</button>
+                            <button type="submit" class="submit-btn">
+                                <span data-lang-en>Send Message</span>
+                                <span data-lang-es>Enviar Mensaje</span>
+                            </button>
                         </form>
                     </div>
 
                     <!-- Footer Info -->
                     <div class="footer-info">
-                        <h2>Let's talk.</h2>
-                        <p>Tell us about your project</p>
-                        <p><strong>Quick response.</strong></p>
-                        <p>If you're ready to create and collaborate, we'd love to hear from you.</p>
-                        <p><strong>Clear next steps.</strong></p>
-                        <p>After consultation, we'll provide you with a detailed plan of a timeline.</p>
+                        <h2>
+                            <span data-lang-en>Let's talk.</span>
+                            <span data-lang-es>Hablemos.</span>
+                        </h2>
+                        <p>
+                            <span data-lang-en>Tell us about your project</span>
+                            <span data-lang-es>Cuéntanos sobre tu proyecto</span>
+                        </p>
+                        <p><strong>
+                            <span data-lang-en>Quick response.</span>
+                            <span data-lang-es>Respuesta rápida.</span>
+                        </strong></p>
+                        <p>
+                            <span data-lang-en>If you're ready to create and collaborate, we'd love to hear from you.</span>
+                            <span data-lang-es>Si estás listo para crear y colaborar, nos encantaría saber de ti.</span>
+                        </p>
+                        <p><strong>
+                            <span data-lang-en>Clear next steps.</span>
+                            <span data-lang-es>Pasos claros siguientes.</span>
+                        </strong></p>
+                        <p>
+                            <span data-lang-en>After consultation, we'll provide you with a detailed plan of a timeline.</span>
+                            <span data-lang-es>Después de la consulta, te proporcionaremos un plan detallado con una línea de tiempo.</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -882,26 +1145,47 @@
                 <div class="footer-bottom-content">
                     <!-- Contact Info -->
                     <div class="footer-contact">
-                        <h4>Contact</h4>
+                        <h4>
+                            <span data-lang-en>Contact</span>
+                            <span data-lang-es>Contacto</span>
+                        </h4>
                         <p>(+54) 11 6895-8605</p>
                         <p><a href="mailto:hello@mindbits.ai">hello@mindbits.ai</a></p>
                     </div>
 
                     <!-- Navigation -->
                     <div class="footer-nav">
-                        <h4>Navigation</h4>
+                        <h4>
+                            <span data-lang-en>Navigation</span>
+                            <span data-lang-es>Navegación</span>
+                        </h4>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="faqs.html">Faqs</a></li>
-                            <li><a href="who.html">About Us</a></li>
+                            <li><a href="index.html">
+                                <span data-lang-en>Home</span>
+                                <span data-lang-es>Inicio</span>
+                            </a></li>
+                            <li><a href="pricing.html">
+                                <span data-lang-en>Pricing</span>
+                                <span data-lang-es>Precios</span>
+                            </a></li>
+                            <li><a href="faqs.html">
+                                <span data-lang-en>Faqs</span>
+                                <span data-lang-es>Preguntas</span>
+                            </a></li>
+                            <li><a href="who.html">
+                                <span data-lang-en>About Us</span>
+                                <span data-lang-es>Nosotros</span>
+                            </a></li>
                         </ul>
                     </div>
 
                     <!-- Social Media & Logo -->
                     <div class="footer-logo-section">
                         <div class="footer-social">
-                            <h4>Social</h4>
+                            <h4>
+                                <span data-lang-en>Social</span>
+                                <span data-lang-es>Redes</span>
+                            </h4>
                             <div class="social-icons">
                                 <a href="#" class="social-icon" title="LinkedIn">in</a>
                                 <a href="#" class="social-icon" title="Twitter">𝕏</a>
@@ -917,7 +1201,7 @@
 
             <!-- Copyright - Blue section -->
             <div class="footer-copyright">
-                <p> 2026 Mindbits. All rights reserved.</p>
+                <p> 2026 Mindbits. <span data-lang-en>All rights reserved.</span><span data-lang-es>Todos los derechos reservados.</span></p>
             </div>
         </footer>
 
@@ -945,6 +1229,37 @@
                 if (!header.contains(event.target)) {
                     hamburgerMenu.classList.remove('active');
                     navLinks.classList.remove('active');
+                }
+            });
+
+            // ============================================ LANGUAGE SWITCHING FUNCTIONALITY ============================================
+            function switchLanguage(lang) {
+                // Update HTML lang attribute
+                document.documentElement.lang = lang;
+                
+                // Update active button
+                document.querySelectorAll('.language-selector button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`.language-selector button[data-lang="${lang}"]`).classList.add('active');
+                
+                // Save preference to localStorage
+                localStorage.setItem('preferredLanguage', lang);
+            }
+
+            // Language selector event listeners
+            document.querySelectorAll('.language-selector button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    switchLanguage(lang);
+                });
+            });
+
+            // Load saved language preference on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+                if (savedLang && document.documentElement.lang !== savedLang) {
+                    switchLanguage(savedLang);
                 }
             });
 
