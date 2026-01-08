@@ -155,6 +155,57 @@
             display: flex;
             gap: 30px;
         }
+
+        .nav-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dropdown-toggle::after {
+            content: '▾';
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 0;
+            min-width: 220px;
+            background: #f3f4f6;
+            border: 1px solid rgba(39, 48, 107, 0.22);
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            display: none;
+            flex-direction: column;
+            z-index: 1100;
+        }
+
+        .dropdown-menu a {
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--mindbits-blue);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(245, 132, 31, 0.1);
+            color: var(--mindbits-orange);
+        }
+
+        .nav-dropdown.open .dropdown-menu {
+            display: flex;
+        }
         
         .nav-links a {
             color: #27306b;
@@ -693,9 +744,7 @@
 
         @media (max-width: 768px) {
             /* Header */
-            .header {
-                padding: 15px 20px;
-            }
+
 
             .logo {
                 max-width: 140px;
@@ -823,6 +872,35 @@
                 max-width: 200px;
             }
         }
+
+        @media (max-width: 767px) {
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                margin-top: 6px;
+                width: 100%;
+            }
+
+            .nav-dropdown {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .dropdown-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .dropdown-menu a {
+                padding: 15px 0;
+                border-bottom: 1px solid #e0e0e0;
+                border-radius: 0;
+                text-align: center;
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -840,17 +918,37 @@
                     <span data-lang-en>Home</span>
                     <span data-lang-es>Inicio</span>
                 </a>
+
+                <div class="nav-dropdown" id="servicesDropdown">
+                    <a href="#" class="dropdown-toggle" id="servicesToggle">
+                        <span data-lang-en>Services</span>
+                        <span data-lang-es>Servicios</span>
+                    </a>
+                    <div class="dropdown-menu" id="servicesMenu">
+                        <a href="index.html?tab=staff">
+                            <span data-lang-en>Staff Augmentation</span>
+                            <span data-lang-es>Staff Augmentation</span>
+                        </a>
+                        <a href="index.html?tab=analytics">
+                            <span data-lang-en>Analytics & Data</span>
+                            <span data-lang-es>Analytics & Data</span>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="who.html">
+                    <span data-lang-en>About Us</span>
+                    <span data-lang-es>Nosotros</span>
+                </a>
+
                 <a href="pricing.html">
                     <span data-lang-en>Pricing</span>
                     <span data-lang-es>Precios</span>
                 </a>
+
                 <a href="faqs.html">
                     <span data-lang-en>Faqs</span>
-                    <span data-lang-es>Preguntas</span>
-                </a>
-                <a href="who.html">
-                    <span data-lang-en>About Us</span>
-                    <span data-lang-es>Nosotros</span>
+                    <span data-lang-es>Preguntas Frecuentes</span>
                 </a>
             </nav>
             <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation">
@@ -1106,6 +1204,14 @@
                             <span data-lang-en>Home</span>
                             <span data-lang-es>Inicio</span>
                         </a></li>
+                        <li><a href="index.html?tab=staff">
+                            <span data-lang-en>Services: Staff Augmentation</span>
+                            <span data-lang-es>Servicios: Staff Augmentation</span>
+                        </a></li>
+                        <li><a href="index.html?tab=analytics">
+                            <span data-lang-en>Services: Analytics & Data</span>
+                            <span data-lang-es>Servicios: Analytics & Data</span>
+                        </a></li>
                         <li><a href="pricing.html">
                             <span data-lang-en>Pricing</span>
                             <span data-lang-es>Precios</span>
@@ -1151,6 +1257,8 @@
         // ============================================ HAMBURGER MENU FUNCTIONALITY ============================================
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const navLinks = document.querySelector('.nav-links');
+        const servicesDropdown = document.getElementById('servicesDropdown');
+        const servicesToggle = document.getElementById('servicesToggle');
 
         hamburgerMenu.addEventListener('click', function() {
             hamburgerMenu.classList.toggle('active');
@@ -1160,10 +1268,18 @@
         // Close menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function() {
+                if (this.classList.contains('dropdown-toggle')) return;
                 hamburgerMenu.classList.remove('active');
                 navLinks.classList.remove('active');
             });
         });
+
+        if (servicesToggle && servicesDropdown) {
+            servicesToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                servicesDropdown.classList.toggle('open');
+            });
+        }
 
         // Close menu when clicking outside
         document.addEventListener('click', function(event) {
@@ -1171,6 +1287,10 @@
             if (!header.contains(event.target)) {
                 hamburgerMenu.classList.remove('active');
                 navLinks.classList.remove('active');
+            }
+
+            if (servicesDropdown && !servicesDropdown.contains(event.target)) {
+                servicesDropdown.classList.remove('open');
             }
         });
 

@@ -549,7 +549,43 @@
             }
 
             /* Responsive styles for problem-solution section */
-            @media (max-width: 768px) {
+            @media (max-width: 1199px) {
+                /* Problem Solution */
+                .problem-solution-cards-container {
+                    gap: 30px;
+                }
+                
+                /* Pipeline Content Wrapper */
+                .pipeline-content-wrapper {
+                    grid-template-columns: 1fr;
+                    gap: 60px;
+                }
+                
+                /* Carousel Wrapper */
+                .carousel-wrapper {
+                    padding: 40px 80px;
+                }
+            }
+
+            @media (max-width: 1023px) {
+                /* Problem Solution */
+                .problem-solution-cards-container {
+                    gap: 25px;
+                }
+                
+                /* Pipeline Content Wrapper */
+                .pipeline-content-wrapper {
+                    grid-template-columns: 1fr;
+                    gap: 50px;
+                }
+                
+                /* Carousel Wrapper */
+                .carousel-wrapper {
+                    padding: 40px 70px;
+                }
+            }
+
+            @media (max-width: 767px) {
                 .problem-solution-header {
                     font-size: 28px;
                     margin-bottom: 50px;
@@ -564,15 +600,232 @@
                 .flip-card {
                     width: 100%;
                     max-width: 320px;
-                    height: 400px;
+                    height: auto;
+                    min-height: 400px;
+                }
+
+                .flip-card-inner {
+                    height: auto;
+                    min-height: 400px;
+                }
+
+                .flip-card-front, .flip-card-back {
+                    padding: 30px 20px;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                }
+
+                .flip-card-front {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
                 }
 
                 .flip-card-front h2 {
-                    font-size: 28px;
+                    font-size: 24px;
+                    line-height: 1.3;
+                    margin-bottom: 10px;
+                }
+
+                .back-content {
+                    padding: 20px;
+                    overflow-y: auto;
                 }
 
                 .back-content h3 {
+                    font-size: 20px;
+                    margin-bottom: 15px;
+                }
+
+                .back-content p {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin-bottom: 12px;
+                }
+
+                .back-content ul {
+                    margin-top: 10px;
+                }
+
+                .back-content li {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin-bottom: 8px;
+                    padding-left: 15px;
+                }
+                
+                /* Pipeline Content Wrapper */
+                .pipeline-content-wrapper {
+                    grid-template-columns: 1fr;
+                    gap: 40px;
+                }
+                
+                /* Carousel Wrapper */
+                .carousel-wrapper {
+                    padding: 40px 70px;
+                    position: relative;
+                }
+                
+                /* Nav Arrows */
+                .nav-arrow {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    z-index: 10;
+                }
+                
+                .nav-arrow.prev {
+                    left: 10px;
+                    margin-left: 0;
+                }
+                
+                .nav-arrow.next {
+                    right: 10px;
+                    margin-right: 0;
+                    display: block !important;
+                    opacity: 1 !important;
+                }
+            }
+
+            @media (max-width: 639px) {
+                /* Problem Solution */
+                .problem-solution-cards-container {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 20px;
+                }
+                
+                .flip-card {
+                    width: 100%;
+                    max-width: 300px;
+                    height: auto;
+                    min-height: 380px;
+                }
+
+                .flip-card-inner {
+                    height: auto;
+                    min-height: 380px;
+                }
+
+                .flip-card-front, .flip-card-back {
+                    padding: 25px 15px;
+                }
+
+                .flip-card-front h2 {
                     font-size: 22px;
+                }
+
+                .back-content {
+                    padding: 15px;
+                }
+
+                .back-content h3 {
+                    font-size: 18px;
+                }
+
+                .back-content p {
+                    font-size: 13px;
+                }
+
+                .back-content li {
+                    font-size: 13px;
+                }
+                
+                /* Pipeline Content Wrapper */
+                .pipeline-content-wrapper {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+                
+                /* Carousel Wrapper */
+                .carousel-wrapper {
+                    padding: 30px 60px;
+                    position: relative;
+                }
+                
+                /* Nav Arrows */
+                .nav-arrow.prev {
+                    left: 5px;
+                    margin-left: 0;
+                }
+                
+                .nav-arrow.next {
+                    right: 5px;
+                    margin-right: 0;
+                    display: block !important;
+                    opacity: 1 !important;
+                }
+            }
+
+            @media (max-width: 479px) {
+                /* Problem Solution */
+                .problem-solution-cards-container {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 15px;
+                }
+                
+                .flip-card {
+                    width: 100%;
+                    max-width: 280px;
+                    height: auto;
+                    min-height: 350px;
+                }
+
+                .flip-card-inner {
+                    height: auto;
+                    min-height: 350px;
+                }
+
+                .flip-card-front, .flip-card-back {
+                    padding: 20px 12px;
+                }
+
+                .flip-card-front h2 {
+                    font-size: 20px;
+                }
+
+                .back-content {
+                    padding: 12px;
+                }
+
+                .back-content h3 {
+                    font-size: 16px;
+                }
+
+                .back-content p {
+                    font-size: 12px;
+                }
+
+                .back-content li {
+                    font-size: 12px;
+                }
+                
+                /* Pipeline Content Wrapper */
+                .pipeline-content-wrapper {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                }
+                
+                /* Carousel Wrapper */
+                .carousel-wrapper {
+                    padding: 20px 50px;
+                    position: relative;
+                }
+                
+                /* Nav Arrows */
+                .nav-arrow.prev {
+                    left: 5px;
+                    margin-left: 0;
+                }
+                
+                .nav-arrow.next {
+                    right: 5px;
+                    margin-right: 0;
+                    display: block !important;
+                    opacity: 1 !important;
                 }
             }
 
@@ -2143,9 +2396,7 @@
             /* Tablet (640px - 767px) */
             @media (max-width: 767px) {
                 /* Header - Responsive with Hamburger Menu */
-                .header {
-                    padding: 15px 20px;
-                }
+    
                 
                 .logo {
                     max-width: 140px;
@@ -2452,9 +2703,7 @@
             /* Large Mobile (480px - 639px) */
             @media (max-width: 639px) {
                 /* Header - Hamburger Menu */
-                .header {
-                    padding: 12px 15px;
-                }
+  
                 
                 .logo {
                     max-width: 120px;

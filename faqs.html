@@ -155,7 +155,58 @@
             display: flex;
             gap: 30px;
         }
-        
+
+        .nav-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dropdown-toggle::after {
+            content: '▾';
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 0;
+            min-width: 220px;
+            background: #f3f4f6;
+            border: 1px solid rgba(39, 48, 107, 0.22);
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            display: none;
+            flex-direction: column;
+            z-index: 1100;
+        }
+
+        .dropdown-menu a {
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--mindbits-blue);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(245, 132, 31, 0.1);
+            color: var(--mindbits-orange);
+        }
+
+        .nav-dropdown.open .dropdown-menu {
+            display: flex;
+        }
+
         .nav-links a {
             color: var(--mindbits-blue);
             text-decoration: none;
@@ -686,10 +737,6 @@
             .header {
                 padding: 15px 20px;
             }
-
-            .logo {
-                max-width: 140px;
-            }
             
             .hamburger-menu {
                 display: flex;
@@ -724,71 +771,31 @@
                 border-bottom: none;
             }
 
-            .faq-section {
-                padding: 60px 20px;
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                margin-top: 6px;
+                width: 100%;
             }
 
-            .faq-header h1 {
-                font-size: 28px;
+            .nav-dropdown {
+                flex-direction: column;
+                align-items: stretch;
             }
 
-            .faq-question {
-                padding: 22px 20px;
+            .dropdown-toggle {
+                width: 100%;
+                justify-content: center;
             }
 
-            .faq-question h3 {
+            .dropdown-menu a {
+                padding: 15px 0;
+                border-bottom: 1px solid #e0e0e0;
+                border-radius: 0;
+                text-align: center;
                 font-size: 16px;
-            }
-
-            .faq-toggle {
-                width: 32px;
-                height: 32px;
-            }
-
-            .faq-toggle::before {
-                width: 12px;
-            }
-
-            .faq-toggle::after {
-                height: 12px;
-            }
-
-            .faq-answer-content {
-                padding: 25px 20px;
-                font-size: 15px;
-            }
-
-            .footer-main {
-                padding: 60px 20px;
-            }
-
-            .footer-bottom {
-                padding: 30px 20px;
-            }
-
-            .contact-form {
-                padding: 25px 20px;
-            }
-
-            .contact-form h3 {
-                font-size: 20px;
-                margin-bottom: 20px;
-            }
-
-            .footer-info h2 {
-                font-size: 28px;
-            }
-            
-            .footer-info p {
-                font-size: 15px;
-            }
-
-            .footer-copyright {
-                padding: 15px 20px;
-            }
-            
-            .footer-logo {
-                max-width: 250px;
             }
         }
 
@@ -818,17 +825,37 @@
                     <span data-lang-en>Home</span>
                     <span data-lang-es>Inicio</span>
                 </a>
+
+                <div class="nav-dropdown" id="servicesDropdown">
+                    <a href="#" class="dropdown-toggle" id="servicesToggle">
+                        <span data-lang-en>Services</span>
+                        <span data-lang-es>Servicios</span>
+                    </a>
+                    <div class="dropdown-menu" id="servicesMenu">
+                        <a href="index.html?tab=staff">
+                            <span data-lang-en>Staff Augmentation</span>
+                            <span data-lang-es>Staff Augmentation</span>
+                        </a>
+                        <a href="index.html?tab=analytics">
+                            <span data-lang-en>Analytics & Data</span>
+                            <span data-lang-es>Analytics & Data</span>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="who.html">
+                    <span data-lang-en>About Us</span>
+                    <span data-lang-es>Nosotros</span>
+                </a>
+
                 <a href="pricing.html">
                     <span data-lang-en>Pricing</span>
                     <span data-lang-es>Precios</span>
                 </a>
+
                 <a href="faqs.html">
                     <span data-lang-en>Faqs</span>
-                    <span data-lang-es>Preguntas</span>
-                </a>
-                <a href="who.html">
-                    <span data-lang-en>About Us</span>
-                    <span data-lang-es>Nosotros</span>
+                    <span data-lang-es>Preguntas Frecuentes</span>
                 </a>
             </nav>
             <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation">
@@ -1068,236 +1095,243 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="footer" id="contact">
-            <!-- Footer Main - Dark gradient section -->
-            <div class="footer-main">
-                <div class="footer-content">
-                    <!-- Contact Form -->
-                    <div class="contact-form">
-                        <h3>
-                            <span data-lang-en>Have a project in mind?</span>
-                            <span data-lang-es>¿Tienes un proyecto en mente?</span>
-                        </h3>
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <label>
-                                    <span data-lang-en>Your name*</span>
-                                    <span data-lang-es>Tu nombre*</span>
-                                </label>
-                                <input type="text" required>
-                            </div>
-                            <div class="form-group">
-                                <label>
-                                    <span data-lang-en>E-mail*</span>
-                                    <span data-lang-es>Correo electrónico*</span>
-                                </label>
-                                <input type="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label>
-                                    <span data-lang-en>Message*</span>
-                                    <span data-lang-es>Mensaje*</span>
-                                </label>
-                                <textarea required></textarea>
-                            </div>
-                            <button type="submit" class="submit-btn">
-                                <span data-lang-en>Send Message</span>
-                                <span data-lang-es>Enviar Mensaje</span>
-                            </button>
-                        </form>
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <!-- Footer Main - Dark gradient section -->
+        <div class="footer-main">
+            <div class="footer-content">
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h3>
+                        <span data-lang-en>Have a project in mind?</span>
+                        <span data-lang-es>¿Tienes un proyecto en mente?</span>
+                    </h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label>
+                                <span data-lang-en>Your name*</span>
+                                <span data-lang-es>Tu nombre*</span>
+                            </label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <span data-lang-en>E-mail*</span>
+                                <span data-lang-es>Correo electrónico*</span>
+                            </label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <span data-lang-en>Message*</span>
+                                <span data-lang-es>Mensaje*</span>
+                            </label>
+                            <textarea required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span data-lang-en>Send Message</span>
+                            <span data-lang-es>Enviar Mensaje</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Footer Info -->
+                <div class="footer-info">
+                    <h2>
+                        <span data-lang-en>Let's talk.</span>
+                        <span data-lang-es>Hablemos.</span>
+                    </h2>
+                    <p>
+                        <span data-lang-en>Tell us about your project</span>
+                        <span data-lang-es>Cuéntanos sobre tu proyecto</span>
+                    </p>
+                    <p><strong>
+                        <span data-lang-en>Quick response.</span>
+                        <span data-lang-es>Respuesta rápida.</span>
+                    </strong></p>
+                    <p>
+                        <span data-lang-en>If you're ready to create and collaborate, we'd love to hear from you.</span>
+                        <span data-lang-es>Si estás listo para crear y colaborar, nos encantaría saber de ti.</span>
+                    </p>
+                    <p><strong>
+                        <span data-lang-en>Clear next steps.</span>
+                        <span data-lang-es>Pasos claros siguientes.</span>
+                    </strong></p>
+                    <p>
+                        <span data-lang-en>After consultation, we'll provide you with a detailed plan of a timeline.</span>
+                        <span data-lang-es>Después de la consulta, te proporcionaremos un plan detallado con una línea de tiempo.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom - White section -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <!-- Contact Info -->
+                <div class="footer-contact">
+                    <h4>
+                        <span data-lang-en>Contact</span>
+                        <span data-lang-es>Contacto</span>
+                    </h4>
+                    <p>(+54) 11 6895-8605</p>
+                    <p><a href="mailto:hello@mindbits.ai">hello@mindbits.ai</a></p>
+                </div>
+
+                <!-- Navigation -->
+                <div class="footer-nav">
+                    <h4>
+                        <span data-lang-en>Navigation</span>
+                        <span data-lang-es>Navegación</span>
+                    </h4>
+                    <ul>
+                        <li><a href="index.html">
+                            <span data-lang-en>Home</span>
+                            <span data-lang-es>Inicio</span>
+                        </a></li>
+                        <li><a href="index.html?tab=staff">
+                            <span data-lang-en>Services: Staff Augmentation</span>
+                            <span data-lang-es>Servicios: Staff Augmentation</span>
+                        </a></li>
+                        <li><a href="index.html?tab=analytics">
+                            <span data-lang-en>Services: Analytics & Data</span>
+                            <span data-lang-es>Servicios: Analytics & Data</span>
+                        </a></li>
+                        <li><a href="pricing.html">
+                            <span data-lang-en>Pricing</span>
+                            <span data-lang-es>Precios</span>
+                        </a></li>
+                        <li><a href="faqs.html">
+                            <span data-lang-en>Faqs</span>
+                            <span data-lang-es>Preguntas</span>
+                        </a></li>
+                        <li><a href="who.html">
+                            <span data-lang-en>About Us</span>
+                            <span data-lang-es>Nosotros</span>
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media & Logo -->
+                <div class="footer-logo-section">
+                    <div class="footer-social">
+                        <h4>
+                            <span data-lang-en>Social</span>
+                            <span data-lang-es>Redes</span>
+                        </h4>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon" title="LinkedIn">in</a>
+                            <a href="#" class="social-icon" title="Twitter">𝕏</a>
+                            <a href="#" class="social-icon" title="Instagram">IG</a>
+                        </div>
                     </div>
-
-                    <!-- Footer Info -->
-                    <div class="footer-info">
-                        <h2>
-                            <span data-lang-en>Let's talk.</span>
-                            <span data-lang-es>Hablemos.</span>
-                        </h2>
-                        <p>
-                            <span data-lang-en>Tell us about your project</span>
-                            <span data-lang-es>Cuéntanos sobre tu proyecto</span>
-                        </p>
-                        <p><strong>
-                            <span data-lang-en>Quick response.</span>
-                            <span data-lang-es>Respuesta rápida.</span>
-                        </strong></p>
-                        <p>
-                            <span data-lang-en>If you're ready to create and collaborate, we'd love to hear from you.</span>
-                            <span data-lang-es>Si estás listo para crear y colaborar, nos encantaría saber de ti.</span>
-                        </p>
-                        <p><strong>
-                            <span data-lang-en>Clear next steps.</span>
-                            <span data-lang-es>Pasos claros siguientes.</span>
-                        </strong></p>
-                        <p>
-                            <span data-lang-en>After consultation, we'll provide you with a detailed plan of a timeline.</span>
-                            <span data-lang-es>Después de la consulta, te proporcionaremos un plan detallado con una línea de tiempo.</span>
-                        </p>
+                    <div style="margin-top: 30px;">
+                        <img src="assets/logoClasico.png" alt="Mindbits Logo" class="footer-logo">
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Footer Bottom - White section -->
-            <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <!-- Contact Info -->
-                    <div class="footer-contact">
-                        <h4>
-                            <span data-lang-en>Contact</span>
-                            <span data-lang-es>Contacto</span>
-                        </h4>
-                        <p>(+54) 11 6895-8605</p>
-                        <p><a href="mailto:hello@mindbits.ai">hello@mindbits.ai</a></p>
-                    </div>
+        <!-- Copyright - Blue section -->
+        <div class="footer-copyright">
+            <p> 2026 Mindbits. <span data-lang-en>All rights reserved.</span><span data-lang-es>Todos los derechos reservados.</span></p>
+        </div>
+    </footer>
 
-                    <!-- Navigation -->
-                    <div class="footer-nav">
-                        <h4>
-                            <span data-lang-en>Navigation</span>
-                            <span data-lang-es>Navegación</span>
-                        </h4>
-                        <ul>
-                            <li><a href="index.html">
-                                <span data-lang-en>Home</span>
-                                <span data-lang-es>Inicio</span>
-                            </a></li>
-                            <li><a href="pricing.html">
-                                <span data-lang-en>Pricing</span>
-                                <span data-lang-es>Precios</span>
-                            </a></li>
-                            <li><a href="faqs.html">
-                                <span data-lang-en>Faqs</span>
-                                <span data-lang-es>Preguntas</span>
-                            </a></li>
-                            <li><a href="who.html">
-                                <span data-lang-en>About Us</span>
-                                <span data-lang-es>Nosotros</span>
-                            </a></li>
-                        </ul>
-                    </div>
+    <script>
+        // ============================================ HAMBURGER MENU FUNCTIONALITY ============================================
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const navLinks = document.querySelector('.nav-links');
+        const header = document.querySelector('.header');
+        const servicesDropdown = document.getElementById('servicesDropdown');
+        const servicesToggle = document.getElementById('servicesToggle');
 
-                    <!-- Social Media & Logo -->
-                    <div class="footer-logo-section">
-                        <div class="footer-social">
-                            <h4>
-                                <span data-lang-en>Social</span>
-                                <span data-lang-es>Redes</span>
-                            </h4>
-                            <div class="social-icons">
-                                <a href="#" class="social-icon" title="LinkedIn">in</a>
-                                <a href="#" class="social-icon" title="Twitter">𝕏</a>
-                                <a href="#" class="social-icon" title="Instagram">IG</a>
-                            </div>
-                        </div>
-                        <div style="margin-top: 30px;">
-                            <img src="assets/logoClasico.png" alt="Mindbits Logo" class="footer-logo">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        hamburgerMenu.addEventListener('click', function() {
+            hamburgerMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
 
-            <!-- Copyright - Blue section -->
-            <div class="footer-copyright">
-                <p> 2026 Mindbits. <span data-lang-en>All rights reserved.</span><span data-lang-es>Todos los derechos reservados.</span></p>
-            </div>
-        </footer>
-
-        <script>
-            // ============================================ HAMBURGER MENU FUNCTIONALITY ============================================
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const navLinks = document.querySelector('.nav-links');
-            const header = document.querySelector('.header');
-
-            hamburgerMenu.addEventListener('click', function() {
-                hamburgerMenu.classList.toggle('active');
-                navLinks.classList.toggle('active');
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (this.classList.contains('dropdown-toggle')) return;
+                hamburgerMenu.classList.remove('active');
+                navLinks.classList.remove('active');
             });
+        });
 
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', function() {
-                    hamburgerMenu.classList.remove('active');
-                    navLinks.classList.remove('active');
-                });
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!header.contains(event.target)) {
-                    hamburgerMenu.classList.remove('active');
-                    navLinks.classList.remove('active');
-                }
-            });
-
-            // ============================================ LANGUAGE SWITCHING FUNCTIONALITY ============================================
-            function switchLanguage(lang) {
-                // Update HTML lang attribute
-                document.documentElement.lang = lang;
-                
-                // Update active button
-                document.querySelectorAll('.language-selector button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                document.querySelector(`.language-selector button[data-lang="${lang}"]`).classList.add('active');
-                
-                // Save preference to localStorage
-                localStorage.setItem('preferredLanguage', lang);
-            }
-
-            // Language selector event listeners
-            document.querySelectorAll('.language-selector button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const lang = this.getAttribute('data-lang');
-                    switchLanguage(lang);
-                });
-            });
-
-            // Load saved language preference on page load
-            document.addEventListener('DOMContentLoaded', function() {
-                const savedLang = localStorage.getItem('preferredLanguage') || 'en';
-                if (savedLang && document.documentElement.lang !== savedLang) {
-                    switchLanguage(savedLang);
-                }
-            });
-
-            // ============================================ FAQ FUNCTIONALITY ============================================
-            function initFAQ() {
-                const faqItems = document.querySelectorAll('.faq-item');
-                
-                faqItems.forEach(item => {
-                    const question = item.querySelector('.faq-question');
-                    const toggle = item.querySelector('.faq-toggle');
-                    
-                    question.addEventListener('click', function() {
-                        const isActive = item.classList.contains('active');
-                        
-                        // Close all other items
-                        faqItems.forEach(otherItem => {
-                            if (otherItem !== item) {
-                                otherItem.classList.remove('active');
-                            }
-                        });
-                        
-                        // Toggle current item
-                        item.classList.toggle('active');
-                    });
-                });
-            }
-
-            // Form submission
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
+        if (servicesToggle && servicesDropdown) {
+            servicesToggle.addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('Thank you for your message! We will get back to you soon.');
-                this.reset();
+                servicesDropdown.classList.toggle('open');
             });
+        }
 
-            // Initialize when DOM is loaded
-            document.addEventListener('DOMContentLoaded', function() {
-                initFAQ();
+        document.addEventListener('click', function(event) {
+            if (!header.contains(event.target)) {
+                hamburgerMenu.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+
+            if (servicesDropdown && !servicesDropdown.contains(event.target)) {
+                servicesDropdown.classList.remove('open');
+            }
+        });
+
+        // ============================================ LANGUAGE SWITCHING FUNCTIONALITY ============================================
+        function switchLanguage(lang) {
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('.language-selector button').forEach(btn => {
+                btn.classList.remove('active');
             });
-        </script>
+            document.querySelector(`.language-selector button[data-lang="${lang}"]`).classList.add('active');
+
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        document.querySelectorAll('.language-selector button').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                switchLanguage(lang);
+            });
+        });
+
+        // ============================================ FAQ FUNCTIONALITY ============================================
+        function initFAQ() {
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+
+                question.addEventListener('click', function() {
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+
+                    item.classList.toggle('active');
+                });
+            });
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+            if (savedLang && document.documentElement.lang !== savedLang) {
+                switchLanguage(savedLang);
+            }
+
+            initFAQ();
+        });
+    </script>
     </body>
 </html>
