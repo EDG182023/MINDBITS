@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mindbits - Data Intelligence & Staff Augmentation</title>
+    <title>Mindbits.ai | Staff Augmentation, Data Analytics & AI Solutions</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Staff augmentation, analytics and AI solutions designed to scale teams, accelerate delivery and turn data into competitive advantage.">
+    <meta name="keywords" content="Staff augmentation, Tech staff augmentation, Data analytics services, AI solutions, Data engineering, Advanced analytics, AI consulting, Mindbits.AI">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -4290,7 +4294,10 @@
                         <img src="assets/hero/Competitive Rates, Boutique Quality.jpg" alt="Competitive Rates, Boutique Quality" class="hero-image">
                         <div class="hero-content">
                             <div class="hero-content-overlay">
-                                <h1 class="hero-title"><span class="highlight">Best-Value</span> Rates, Boutique Service</h1>
+                                <h1 class="hero-title">
+                                    <span data-lang-en><span class="highlight">Best-Value</span> Rates, Boutique Service</span>
+                                    <span data-lang-es><span class="highlight">Mejor relación costo-beneficio</span> & Servicio boutique</span>
+                                </h1>
                             </div>
                         </div>
                     </div>
@@ -4298,7 +4305,10 @@
                         <img src="assets/hero/Extensive Gaming & Analytics Expertise.jpg" alt="Extensive Gaming & Analytics Expertise" class="hero-image">
                         <div class="hero-content">
                             <div class="hero-content-overlay">
-                                <h1 class="hero-title"><span class="highlight">Strong</span> Gaming & Analytics Know-How</h1>
+                                <h1 class="hero-title">
+                                    <span data-lang-en><span class="highlight">Strong</span> Gaming & Analytics Know-How</span>
+                                    <span data-lang-es><span class="highlight">Sólido</span> know-how en Gaming y Analítica</span>
+                                </h1>
                             </div>
                         </div>
                     </div>
@@ -4306,7 +4316,10 @@
                         <img src="assets/hero/Latin American Talent Advantage.jpg" alt="Latin American Talent Advantage" class="hero-image">
                         <div class="hero-content">
                             <div class="hero-content-overlay">
-                                <h1 class="hero-title"><span class="highlight">World-Class</span> LatAm Talent</h1>
+                                <h1 class="hero-title">
+                                    <span data-lang-en><span class="highlight">World-Class</span> LatAm Talent</span>
+                                    <span data-lang-es>Talento LatAm de <span class="highlight">clase mundial</span></span>
+                                </h1>
                             </div>
                         </div>
                     </div>
@@ -4314,7 +4327,10 @@
                         <img src="assets/hero/Tailored Teams and Dedicated Support.jpg" alt="Tailored Teams and Dedicated Support" class="hero-image">
                         <div class="hero-content">
                             <div class="hero-content-overlay">
-                                <h1 class="hero-title"><span class="highlight">Tailored</span> Talent & End-to-End Support</h1>
+                                <h1 class="hero-title">
+                                    <span data-lang-en><span class="highlight">Tailored</span> Talent & End-to-End Support</span>
+                                    <span data-lang-es>Talento <span class="highlight">a medida</span> y soporte de punta a punta</span>
+                                </h1>
                             </div>
                         </div>
                     </div>
@@ -5474,25 +5490,26 @@
                         </h3>
                         <form id="contactForm">
                             <div class="form-group">
-                                <label>
+                                <label for="name">
                                     <span data-lang-en>Your name*</span>
                                     <span data-lang-es>Tu nombre*</span>
                                 </label>
-                                <input type="text" required>
+                                <input type="text" id="name" name="name" required>
                             </div>
                             <div class="form-group">
-                                <label>
+                                <label for="email">
                                     <span data-lang-en>E-mail*</span>
                                     <span data-lang-es>Correo electrónico*</span>
                                 </label>
-                                <input type="email" required>
+                                <input type="email" id="email" name="email" required>
                             </div>
                             <div class="form-group">
-                                <label>
+                                <label for="message">
                                     <span data-lang-en>Message*</span>
                                     <span data-lang-es>Mensaje*</span>
                                 </label>
-                                <textarea required></textarea>
+                                <textarea id="message" name="message" required></textarea>
+                                <input type="hidden" name="subject" id="subject" value="New message from Mindbits contact form">
                             </div>
                             <button type="submit" class="submit-btn">
                                 <span data-lang-en>Send Message</span>
@@ -6339,6 +6356,67 @@
 
             // ============================================ GLOBAL EVENT LISTENERS ============================================
             // No scroll handler needed for now
+        </script>
+
+        <!-- EmailJS Script -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script>
+            // Inicializar EmailJS con tu User ID
+            (function() {
+                emailjs.init('atpBY2a4Eg4eDaq16');
+            })();
+
+            // Manejar el envío del formulario
+            document.getElementById('contactForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Mostrar estado de carga
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span data-lang-en>Sending...</span><span data-lang-es>Enviando...</span>';
+                submitBtn.style.opacity = '0.7';
+                
+                // Obtener el idioma actual para el mensaje de confirmación
+                const currentLang = document.documentElement.lang || 'en';
+                const successMessage = currentLang === 'es' 
+                    ? '¡Mensaje enviado! Nos pondremos en contacto pronto.' 
+                    : 'Message sent! We\'ll get back to you soon.';
+                
+                // Enviar el formulario a través de EmailJS
+                emailjs.sendForm('service_bjmyg8g', 'template_qa28dd9', this)
+                    .then(function(response) {
+                        // Éxito: mostrar mensaje y limpiar formulario
+                        alert(successMessage);
+                        document.getElementById('contactForm').reset();
+                        
+                        // Enviar email de confirmación al usuario
+                        const formData = new FormData(document.getElementById('contactForm'));
+                        const templateParams = {
+                            to_email: formData.get('email'),
+                            from_name: 'Mindbits Team',
+                            to_name: formData.get('name'),
+                            subject: formData.get('subject'),
+                            message: `Hi ${formData.get('name')},\n\nThanks for reaching out! We've received your message regarding "${formData.get('subject')}" and we're reviewing it now.\nWe'll get back to you shortly at ${formData.get('email')}.\n\nBest regards,\nMindbits Team`
+                        };
+                        
+                        // Enviar email de confirmación (usando el servicio de EmailJS para el auto-reply)
+                        // return emailjs.send('service_bjmyg8g', 'template_4yfhma4', templateParams);
+                    })
+                    .then(function(response) {
+                        console.log('Auto-reply email sent successfully');
+                    })
+                    .catch(function(error) {
+                        console.error('Error sending email:', error);
+                        alert('Error sending message. Please try again later.');
+                    })
+                    .finally(function() {
+                        // Restaurar el botón
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.style.opacity = '1';
+                    });
+            });
         </script>
     </body>
 
